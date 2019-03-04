@@ -5,8 +5,7 @@
   "engines": {
     "node": "v8.9.4",
     "npm" : "5.6.0"
-  },
-  "proxy": "https://salty-shore-42126.herokuapp.com/",
+  },  
   "dependencies": {
     "axios": "^0.18.0",
     "react": "^16.8.3",
