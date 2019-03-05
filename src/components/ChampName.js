@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchChamps, fetchChampList, addChampToList } from '../actions';
+import { fetchChamps, fetchChampList, addChampToList, removeChampFromList } from '../actions';
 
 
 class ChampName extends Component {    
@@ -28,8 +28,13 @@ class ChampName extends Component {
         this.onFocus();
         const { champs } = this.props
         const { sportId } = this.props        
-        this.props.fetchChampList(champs.ChampId, sportId);      
-        this.props.addChampToList(champs.ChampId, sportId)
+        if(this.state.isFocused == false){
+            this.props.removeChampFromList(champs.ChampId, sportId);
+        }else{
+            this.props.addChampToList(champs.ChampId, sportId)
+        }
+        //this.props.fetchChampList(champs.ChampId, sportId);      
+        
         console.debug(this.props.champsMiddleBoxList);
         this.props.champsMiddleBoxList.map((objekat) => {
             const { TournamentCode } = objekat            
@@ -42,14 +47,26 @@ class ChampName extends Component {
         //              Id Sampionata: ${champs.ChampId}, 
         //              Id sporta: ${sportId}`)
     }
+    removeBox = (e) => {
+        e.preventDefault(); 
+        const { champs } = this.props
+        const { sportId } = this.props    
+         //this.props.removeChampFromList(champs.ChampId, sportId);
+        // console.log("posle delete"+this.props.champsMiddleBoxList)
+    }
     
     render() {       
         const { champs } = this.props
        
      return ( 
+          
            <div onClick={this.azurirajContent} className="ui middle aligned selection list" style={{ background: this.state.color, cursor: 'pointer'}}>
-                {champs.ChampName}             
+                {champs.ChampName}  
+                       
+                  
             </div>
+          
+            
                       
             
          )
@@ -59,4 +76,4 @@ class ChampName extends Component {
 
  
 const mapStateToProps = ({ champsContent, champsMiddleBoxList }) => ({ champsContent, champsMiddleBoxList })
-export default connect(mapStateToProps, { fetchChampList, addChampToList })(ChampName);
+export default connect(mapStateToProps, { fetchChampList, addChampToList, removeChampFromList })(ChampName);

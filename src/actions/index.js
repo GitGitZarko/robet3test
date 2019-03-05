@@ -3,6 +3,7 @@ import betvipApi from '../apis/betvipApi';
 export const FETCH_CHAMPS = 'FETCH_CHAMPS';
 export const FETCH_CHAMP_LIST = 'FETCH_CHAMP_LIST';
 export const ADD_CHAMP_TO_LIST = 'ADD_CHAMP_TO_LIST';
+export const REMOVE_CHAMP_FROM_LIST = 'REMOVE_CHAMP_FROM_LIST';
 
 
 export const fetchChamps = () =>  async dispatch => {
@@ -21,3 +22,9 @@ export const addChampToList = (champId = null, sportId = null ) =>  async dispat
 
 dispatch({ type: ADD_CHAMP_TO_LIST, payload: response.data });  
 }
+export const removeChampFromList = (champId = null, sportId = null) => {
+    return {
+      type: REMOVE_CHAMP_FROM_LIST,
+      payload: {champId: champId, sportId: sportId}
+    }
+  };

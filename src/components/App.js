@@ -1,15 +1,14 @@
 import React from 'react';
 //import '../public/css/Sports.css';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Header from './Header';
 import ChampsList from './ChampsList';
 import ChampMainContentContainer from './ChampMainContentContainer';
 
 const App = () => {
     return (
-        <Router>
+        
         <div className="ui fluid container">
-        <Header/>           
+        <Header/>         
 
         <div className="ui three grid">
                 <div className="three column row">
@@ -23,7 +22,7 @@ const App = () => {
                     </div>
                 </div>       
         </div>
-        </Router>
+        
     )
 }
 

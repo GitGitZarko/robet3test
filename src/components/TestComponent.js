@@ -10,9 +10,10 @@ class TestComponent extends Component {
            return null;
         }
         return TounementMainTitleList.map(name => {
-              return (                
-                 <Table.HeaderCell>{name.nome}</Table.HeaderCell>          
-                 
+              return (     
+               <Table.Row>             
+                 <Table.HeaderCell>{name.nome}</Table.HeaderCell>     
+                 </Table.Row>                        
               )
          })
       }

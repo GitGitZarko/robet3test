@@ -7,6 +7,7 @@ class Header extends Component {
 
    render() {   
     return (
+      <div>
       <Menu stackable size="massive" fixed="top">
         <Menu.Item name="logo">
           <img src={logo} />
@@ -26,7 +27,7 @@ class Header extends Component {
       </Menu.Item>
       </Menu.Menu>
     </Menu>
-      //   <div>                  
+      {/* //   <div>                  
       //      <header>
       //      <div className="ui left aligned container">
       //           <img src={logo} alt="Logo New"/>
@@ -40,7 +41,8 @@ class Header extends Component {
       //              </div>
       //       </div>       
       //      </header>
-      //   </div>
+      //   </div> */}
+      </div>
         )
   }
 }
