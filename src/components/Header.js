@@ -8,7 +8,7 @@ class Header extends Component {
    render() {   
     return (
       <div>
-      <Menu stackable size="massive" fixed="top">
+      <Menu stackable size="massive" >
         <Menu.Item name="logo">
           <img src={logo} />
         </Menu.Item>
