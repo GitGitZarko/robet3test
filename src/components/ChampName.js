@@ -11,7 +11,8 @@ class ChampName extends Component {
           values: [],          
           isFocused: Boolean,
           isOpen: false,         
-          color: '' 
+          color: ''
+          
         }
     }
 
@@ -59,12 +60,11 @@ class ChampName extends Component {
         const { champs } = this.props
        
      return ( 
-          
-           <div onClick={this.azurirajContent} className="ui middle aligned selection list" style={{ background: this.state.color, cursor: 'pointer'}}>
-                {champs.ChampName}  
-                       
                   
+           <div onClick={this.azurirajContent} className="ui middle aligned selection list" style={{ background: this.state.color, cursor: 'pointer', display: this.props.displayChild}}>
+                {champs.ChampName}                
             </div>
+            
           
             
                       

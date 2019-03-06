@@ -4,19 +4,42 @@ import { fetchChamps } from '../actions';
 import ChampsCategories from './ChampsCategories'
 
 class ChampsList extends Component {
+    state = {
+        displayChildren: '',
+        valueTriger: Boolean,
+        target: null
+    }
     componentDidMount(){
         this.props.fetchChamps();      
+    }
+
+    uradiNesto(event, i){
+            event.preventDefault();            
+            this.setState({
+                valueTriger: !this.state.valueTriger,
+                displayChildren: this.state.valueTriger ? 'block' : 'none',
+                target: i
+            })
     }
     
     renderSportList(){
         const { champs } = this.props              
         return champs.map((sport, i ) => {
             return(
-                <li>
+                <li >
                 <div className="item">                    
                     <div className="content">
-                        <div className="header"><i className="italy flag"></i>  {sport.SportName}</div>
-            { sport.Categories.map((cat, k) => <div><ChampsCategories categorie={cat} key={k} sportId={sport.SportId}/> </div> )}                     
+                        <div className="header" onClick={(e) => this.uradiNesto(e, sport.SportId)} ><i className="italy flag"></i>  {sport.SportName}</div>
+            { sport.Categories.map((cat, k) => <div> {sport.SportId == this.state.target ?                                 
+                                <ChampsCategories 
+                                categorie={cat} 
+                                key={k} 
+                                sportId={sport.SportId} 
+                                displayChildren={this.state.displayChildren}/> 
+                                : null
+                            }
+                                </div>
+                                )}                     
             </div>
                 </div>
             </li>

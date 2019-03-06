@@ -13,7 +13,9 @@ const App = () => {
         <div className="ui three grid">
                 <div className="three column row">
                     <div className="column">
+                    <ul>
                         <ChampsList/>
+                        </ul>
                     </div>  
                     <div className="column">  
                     <ChampMainContentContainer />
