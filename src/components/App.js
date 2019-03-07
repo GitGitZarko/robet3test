@@ -20,7 +20,7 @@ const App = () => {
                     <div className="ten wide column">  
                     <ChampMainContentContainer />
                     </div>                  
-                    <div className="three wide column" >Live ticket</div>
+                    <div className="three wide column" style={{ background: 'aliceblue', textAlign: 'center', border: '1px solid blue' }}>Live ticket</div>
                     </div>
                 </div>       
         </div>
