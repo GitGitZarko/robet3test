@@ -12,15 +12,15 @@ const App = () => {
 
         <div className="ui three grid">
                 <div className="three column row">
-                    <div className="column">
+                    <div className="three wide column">
                     <ul>
                         <ChampsList/>
                         </ul>
                     </div>  
-                    <div className="column">  
+                    <div className="ten wide column">  
                     <ChampMainContentContainer />
                     </div>                  
-                    <div className="column">Live ticket</div>
+                    <div className="three wide column" >Live ticket</div>
                     </div>
                 </div>       
         </div>

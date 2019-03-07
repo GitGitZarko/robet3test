@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Table, Button} from 'semantic-ui-react'
+import { Header, Table, Button, SegmentInline} from 'semantic-ui-react'
 import '../public/css/Sports.css';
 
 class TestComponent extends Component {
@@ -12,7 +12,7 @@ class TestComponent extends Component {
 
       return TounamentSpecialMainList.map(special => {
          return (                           
-            <Button  color='orange' >{special.Text}</Button >        
+            <Button color="orange" compact>{special.Text}</Button>        
          )
     })
 
@@ -112,14 +112,15 @@ class TestComponent extends Component {
                 <div style={{background: 'yellow', border: '1px solid orange', marginTop: '50px', marginBottom: '0px', padding: '20px'}}>
                 <h5 >{objekat.TournamentName}</h5>  
                 </div>
+                {this.renderTounamentSpecialMainList()}       
                 <Table celled>
                  
             <Table.Header>    
                <Table.Row>
             
-            <Button.Group size='large' style={{textTransform: 'uppercase'}} > 
-               {this.renderTounamentSpecialMainList()}               
-            </Button.Group>
+            
+                       
+               
             
             </Table.Row>
             
