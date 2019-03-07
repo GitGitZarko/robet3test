@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Header, Table, Button} from 'semantic-ui-react'
+import '../public/css/Sports.css';
 
 class TestComponent extends Component {
    
@@ -10,14 +11,26 @@ class TestComponent extends Component {
       }
 
       return TounamentSpecialMainList.map(special => {
-         return (     
-                      
-             <Table.HeaderCell><Button>{special.Text}</Button>     </Table.HeaderCell>
-          
+         return (                           
+            <Button  color='orange' >{special.Text}</Button >        
          )
     })
 
    }
+   // switchOddsSpan = (value) => {
+   //    switch(value){
+   //       case '1x2':
+   //       return 3
+   //       case 'Doppia Chance':
+   //       return 3
+   //       case 'GGNG':
+   //       return 2
+   //       case 'OV/UN 2.5':
+   //       return 2
+   //       default: 
+   //       return 0
+   //    }
+   // }
     renderTounementMainTitleList(){
         const { TounementMainTitleList } = this.props.objekat;
         
@@ -25,10 +38,10 @@ class TestComponent extends Component {
         if (!TounementMainTitleList) {
            return null;
         }
-        return TounementMainTitleList.map(name => {
+        return TounementMainTitleList.map(name => {             
               return (     
-                       
-                 <Table.HeaderCell>{name.nome}</Table.HeaderCell>     
+                      
+                 <Table.HeaderCell textAlign="center"  colSpan={name.numeroScommesse}>{name.nome}</Table.HeaderCell>     
                
               )
          })
@@ -41,8 +54,8 @@ class TestComponent extends Component {
         }
         return (
            <Table.Row>  
-           <Table.HeaderCell>Match</Table.HeaderCell>
-           {TounementTitleList.map(name =>  <Table.HeaderCell>{name.nome}</Table.HeaderCell>  )}
+           <Table.HeaderCell >Match</Table.HeaderCell>           
+           {TounementTitleList.map(name =>  <Table.HeaderCell textAlign="center" colSpan={1}>{name.nome}</Table.HeaderCell>  )}
            </Table.Row>  
         );
         
@@ -79,12 +92,10 @@ class TestComponent extends Component {
                  </Table.Cell>
                  {                
                     val.TournamentMatchOddList.map(odds => 
-                    <Table.Cell selectable style={{cursor: 'pointer'}}>{odds.OddValue}    </Table.Cell>
+                    <Table.Cell textAlign="center" width="four" selectable style={{cursor: 'pointer'}}>{odds.OddValue}    </Table.Cell>
                     )
                  }
-                 <Table.Cell>
-                    
-                 </Table.Cell>
+             
                  </Table.Row>  
                  // <Table.Table.Cell>{val.MatchCode}</Table.Table.Cell>
                  // <Table.Table.Cell>{val.MatchCode}</Table.Table.Cell>
@@ -104,10 +115,18 @@ class TestComponent extends Component {
                 <Table celled>
                  
             <Table.Header>    
+               <Table.Row>
+            
+            <Button.Group size='large' style={{textTransform: 'uppercase'}} > 
                {this.renderTounamentSpecialMainList()}               
+            </Button.Group>
+            
+            </Table.Row>
+            
                <Table.Row>  
+               <Table.Cell ></Table.Cell>
                         {this.renderTounementMainTitleList()}        
-                        </Table.Row>  
+               </Table.Row>  
                         {this.renderTitleList()}        
                      
             </Table.Header>
