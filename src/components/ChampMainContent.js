@@ -26,10 +26,10 @@ class ChampMainContent extends Component {
          return null;
       }
       return (
-         <Table.Row>  
+         <div>
          <Table.HeaderCell>Match</Table.HeaderCell>
          {TounementTitleList.map(name =>  <Table.HeaderCell>{name.nome}</Table.HeaderCell>  )}
-         </Table.Row>  
+         </div>
       );
       
       // return TounementTitleList.map(name => {
@@ -38,7 +38,9 @@ class ChampMainContent extends Component {
       //       )
       //  })
     }
-
+    click = () =>{
+       console.log("Kliknuto!")
+    }
     renderTournamentMatchList(){
       const { TournamentMatchList } = this.props.champsContent;
       
@@ -52,7 +54,7 @@ class ChampMainContent extends Component {
             return (
                
                <Table.Row>  
-               <Table.Cell>
+               <Table.Cell selectable>
                   <Header>
                      {val.QuickMatchCode}
                      {val.MatchDate}
@@ -63,7 +65,7 @@ class ChampMainContent extends Component {
                </Table.Cell>
                {                
                   val.TournamentMatchOddList.map(odds => 
-                  <Table.Cell>{odds.OddValue}    </Table.Cell>
+                  <Table.Cell > {odds.OddValue}    </Table.Cell>
                   )
                }
                <Table.Cell>

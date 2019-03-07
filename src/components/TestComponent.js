@@ -2,18 +2,34 @@ import React, { Component } from 'react';
 import { Header, Table, Button} from 'semantic-ui-react'
 
 class TestComponent extends Component {
- 
+   
+   renderTounamentSpecialMainList(){
+      const { TounamentSpecialMainList } = this.props.objekat;
+      if (!TounamentSpecialMainList) {
+         return null;
+      }
+
+      return TounamentSpecialMainList.map(special => {
+         return (     
+                      
+             <Table.HeaderCell><Button>{special.Text}</Button>     </Table.HeaderCell>
+          
+         )
+    })
+
+   }
     renderTounementMainTitleList(){
         const { TounementMainTitleList } = this.props.objekat;
+        
         // console.log('PROPS champsContent', this.props.champsContent);
         if (!TounementMainTitleList) {
            return null;
         }
         return TounementMainTitleList.map(name => {
               return (     
-               <Table.Row>             
+                       
                  <Table.HeaderCell>{name.nome}</Table.HeaderCell>     
-                 </Table.Row>                        
+               
               )
          })
       }
@@ -51,6 +67,7 @@ class TestComponent extends Component {
               return (
                  
                  <Table.Row>  
+                    
                  <Table.Cell>
                     <Header>
                        {val.QuickMatchCode}
@@ -62,7 +79,7 @@ class TestComponent extends Component {
                  </Table.Cell>
                  {                
                     val.TournamentMatchOddList.map(odds => 
-                    <Table.Cell>{odds.OddValue}    </Table.Cell>
+                    <Table.Cell selectable style={{cursor: 'pointer'}}>{odds.OddValue}    </Table.Cell>
                     )
                  }
                  <Table.Cell>
@@ -86,9 +103,11 @@ class TestComponent extends Component {
                 </div>
                 <Table celled>
                  
-            <Table.Header>                   
-                           
+            <Table.Header>    
+               {this.renderTounamentSpecialMainList()}               
+               <Table.Row>  
                         {this.renderTounementMainTitleList()}        
+                        </Table.Row>  
                         {this.renderTitleList()}        
                      
             </Table.Header>
