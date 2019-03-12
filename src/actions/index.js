@@ -4,6 +4,7 @@ export const FETCH_CHAMPS = 'FETCH_CHAMPS';
 export const FETCH_CHAMP_LIST = 'FETCH_CHAMP_LIST';
 export const ADD_CHAMP_TO_LIST = 'ADD_CHAMP_TO_LIST';
 export const REMOVE_CHAMP_FROM_LIST = 'REMOVE_CHAMP_FROM_LIST';
+export const CALL_FROM_BOX = 'CALL_FROM_BOX';
 
 
 export const fetchChamps = () =>  async dispatch => {
@@ -28,3 +29,10 @@ export const removeChampFromList = (champId = null, sportId = null) => {
       payload: {champId: champId, sportId: sportId}
     }
   };
+
+export const callFromBox = (champId = null, sportId = null, button = null) =>  async dispatch => {
+    const response =  await betvipApi.get(`/tournament?c=${champId}&s=${sportId}&q=${button}`);    
+    console.log("akcija", response.data)
+    dispatch({ type: CALL_FROM_BOX, payload: response.data });  
+}
+  

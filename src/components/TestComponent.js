@@ -1,36 +1,63 @@
 import React, { Component } from 'react';
-import { Header, Table, Button, SegmentInline} from 'semantic-ui-react'
+import { Header, Table, Button, SegmentInline, Ref} from 'semantic-ui-react'
+import MainButtonList from './MainButtonList';
+import SecondButtonList from './SecondButtonList'; 
+import { connect } from 'react-redux';
+import { callFromBox } from '../actions';
 import '../public/css/Sports.css';
 
 class TestComponent extends Component {
-   
+   constructor(props) {
+      super(props);
+      this.state = {
+        isHidden: false,
+        secondGroup: [],
+        thirdGroup: [],
+        tournamentCode: '',
+        sportCode: ''
+      }
+      this.buttonRef = React.createRef();
+    }
+    // Toggle the visibility
+   //  toggleHidden(e) {
+   //    this.setState({
+   //      isHidden: !this.state.isHidden
+   //    });
+   //    console.log(e.target.dataset.id)
+   //  }
+   ajdeKlikni = (e, second) => {
+      e.preventDefault();
+      const { TounamentSpecialMainList,  SportCode, TournamentCode} = this.props.objekat;
+      if (!TounamentSpecialMainList) {
+         return null;
+      }
+      this.setState({
+         secondGroup: second,
+         thirdGroup: [],
+         tournamentCode: TournamentCode,
+         sportCode: SportCode
+      })         
+      console.log("stanje",this.state)
+      this.props.callFromBox(TournamentCode, SportCode, this.buttonRef)   
+         
+      
+  
+         }
+
    renderTounamentSpecialMainList(){
-      const { TounamentSpecialMainList } = this.props.objekat;
+      const { TounamentSpecialMainList, SportCode, TournamentCode} = this.props.objekat;
       if (!TounamentSpecialMainList) {
          return null;
       }
 
-      return TounamentSpecialMainList.map(special => {
-         return (                           
-            <Button color="orange" compact>{special.Text}</Button>        
-         )
+      return TounamentSpecialMainList.map((special, i) => {         
+            return (                           
+               <button  className="ui orange button" ref={this.buttonRef}  onClick={(e) => this.ajdeKlikni(e, special.TournamentSpecialMatchList)} >{special.Text} </button>
+               // <button ref={this.buttonRef} onClick={() => } toggle>{special.Text}</button>        
+            )
     })
+}
 
-   }
-   // switchOddsSpan = (value) => {
-   //    switch(value){
-   //       case '1x2':
-   //       return 3
-   //       case 'Doppia Chance':
-   //       return 3
-   //       case 'GGNG':
-   //       return 2
-   //       case 'OV/UN 2.5':
-   //       return 2
-   //       default: 
-   //       return 0
-   //    }
-   // }
     renderTounementMainTitleList(){
         const { TounementMainTitleList } = this.props.objekat;
         
@@ -104,46 +131,57 @@ class TestComponent extends Component {
               )
          })
       }
-  
+      thirdButtons(e,data){
+         e.preventDefault();
+         console.log(data)
+         this.setState({
+            thirdGroup: data.Items
+         })         
+      }
+      renderSecondLevel(){
+         return this.state.secondGroup.map((data) => <div style={{display: 'inline-block'}} onClick={(e) => this.thirdButtons(e,data)}><SecondButtonList  color="red" textValue={data.Text}></SecondButtonList> </div>)
+      }
+
+      renderThirdLevel(){
+         
+      }
     render() {       
         const { objekat }  = this.props
-     return (            
-            <div>
-                <div style={{background: 'yellow', border: '1px solid orange', marginTop: '50px', marginBottom: '0px', padding: '20px'}}>
+     return (        
+            <div style={{border: '2px green solid', marginBottom: '20px'}} >
+                <div style={{background: 'yellow', border: '1px solid orange', marginBottom: '0px', padding: '20px'}}>
                 <h5 >{objekat.TournamentName}</h5>  
                 </div>
+                <div>
                 {this.renderTounamentSpecialMainList()}       
-                <Table celled>
-                 
+                </div>
+                <div style={{display: 'inline-block', width: '100%'}}>
+                {console.log(this.state.secondGroup)}
+               { !this.state.secondGroup ? null : this.renderSecondLevel()}                   
+               </div>
+                <div style={{display: 'inline-block', width: '100%'}}>                
+                { !this.state.thirdGroup ? null : this.state.thirdGroup.map((data) => <SecondButtonList color="blue" textValue={data.Text}></SecondButtonList>) }
+                </div>
+                <Table celled>                 
             <Table.Header>    
                <Table.Row>
-            
-            
-                       
-               
-            
-            </Table.Row>
-            
+            </Table.Row>            
                <Table.Row>  
                <Table.Cell ></Table.Cell>
                         {this.renderTounementMainTitleList()}        
                </Table.Row>  
-                        {this.renderTitleList()}        
-                     
+                        {this.renderTitleList()}                        
             </Table.Header>
-
-            <Table.Body>
-               
-               {this.renderTournamentMatchList()}
-           
-        
+            <Table.Body>               
+               {this.renderTournamentMatchList()}       
             </Table.Body>
          </Table>
                 {/* <h1>{`This is the separate tournament box: ${objekat.TournamentCode}`}</h1> */}
-            </div>       
+            </div>    
+                 
          )
    }
-
 }
 
-export default TestComponent;
+const mapStateToProps = ({ middleBoxButtons }) => ({ middleBoxButtons })
+export default connect(mapStateToProps, { callFromBox })(TestComponent);

@@ -18,7 +18,7 @@ novaFunkcija(){
         return (
            <TestComponent objekat={name}/>
         )
-   }).reverse()
+   })
 
 }
           

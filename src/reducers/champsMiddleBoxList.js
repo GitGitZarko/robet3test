@@ -9,7 +9,7 @@ export default (state = [], action) => {
         }
         
             // console.log(action.payload.TournamentCode)
-        return [...state, action.payload]   
+        return [...state, action.payload]
     }
     case REMOVE_CHAMP_FROM_LIST: {
             const existsInArray = state.some(l => l.TournamentCode == action.payload.champId)
