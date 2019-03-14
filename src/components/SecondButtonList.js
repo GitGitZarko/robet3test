@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Header, Table, Button, SegmentInline, Ref} from 'semantic-ui-react'
 
+
+//OVO JE JEDNOSTAVNI BUTTON COMPONENT koji prima samo color prop i textValue zasto
 class SecondButtonList extends Component {
     constructor(props) {
         super(props);

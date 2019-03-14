@@ -5,6 +5,7 @@ export const FETCH_CHAMP_LIST = 'FETCH_CHAMP_LIST';
 export const ADD_CHAMP_TO_LIST = 'ADD_CHAMP_TO_LIST';
 export const REMOVE_CHAMP_FROM_LIST = 'REMOVE_CHAMP_FROM_LIST';
 export const CALL_FROM_BOX = 'CALL_FROM_BOX';
+export const UPDATE_CHAMP_LIST = 'UPDATE_CHAMP_LIST';
 
 
 export const fetchChamps = () =>  async dispatch => {
@@ -31,8 +32,12 @@ export const removeChampFromList = (champId = null, sportId = null) => {
   };
 
 export const callFromBox = (champId = null, sportId = null, button = null) =>  async dispatch => {
-    const response =  await betvipApi.get(`/tournament?c=${champId}&s=${sportId}&q=${button}`);    
+    const response =  await betvipApi.get(`/tournament?c=${champId}&s=${sportId}&g=${button}`);    
     console.log("akcija", response.data)
     dispatch({ type: CALL_FROM_BOX, payload: response.data });  
 }
   
+export const updateChampList = (champId = null, sportId = null, button = null) => async dispatch => {
+    const response = await betvipApi.get(`/tournament?c=${champId}&s=${sportId}&g=${button}`);
+    dispatch({ type: UPDATE_CHAMP_LIST, payload: response.data });
+}

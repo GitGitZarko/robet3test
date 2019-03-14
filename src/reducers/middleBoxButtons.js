@@ -1,12 +1,9 @@
 import { CALL_FROM_BOX } from '../actions';
-const initialState = {
-    boxes: []
-}
 
-export default (state = initialState, action) => {
+export default (state = [], action) => {
     switch(action.type){
         case CALL_FROM_BOX:
-            return { boxes: action.payload }
+            return [...state, action.payload]                
         default:
             return state
     }

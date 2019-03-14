@@ -1,4 +1,4 @@
-import { ADD_CHAMP_TO_LIST, REMOVE_CHAMP_FROM_LIST } from '../actions';
+import { ADD_CHAMP_TO_LIST, REMOVE_CHAMP_FROM_LIST, UPDATE_CHAMP_LIST } from '../actions';
 
 export default (state = [], action) => {
     switch(action.type){
@@ -24,6 +24,17 @@ export default (state = [], action) => {
         
     //     console.log(state.TournamentCode+"ss");        
     }
+    case UPDATE_CHAMP_LIST: {
+        return state.map((item, index) => {
+            console.log("itemitem: ", index, "tour code: ", item.TournamentCode, "payload COde", action.payload.TournamentMatchList)
+            if (item.TournamentCode === action.payload.TournamentCode) {
+                return item, action.payload
+            }
+            return item
+        })
+
+    }
+
         default:
             return state
     }   

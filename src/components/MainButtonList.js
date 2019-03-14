@@ -44,16 +44,13 @@ class MainButtonList extends Component {
       }
         render() {    
                 
-         return (                            
-              
+         return (                                          
                    <button 
                       className="ui orange button" 
                       ref={this.buttonRef} 
                       onClick={this.ajdeKlikni}>
                       {this.props.buttonName}
                    </button>   
-                
-              
              )
        }    
     }    

@@ -6,7 +6,15 @@ import { DimmerDimmable } from 'semantic-ui-react';
 import TestComponent from './TestComponent';
 
 class ChampMainContentContainer extends Component{
-
+    constructor(props){
+        super(props)
+        this.testKontejner = React.createRef();
+    }
+    
+kontejner = () =>
+{
+    console.log("broj Kontejnera " ,this.testKontejner)
+}
 novaFunkcija(){
     // const { TournamentCode } = this.props.champsMiddleBoxList;
     // console.log('PROPS champsMiddleBoxList', this.props.champsMiddleBoxList);
@@ -16,12 +24,12 @@ novaFunkcija(){
     return this.props.champsMiddleBoxList.map(name => {
         // console.log('PROPS inside map', name.TournamentCode);
         return (
-           <TestComponent objekat={name}/>
+            <div ref={this.testKontejner} onClick={this.kontejner}>
+           <TestComponent  objekat={name}/>
+           </div>
         )
-   })
-
+   }).reverse();
 }
-          
     render ()         
     {
         return(            
