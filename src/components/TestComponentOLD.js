@@ -18,6 +18,13 @@ class TestComponent extends Component {
       }
       this.buttonRef = React.createRef();
     }
+
+    componentDidUpdate(prevProps) {
+      // Typical usage (don't forget to compare props):
+      if (this.props.objekat !== prevProps.objekat) {
+         this.renderSecondLevel()
+      }
+    }
     // Toggle the visibility
    //  toggleHidden(e) {
    //    this.setState({

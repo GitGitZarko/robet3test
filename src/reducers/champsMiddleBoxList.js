@@ -1,4 +1,4 @@
-import { ADD_CHAMP_TO_LIST, REMOVE_CHAMP_FROM_LIST, UPDATE_CHAMP_LIST } from '../actions';
+import { ADD_CHAMP_TO_LIST, REMOVE_CHAMP_FROM_LIST, UPDATE_CHAMP_LIST} from '../actions';
 
 export default (state = [], action) => {
     switch(action.type){

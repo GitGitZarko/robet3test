@@ -3,22 +3,30 @@ import { Header, Table, Button, SegmentInline, Ref } from 'semantic-ui-react'
 import MainButtonList from './MainButtonList';
 import SecondButtonList from './SecondButtonList';
 import { connect } from 'react-redux';
-import { callFromBox, updateChampList } from '../actions';
+import { callFromBox, updateChampList, oddsTicketList } from '../actions';
 import '../public/css/Sports.css';
 
 class TestComponent extends Component {
    constructor(props) {
       super(props);
       this.state = {
-         isHidden: true,
+         isHidden: false,
          secondGroup: [],
          thirdGroup: [],
          tournamentCode: '',
          sportCode: '',
-         DescriptionOrder: Number
+         DescriptionOrder: 0
       }
       this.buttonRef = React.createRef();
    }
+
+   componentDidUpdate(prevProps) {
+      // Typical usage (don't forget to compare props):
+      if (this.props.objekat !== prevProps.objekat) {
+         console.log("stanje DID UPDATE ", this.state.DescriptionOrder)
+         this.renderSecondButtonList(this.state.DescriptionOrder)
+      }
+    }
    // Toggle the visibility
    //  toggleHidden(e) {
    //    this.setState({
@@ -31,21 +39,19 @@ class TestComponent extends Component {
       const { TounamentSpecialMainList, SportCode, TournamentCode } = this.props.objekat;
       if (!TounamentSpecialMainList) {
          return null;
-      }
+      }      
+      
+      this.setState({
+         isHidden: !this.state.isHidden, 
+         DescriptionOrder: description,              
+      })
       const refOrangeButton = e.target.dataset.value
 
       console.log(e.target.dataset.value)
       
       //this.props.callFromBox(TournamentCode, SportCode, refOrangeButton)
-      this.props.updateChampList(TournamentCode, SportCode, refOrangeButton)
-      this.setState({
-         isHidden: !this.state.isHidden, 
-         DescriptionOrder: description       
-      })
-
-      this.renderSecondButtonList();
-      
-      
+      this.props.updateChampList(TournamentCode, SportCode, refOrangeButton)  
+      this.renderSecondButtonList(this.state.DescriptionOrder)
    }
 
    renderTounamentSpecialMainList() {
@@ -62,23 +68,21 @@ class TestComponent extends Component {
          
       })
    }
-      renderSecondButtonList = () =>{
-         const { TounamentSpecialMainList, SportCode, TournamentCode } = this.props.objekat;
+      renderSecondButtonList = (broj) =>{
+         
+         const { TounamentSpecialMainList } = this.props.objekat;
          if (!TounamentSpecialMainList) {
             return null;
-         }          
-         let broj = this.state.DescriptionOrder
-         
-         return (TounamentSpecialMainList.map((data, i) => i === broj ? data.TournamentSpecialMatchList.map((data) => data.Items.map((ata) =>
+         }               
+         return (
+               TounamentSpecialMainList.map((data, i) => i === broj ? console.log(data) && data.TournamentSpecialMatchList.map((data) => data.Items.map((ata) =>
          <div style={{ display: 'inline-block' }} onClick={(e) => this.thirdButtons(e, data)}><SecondButtonList color="red" textValue={ata.Text}></SecondButtonList> </div>
          
          )) 
          : null
          ))
-         
-         
+
             // if(special.DescriptionOrder === this.state.description)
-            
             
             //console.log("reeeeeeed", special.TournamentSpecialMatchList)
             // const blueButtons = special.TournamentSpecialMatchList.map((data) => data.Items.map((ata) => <SecondButtonList color="blue" textValue={ata.Text}></SecondButtonList>))
@@ -117,7 +121,18 @@ class TestComponent extends Component {
       //       )
       //  })
    }
-
+   addOddToTicket = (e, sportCode, tourCode, oddType, oddValue, matchName, oddGroup) => {
+      e.preventDefault();
+      this.props.oddsTicketList({
+         sportCode,
+         tourCode,
+         oddType,
+         oddValue,
+         matchName,
+         oddGroup
+      })
+      // alert(sportCode+"tcOde:"+ tourCode )
+   }
 
    renderTournamentMatchList() {
       const { TournamentMatchList } = this.props.objekat;
@@ -144,7 +159,15 @@ class TestComponent extends Component {
                </Table.Cell>
                {
                   val.TournamentMatchOddList.map(odds =>
-                     <Table.Cell textAlign="center" width="four" selectable style={{ cursor: 'pointer' }}>{odds.OddValue}    </Table.Cell>
+                     <Table.Cell 
+                           textAlign="center" 
+                           width="four" 
+                           selectable 
+                           style={{ cursor: 'pointer' }} 
+                           onClick={(e) =>
+                           this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup)}>
+                           {odds.OddValue}
+                     </Table.Cell>
                   )
                }
 
@@ -175,8 +198,15 @@ class TestComponent extends Component {
                {this.renderTounamentSpecialMainList()}
             </div>
             <div style={{ display: 'inline-block', width: '100%' }}>
-            {/* {this.renderSecondButtonList()} */}
+            { <div>{this.renderSecondButtonList()}</div>}
+            {/* {                
+               this.props.objekat.TounamentSpecialMainList.map((special, i) => 
+               <button style={{ display: 'inline-block'}} className="ui orange button" data-value={special.TournamentSpecialMatchList[0].Value} ref={this.buttonRef} 
+               onClick={(e) => this.ajdeKlikni(e, i )} >{special.Text} </button> )
+         
+            } */}
             </div>
+            
             <div style={{ display: 'inline-block', width: '100%' }}>
 
             </div>
@@ -202,4 +232,4 @@ class TestComponent extends Component {
 }
 
 const mapStateToProps = ({ middleBoxButtons }) => ({ middleBoxButtons })
-export default connect(mapStateToProps, { callFromBox, updateChampList })(TestComponent);
+export default connect(mapStateToProps, { callFromBox, updateChampList, oddsTicketList })(TestComponent);
