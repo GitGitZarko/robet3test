@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Header, Table, Button, SegmentInline, Ref} from 'semantic-ui-react'
+import { Header, Table, Button, SegmentInline, Ref } from 'semantic-ui-react'
 import { connect } from 'react-redux';
-import { callFromBox } from '../actions';
+import { callFromBox, updateChampList } from '../actions';
 import SecondButtonList from './SecondButtonList';
 
 
@@ -14,45 +14,49 @@ import SecondButtonList from './SecondButtonList';
 
 
 class MainButtonList extends Component {
-    constructor(props) {
-        super(props);    
-        this.buttonRef = React.createRef();
-      }
+  constructor(props) {
+    super(props);
 
-      ajdeKlikni = (e) => {
-        e.preventDefault();
-        const { special } = this.props;
-        if(!special){
-          return null
-        }
-        const value = special.TournamentSpecialMatchList
-        this.props.callFromBox(this.props.tourId, this.props.sportId, [1])
-        if(!this.props.middleBoxButtons){
-          return null
-        }
-        if(!value) return null;
-        this.secondLevelButtons(value);
-      
-      }
-      secondLevelButtons(value){
-        return value.map((data) => {
-          console.log(data);
-          return (
-            <SecondButtonList textValue={data.Text}>{data.Text}</SecondButtonList>
-          )
-        })
-      }
-        render() {    
-                
-         return (                                          
-                   <button 
-                      className="ui orange button" 
-                      ref={this.buttonRef} 
-                      onClick={this.ajdeKlikni}>
-                      {this.props.buttonName}
-                   </button>   
-             )
-       }    
-    }    
+  }
+
+
+  ajdeKlikni = (e) => {
+    e.preventDefault();
+    const { special } = this.props;
+    if (!special) {
+      return null
+    }
+    const value = special.TournamentSpecialMatchList
+    // this.props.callFromBox(this.props.tourId, this.props.sportId, [1])
+    if (!this.props.middleBoxButtons) {
+      return null
+    }
+    if (!value) return null;
+
+  }
+
+  renderSecondButtonList(e, kljuc, data) {
+    e.preventDefault()
+    const { scode, tcode } = this.props
+    const { TournamentSpecialMatchList } = this.props.special
+    console.log("VALUE VALUE VALUE", TournamentSpecialMatchList[0].Value)
+    this.props.updateChampList(tcode, scode, TournamentSpecialMatchList[0].Value)
+    this.props.renderSecondButtonList(kljuc, data)
+  }
+  render() {
+    const { TournamentSpecialMatchList, Text } = this.props.special
+    const { kljuc } = this.props
+
+
+    return (
+      <button
+        className="ui orange button"
+        ref={this.buttonRef}
+        onClick={(e) => this.renderSecondButtonList(e, kljuc, TournamentSpecialMatchList)}>
+        {Text}
+      </button>
+    )
+  }
+}
 const mapStateToProps = ({ middleBoxButtons }) => ({ middleBoxButtons })
-export default connect(mapStateToProps, { callFromBox })(MainButtonList);
+export default connect(mapStateToProps, { callFromBox, updateChampList })(MainButtonList);

@@ -15,18 +15,15 @@ class TestComponent extends Component {
          thirdGroup: [],
          tournamentCode: '',
          sportCode: '',
-         DescriptionOrder: 0
+         DescriptionOrder: 0,
+         broj: Number
       }
       this.buttonRef = React.createRef();
+
    }
 
-   componentDidUpdate(prevProps) {
-      // Typical usage (don't forget to compare props):
-      if (this.props.objekat !== prevProps.objekat) {
-         console.log("stanje DID UPDATE ", this.state.DescriptionOrder)
-         this.renderSecondButtonList(this.state.DescriptionOrder)
-      }
-    }
+
+
    // Toggle the visibility
    //  toggleHidden(e) {
    //    this.setState({
@@ -39,19 +36,19 @@ class TestComponent extends Component {
       const { TounamentSpecialMainList, SportCode, TournamentCode } = this.props.objekat;
       if (!TounamentSpecialMainList) {
          return null;
-      }      
-      
+      }
+
       this.setState({
-         isHidden: !this.state.isHidden, 
-         DescriptionOrder: description,              
+         isHidden: !this.state.isHidden,
+         DescriptionOrder: description,
       })
       const refOrangeButton = e.target.dataset.value
 
       console.log(e.target.dataset.value)
-      
+
       //this.props.callFromBox(TournamentCode, SportCode, refOrangeButton)
-      this.props.updateChampList(TournamentCode, SportCode, refOrangeButton)  
-      this.renderSecondButtonList(this.state.DescriptionOrder)
+      this.props.updateChampList(TournamentCode, SportCode, refOrangeButton)
+
    }
 
    renderTounamentSpecialMainList() {
@@ -60,35 +57,78 @@ class TestComponent extends Component {
          return null;
       }
 
-      return TounamentSpecialMainList.map((special, i) => {         
-         const orangeButtons = <button style={{ display: 'inline-block'}} className="ui orange button" data-value={special.TournamentSpecialMatchList[0].Value} ref={this.buttonRef} onClick={(e) => this.ajdeKlikni(e, i )} >{special.Text} </button>
+      return TounamentSpecialMainList.map((special, i) => {
+
+         return <MainButtonList key={i} kljuc={i} special={special} scode={SportCode} tcode={TournamentCode} renderSecondButtonList={this.renderSecondButtonList.bind(this)} />
          const redButtons = special.TournamentSpecialMatchList.map((data) => <div style={{ display: 'inline-block' }} onClick={(e) => this.thirdButtons(e, data)}><SecondButtonList color="red" textValue={data.Text}></SecondButtonList> </div>)
          const blueButtons = special.TournamentSpecialMatchList.map((data) => data.Items.map((ata) => <SecondButtonList color="blue" textValue={ata.Text}></SecondButtonList>))
-         return orangeButtons
-         
+
+
       })
    }
-      renderSecondButtonList = (broj) =>{
-         
-         const { TounamentSpecialMainList } = this.props.objekat;
-         if (!TounamentSpecialMainList) {
-            return null;
-         }               
-         return (
-               TounamentSpecialMainList.map((data, i) => i === broj ? console.log(data) && data.TournamentSpecialMatchList.map((data) => data.Items.map((ata) =>
-         <div style={{ display: 'inline-block' }} onClick={(e) => this.thirdButtons(e, data)}><SecondButtonList color="red" textValue={ata.Text}></SecondButtonList> </div>
-         
-         )) 
-         : null
-         ))
+   renderSecondButtonList(broj, data) {
+      if (broj === undefined) return console.log("greska", broj)
 
-            // if(special.DescriptionOrder === this.state.description)
-            
-            //console.log("reeeeeeed", special.TournamentSpecialMatchList)
-            // const blueButtons = special.TournamentSpecialMatchList.map((data) => data.Items.map((ata) => <SecondButtonList color="blue" textValue={ata.Text}></SecondButtonList>))
-            // return null
-         
+      console.log("Ovde radi2: ", broj)
+      const { TounamentSpecialMainList } = this.props.objekat;
+      if (!TounamentSpecialMainList) {
+         return null;
       }
+      // const result = Object.entries(TounamentSpecialMainList)[broj]
+      const { TournamentSpecialMatchList } = TounamentSpecialMainList[broj]
+      // const ssss = TournamentSpecialMatchList.map((a) => a.Items.map((b) => <SecondButtonList imeDugmeta={b.Text}/>{b.Text}</SecondButtonList>))
+      // const ajdeVise = TournamentSpecialMatchList.map((data) => data.Items.map((ata) => <SecondButtonList imeDugmeta={ata.Text} />))
+      const ajdeVise = TournamentSpecialMatchList.map((data, i) => <SecondButtonList imeDugmeta={data.Text} key={i} kljuc={i} special={data} renderThirdButtonList={this.renderThirdButtonList.bind(this)} />)
+
+      this.setState({
+         secondGroup: ajdeVise
+      })
+      // console.log(TournamentSpecialMatchList.map((a) => a.Items.map((b) => b.Text)))
+   }
+   renderThirdButtonList(broj, data) {
+      if (broj === undefined) return console.log("greska", broj)
+
+      console.log("Ovde radi2: ", broj)
+      const { TounamentSpecialMainList } = this.props.objekat;
+      if (!TounamentSpecialMainList) {
+         return null;
+      }
+      // const result = Object.entries(TounamentSpecialMainList)[broj]
+      const { TournamentSpecialMatchList } = TounamentSpecialMainList[broj]
+
+      // const ssss = TournamentSpecialMatchList.map((a) => a.Items.map((b) => <SecondButtonList imeDugmeta={b.Text}/>{b.Text}</SecondButtonList>))
+      console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!", TournamentSpecialMatchList);
+      const ajdeVise = TournamentSpecialMatchList.map((data) => data.Items.map((ata) => !ata ? null : <button className="ui purple button">{ata.Text}</button>))
+
+      this.setState({
+         thirdGroup: ajdeVise
+      })
+      // console.log(TournamentSpecialMatchList.map((a) => a.Items.map((b) => b.Text)))
+   }
+
+   // const ajdeVise = TounamentSpecialMainList.map((data, i) => i === broj ? console.log(i) && data.TournamentSpecialMatchList.map((item) => item.Items.map((a) => <button> {a.Text} </button>)) : null)
+   // const ajdeVise = TounamentSpecialMainList.map((data, i) => data[broj].TournamentSpecialMatchList.map((data) => data.Items.map((ata) =>
+   //    <div style={{ display: 'inline-block' }} onClick={(e) => this.thirdButtons(e, data)}><SecondButtonList color="red" textValue={ata.Text}></SecondButtonList> </div>
+   // )))
+
+
+
+   // return (
+   //    TounamentSpecialMainList.map((data, i) => i === broj ? data.TournamentSpecialMatchList.map((data) => data.Items.map((ata) =>
+   //       <div style={{ display: 'inline-block' }} onClick={(e) => this.thirdButtons(e, data)}><SecondButtonList color="red" textValue={ata.Text}></SecondButtonList> </div>
+
+   //    ))
+   //       : null
+   //    ))
+
+   // if(special.DescriptionOrder === this.state.description)
+
+   //console.log("reeeeeeed", special.TournamentSpecialMatchList)
+   // const blueButtons = special.TournamentSpecialMatchList.map((data) => data.Items.map((ata) => <SecondButtonList color="blue" textValue={ata.Text}></SecondButtonList>))
+   // return null
+
+
+
    renderTounementMainTitleList() {
       const { TounementMainTitleList } = this.props.objekat;
 
@@ -96,9 +136,9 @@ class TestComponent extends Component {
       if (!TounementMainTitleList) {
          return null;
       }
-      return TounementMainTitleList.map(name => {
+      return TounementMainTitleList.map((name, a) => {
          return (
-            <Table.HeaderCell textAlign="center" colSpan={name.numeroScommesse}>{name.nome}</Table.HeaderCell>
+            <Table.HeaderCell key={a} textAlign="center" colSpan={name.numeroScommesse}>{name.nome}</Table.HeaderCell>
          )
       })
    }
@@ -111,7 +151,7 @@ class TestComponent extends Component {
       return (
          <Table.Row>
             <Table.HeaderCell >Match</Table.HeaderCell>
-            {TounementTitleList.map(name => <Table.HeaderCell textAlign="center" >{name.nome}</Table.HeaderCell>)}
+            {TounementTitleList.map((name, f) => <Table.HeaderCell key={f} textAlign="center" >{name.nome}</Table.HeaderCell>)}
          </Table.Row>
       );
 
@@ -158,15 +198,16 @@ class TestComponent extends Component {
                   </Header.Content>
                </Table.Cell>
                {
-                  val.TournamentMatchOddList.map(odds =>
-                     <Table.Cell 
-                           textAlign="center" 
-                           width="four" 
-                           selectable 
-                           style={{ cursor: 'pointer' }} 
-                           onClick={(e) =>
+                  val.TournamentMatchOddList.map((odds, o) =>
+                     <Table.Cell
+                        key={o}
+                        textAlign="center"
+                        width="four"
+                        selectable
+                        style={{ cursor: 'pointer' }}
+                        onClick={(e) =>
                            this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup)}>
-                           {odds.OddValue}
+                        {odds.OddValue}
                      </Table.Cell>
                   )
                }
@@ -189,6 +230,7 @@ class TestComponent extends Component {
 
    render() {
       const { objekat } = this.props
+
       return (
          <div style={{ border: '2px green solid', marginBottom: '20px' }} >
             <div style={{ background: 'yellow', border: '1px solid orange', marginBottom: '0px', padding: '20px' }}>
@@ -198,17 +240,10 @@ class TestComponent extends Component {
                {this.renderTounamentSpecialMainList()}
             </div>
             <div style={{ display: 'inline-block', width: '100%' }}>
-            { <div>{this.renderSecondButtonList()}</div>}
-            {/* {                
-               this.props.objekat.TounamentSpecialMainList.map((special, i) => 
-               <button style={{ display: 'inline-block'}} className="ui orange button" data-value={special.TournamentSpecialMatchList[0].Value} ref={this.buttonRef} 
-               onClick={(e) => this.ajdeKlikni(e, i )} >{special.Text} </button> )
-         
-            } */}
+               {this.state.secondGroup}
             </div>
-            
             <div style={{ display: 'inline-block', width: '100%' }}>
-
+               {this.state.thirdGroup}
             </div>
             <Table celled>
                <Table.Header>
