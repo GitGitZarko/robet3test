@@ -28,11 +28,11 @@ class TicketGenerator extends Component {
         // if (!TournamentCode) {
         //    return null;
         // }
-        return this.props.oddList.map(name => {
+        return this.props.oddList.map((name, i) => {
             // console.log('PROPS inside map', name.TournamentCode);
             return (
                 <div className="ui middle aligned divided list">
-               <TicketChildItem  objekat={name}/>
+               <TicketChildItem  key={i} objekat={name}/>
                </div>
             )
        })

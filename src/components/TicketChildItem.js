@@ -13,7 +13,7 @@ class TicketChildItem extends Component {
                 <div className="right floated content">
                     {oddValue}
                     <div className="ui icon button">
-                        <i class="close icon"></i>
+                        <i className="close icon"></i>
                     </div>
                 </div>
                 <div className="left floated content">
