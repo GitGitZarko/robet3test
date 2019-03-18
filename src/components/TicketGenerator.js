@@ -3,26 +3,26 @@ import { connect } from 'react-redux';
 import { fetchStartJson } from '../actions';
 import TicketChildItem from './TicketChildItem';
 
-
+const customStyle = {
+    background: 'yellow'
+}
 //OVO JE JEDNOSTAVNI BUTTON COMPONENT koji prima samo color prop i textValue zasto
 class TicketGenerator extends Component {
     constructor(props) {
         super(props); 
-        this.props.fetchStartJson()   
-       
-        
+        this.props.fetchStartJson()           
       }
 
-      addJsonToLocalStorage = () =>{    
+    addJsonToLocalStorage = () =>{    
         const local = localStorage.getItem('ticket');
         if(!local){
             localStorage.setItem('ticket', JSON.stringify(this.props.ticket));
             // JSON.parse(local);
             // if(local.Guid !== this.props.ticket.Guid)
         }
-
       }
-     renderujOddListu(){
+
+    renderujOddListu(){
         // const { TournamentCode } = this.props.champsMiddleBoxList;
         // console.log('PROPS champsMiddleBoxList', this.props.champsMiddleBoxList);
         // if (!TournamentCode) {
@@ -37,11 +37,11 @@ class TicketGenerator extends Component {
             )
        })
     }
-
-        render() {               
+    
+    render() {               
             {this.addJsonToLocalStorage()}
         return (    
-            <div>
+            <div style={customStyle}>
                {this.renderujOddListu()}
                </div>
             )

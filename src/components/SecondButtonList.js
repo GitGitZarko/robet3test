@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import {  updateChampList } from '../actions';
 import { Header, Table, Button, SegmentInline, Ref } from 'semantic-ui-react'
 
 class SecondButtonList extends Component {
@@ -23,7 +25,8 @@ class SecondButtonList extends Component {
 
   renderThirdButtonList(e, kljuc, data) {
     e.preventDefault()
-
+    const { ChampId , SportId, Value} = this.props.special
+    this.props.updateChampList(ChampId, SportId, Value)
     this.props.renderThirdButtonList(kljuc, data)
   }
 
@@ -33,7 +36,7 @@ class SecondButtonList extends Component {
 
       <button
         className="ui teal button"
-        onClick={(e) => this.renderThirdButtonList(e, kljuc)}
+        onClick={(e) => this.renderThirdButtonList(e, kljuc, this.props.special)}
       >
         {this.props.imeDugmeta}
       </button>
@@ -41,4 +44,5 @@ class SecondButtonList extends Component {
   }
 
 }
-export default SecondButtonList;
+//const mapStateToProps = ({ middleBoxButtons }) => ({ middleBoxButtons })
+export default connect(null, { updateChampList })(SecondButtonList);

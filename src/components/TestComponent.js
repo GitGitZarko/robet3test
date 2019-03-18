@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Header, Table, Button, SegmentInline, Ref } from 'semantic-ui-react'
 import MainButtonList from './MainButtonList';
 import SecondButtonList from './SecondButtonList';
+import ThirdButtonList from './ThirdButtonList';
 import { connect } from 'react-redux';
 import { callFromBox, updateChampList, oddsTicketList } from '../actions';
 import '../public/css/Sports.css';
@@ -19,11 +20,8 @@ class TestComponent extends Component {
          broj: Number
       }
       this.buttonRef = React.createRef();
-
    }
-
-
-
+   
    // Toggle the visibility
    //  toggleHidden(e) {
    //    this.setState({
@@ -58,12 +56,9 @@ class TestComponent extends Component {
       }
 
       return TounamentSpecialMainList.map((special, i) => {
-
          return <MainButtonList key={i} kljuc={i} special={special} scode={SportCode} tcode={TournamentCode} renderSecondButtonList={this.renderSecondButtonList.bind(this)} />
          const redButtons = special.TournamentSpecialMatchList.map((data) => <div style={{ display: 'inline-block' }} onClick={(e) => this.thirdButtons(e, data)}><SecondButtonList color="red" textValue={data.Text}></SecondButtonList> </div>)
          const blueButtons = special.TournamentSpecialMatchList.map((data) => data.Items.map((ata) => <SecondButtonList color="blue" textValue={ata.Text}></SecondButtonList>))
-
-
       })
    }
    renderSecondButtonList(broj, data) {
@@ -81,7 +76,8 @@ class TestComponent extends Component {
       const ajdeVise = TournamentSpecialMatchList.map((data, i) => <SecondButtonList imeDugmeta={data.Text} key={i} kljuc={i} special={data} renderThirdButtonList={this.renderThirdButtonList.bind(this)} />)
 
       this.setState({
-         secondGroup: ajdeVise
+         secondGroup: ajdeVise,
+         thirdGroup: []
       })
       // console.log(TournamentSpecialMatchList.map((a) => a.Items.map((b) => b.Text)))
    }
@@ -92,41 +88,17 @@ class TestComponent extends Component {
       const { TounamentSpecialMainList } = this.props.objekat;
       if (!TounamentSpecialMainList) {
          return null;
-      }
-      // const result = Object.entries(TounamentSpecialMainList)[broj]
-      const { TournamentSpecialMatchList } = TounamentSpecialMainList[broj]
-
-      // const ssss = TournamentSpecialMatchList.map((a) => a.Items.map((b) => <SecondButtonList imeDugmeta={b.Text}/>{b.Text}</SecondButtonList>))
-      console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!", TournamentSpecialMatchList);
-      const ajdeVise = TournamentSpecialMatchList.map((data) => data.Items.map((ata) => !ata ? null : <button className="ui purple button">{ata.Text}</button>))
-
+      } 
+      
+      const ajdeVise = data.Items.map((a, i) => <ThirdButtonList key={i} data={data} value={a.Value} imeDugmeta={a.Text}/>)
+      
       this.setState({
          thirdGroup: ajdeVise
       })
       // console.log(TournamentSpecialMatchList.map((a) => a.Items.map((b) => b.Text)))
    }
 
-   // const ajdeVise = TounamentSpecialMainList.map((data, i) => i === broj ? console.log(i) && data.TournamentSpecialMatchList.map((item) => item.Items.map((a) => <button> {a.Text} </button>)) : null)
-   // const ajdeVise = TounamentSpecialMainList.map((data, i) => data[broj].TournamentSpecialMatchList.map((data) => data.Items.map((ata) =>
-   //    <div style={{ display: 'inline-block' }} onClick={(e) => this.thirdButtons(e, data)}><SecondButtonList color="red" textValue={ata.Text}></SecondButtonList> </div>
-   // )))
-
-
-
-   // return (
-   //    TounamentSpecialMainList.map((data, i) => i === broj ? data.TournamentSpecialMatchList.map((data) => data.Items.map((ata) =>
-   //       <div style={{ display: 'inline-block' }} onClick={(e) => this.thirdButtons(e, data)}><SecondButtonList color="red" textValue={ata.Text}></SecondButtonList> </div>
-
-   //    ))
-   //       : null
-   //    ))
-
-   // if(special.DescriptionOrder === this.state.description)
-
-   //console.log("reeeeeeed", special.TournamentSpecialMatchList)
-   // const blueButtons = special.TournamentSpecialMatchList.map((data) => data.Items.map((ata) => <SecondButtonList color="blue" textValue={ata.Text}></SecondButtonList>))
-   // return null
-
+  
 
 
    renderTounementMainTitleList() {
