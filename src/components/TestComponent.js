@@ -205,10 +205,29 @@ class TestComponent extends Component {
 
       return (
          <div style={{ border: '2px green solid', marginBottom: '20px' }} >
-            <div style={{ background: 'yellow', border: '1px solid orange', marginBottom: '0px', padding: '20px' }}>
-               <h5 >{objekat.TournamentName}</h5>
-            </div>
-            <div >
+         <div className="ui main  clearing segment" style={{background: 'yellow'}}>             
+         <button className="ui right floated icon button">
+               <i className="close icon"></i>
+         </button>                
+         <button className="ui right floated icon button">
+               <i className="sync icon"></i>
+         </button>                     
+         {/* <div className="ui selection dropdown">
+               <input type="hidden" name="gender"/>
+               <i className="dropdown icon"></i>
+               <div className="default text">Odds</div>
+         <div className="menu">
+               <div className="item" data-value="0">1</div>
+               <div className="item" data-value="1">X</div>
+               <div className="item" data-value="2">2</div>
+                        
+         </div>
+         </div> */}
+         <div className="left floated content">
+            <h5 >{objekat.TournamentName}</h5>
+         </div>
+         </div>
+         <div>
                {this.renderTounamentSpecialMainList()}
             </div>
             <div style={{ display: 'inline-block', width: '100%' }}>
@@ -232,7 +251,15 @@ class TestComponent extends Component {
                </Table.Body>
             </Table>
             {/* <h1>{`This is the separate tournament box: ${objekat.TournamentCode}`}</h1> */}
+            <div className="ui center aligned segment">
+               <button class="ui yellow basic button">UNICA</button>
+               <button class="ui black basic button">SINGLE</button>
+               <button class="ui green basic button">TRIPLA</button>
+               <button class="ui blue basic button">4UPLA</button>
+               <button class="ui red basic button">SUPLA</button>
+            </div>
          </div>
+
 
       )
    }

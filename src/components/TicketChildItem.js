@@ -20,9 +20,7 @@ class TicketChildItem extends Component {
                         <div className="header">
                                 {matchName}
                         </div>
-                        
-                            {oddType}                                
-                        
+                            {oddType}     
                 </div>
             </div>
             )

@@ -10,24 +10,10 @@ const customStyle = {
 class TicketGenerator extends Component {
     constructor(props) {
         super(props); 
-        this.props.fetchStartJson()           
+        this.props.fetchStartJson()
       }
 
-    addJsonToLocalStorage = () =>{    
-        const local = localStorage.getItem('ticket');
-        if(!local){
-            localStorage.setItem('ticket', JSON.stringify(this.props.ticket));
-            // JSON.parse(local);
-            // if(local.Guid !== this.props.ticket.Guid)
-        }
-      }
-
-    renderujOddListu(){
-        // const { TournamentCode } = this.props.champsMiddleBoxList;
-        // console.log('PROPS champsMiddleBoxList', this.props.champsMiddleBoxList);
-        // if (!TournamentCode) {
-        //    return null;
-        // }
+    renderujOddListu(){    
         return this.props.oddList.map((name, i) => {
             // console.log('PROPS inside map', name.TournamentCode);
             return (
@@ -38,15 +24,19 @@ class TicketGenerator extends Component {
        })
     }
     
-    render() {               
-            {this.addJsonToLocalStorage()}
-        return (    
+    render() {
+    if(this.props.ticket){         
+        if(localStorage.getItem("ticket") === null){          
+            console.log("KKK: ",this.props.ticket)   
+            localStorage.setItem('ticket', JSON.stringify(this.props.ticket));    
+        }
+    }        
+    return (    
             <div style={customStyle}>
                {this.renderujOddListu()}
-               </div>
+            </div>
             )
        }
-    
     }   
     
 const mapStateToProps = ({ ticket, oddList }) => ({ ticket, oddList})
