@@ -7,21 +7,23 @@ class TicketChildItem extends Component {
        
       }
         render() {          
-            const { oddValue, oddType, matchName, oddGroup } = this.props.objekat
+            const { MatchName, OddValue, OddTypeName } = this.props.data
+            console.log("is childa",this.props.data)
         return (    
-            <div className="item">
-                <div className="right floated content">
-                    {oddValue}
+            <div className="ui item">
+            <div className="ui left floated content">
+                        <div className="ui header">
+                                {MatchName}
+                        </div><br/>
+                            {OddTypeName}     
+                </div>
+                <div className="ui right floated content">
+                                 {OddValue}
                     <div className="ui icon button">
                         <i className="close icon"></i>
                     </div>
                 </div>
-                <div className="left floated content">
-                        <div className="header">
-                                {matchName}
-                        </div>
-                            {oddType}     
-                </div>
+                
             </div>
             )
        }

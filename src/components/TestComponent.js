@@ -133,16 +133,35 @@ class TestComponent extends Component {
       //       )
       //  })
    }
-   addOddToTicket = (e, sportCode, tourCode, oddType, oddValue, matchName, oddGroup) => {
-      e.preventDefault();
-      this.props.oddsTicketList({
-         sportCode,
-         tourCode,
-         oddType,
-         oddValue,
-         matchName,
-         oddGroup
-      })
+   addOddToTicket = (e, sportCode, tourCode, oddType, oddValue, matchName, oddGroup, oddCode, matchCode) => {
+      e.preventDefault();      
+      
+         let localTicket = JSON.parse(localStorage.ticket) 
+             
+         localTicket.isLive = false;
+         localTicket.matchId = matchCode;
+         localTicket.oddId = oddCode;
+         localTicket.operationType = 1;
+         localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
+         console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
+         
+
+         localStorage.setItem("ticket", JSON.stringify(localTicket));      
+
+      console.log("TIKETARA", localTicket)
+
+      this.props.oddsTicketList(localTicket)
+
+      // this.props.oddsTicketList({
+      //    sportCode,
+      //    tourCode,
+      //    oddType,
+      //    oddValue,
+      //    matchName,
+      //    oddGroup,
+      //    oddCode,
+      //    matchCode
+      // })
       // alert(sportCode+"tcOde:"+ tourCode )
    }
 
@@ -178,7 +197,8 @@ class TestComponent extends Component {
                         selectable
                         style={{ cursor: 'pointer' }}
                         onClick={(e) =>
-                           this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup)}>
+                           // this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup)}>
+                           this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>
                         {odds.OddValue}
                      </Table.Cell>
                   )

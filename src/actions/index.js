@@ -10,18 +10,20 @@ export const FETCH_START_JSON = 'FETCH_START_JSON';
 export const ODDS_TICKET_LIST = 'ODDS_TICKET_LIST';
 // export const FIRST_LEVEL_BUTTON_ID = 'FIRST_LEVEL_BUTTON_ID';
 
-export const oddsTicketList = (oddObject) => {
-    return {
-      type: ODDS_TICKET_LIST,
-      payload: oddObject
-    }
-  };
+  export const oddsTicketList = (oddObject) => async dispatch =>{
+    //console.log("LOG IZ AKCIJE: ", oddObject)  
+    await betvipApi.post("/Update",  JSON.stringify(oddObject))
+    .then(
+      response => dispatch({ type: ODDS_TICKET_LIST, payload: response.data }),//console.log("ODGOVOR SERVERA:  ", response),
+      error => console.log("ODGOVOR SERVERA", error)    
+    );    
+
+}
 
 export const fetchStartJson = () =>  async dispatch => {
     const response =  await betvipApi.get(`/Start`);        
 dispatch({ type: FETCH_START_JSON, payload: response.data });  
 }
-
 
 export const fetchChamps = () =>  async dispatch => {
         const response =  await betvipApi.get(`/structure?q=0`);        
