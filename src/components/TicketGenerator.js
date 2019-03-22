@@ -11,6 +11,10 @@ class TicketGenerator extends Component {
     constructor(props) {
         super(props); 
         this.props.fetchStartJson()
+        this.state = {
+            storageIsClear: false,
+            activeButton: false
+        }
       }
 
     // renderujOddListu(){    
@@ -23,7 +27,13 @@ class TicketGenerator extends Component {
     //         )
     //    })
     // }
-    
+    removeAllOdds = () => {
+        localStorage.clear();
+        this.setState({
+            storageIsClear: true
+        })
+        this.props.fetchStartJson()
+    }
     render() {
     if(this.props.ticket){         
         if(localStorage.getItem("ticket") === null){          
@@ -33,11 +43,63 @@ class TicketGenerator extends Component {
     }        
     const ticketValues = JSON.parse(localStorage.getItem('ticket'))
     //if(ticketValues) console.log(ticketValues.Odds.map((data) =>data))
+    
     return (    
         <div>
+             <div className="ui item">
+            <div className="ui left floated content">
+                        <div className="ui header">
+                                Remove all odds 
+                        </div>   
+                </div>
+                <div className="ui right floated content">                                 
+                    <div className="ui icon button" onClick={this.removeAllOdds}>
+                        <i className="close icon"></i>
+                    </div>
+                </div>
+                
+            </div>
             <div className="ui items" style={customStyle}>
                {ticketValues && ticketValues.Odds.map((data) => <TicketChildItem data={data}/>)}
-            </div>                    
+            </div>   
+               
+                    <button className="ui toggle button" onClick={() => this.setState({ activeButton: false})}>MULTIPLA</button>
+                    <button className="ui toggle button" onClick={() => this.setState({ activeButton: true})}>SISTEMA</button>
+            {
+                this.state.activeButton && ticketValues.Bets.map((data) => {
+                    return(
+                        <div className="ui middle aligned divided list">
+                            <div className="item">
+                            <div className="right floated content">
+                            <div className="ui input">
+                                <input type="text" placeholder="0" />
+                                </div>
+                            </div>                
+                            <div className="content">
+                                { data.GroupDescription}
+                            </div>
+                            {data.Cols}
+                            </div>
+                            </div>                            
+                       
+                    )
+                })
+            }
+            {
+                !this.state.activeButton && <div className="ui middle aligned divided list">    
+                            <div className="item">
+                            <div className="right floated content">
+                            <div className="ui input">
+                                <input type="text" placeholder="0" />
+                                </div>
+                            </div>                
+                            <div className="content">
+                            MULTIPLA
+                            </div>
+                            
+                            </div>
+                            </div>                            
+            }
                 <div className="ui middle aligned divided list">
                 <div className="item">
                 <div className="right floated content">
