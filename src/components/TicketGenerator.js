@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import _ from 'lodash'
 import { connect } from 'react-redux';
 import { fetchStartJson } from '../actions';
 import TicketChildItem from './TicketChildItem';
+import { Button, Header, Icon, Image, Modal, Embed } from 'semantic-ui-react';
+
 
 const customStyle = {
     background: 'yellow',
@@ -15,7 +18,8 @@ class TicketGenerator extends Component {
         this.props.fetchStartJson()
         this.state = {
             storageIsClear: false,
-            activeButton: false
+            activeButton: false,
+            modalOpen: false
         }
       }
 
@@ -29,6 +33,9 @@ class TicketGenerator extends Component {
     //         )
     //    })
     // }
+    handleOpen = () => this.setState({ modalOpen: true })
+    handleClose = () => this.setState({ modalOpen: false })
+
     removeAllOdds = () => {
         localStorage.clear();
         this.setState({
@@ -59,6 +66,31 @@ class TicketGenerator extends Component {
    
     return (    
         <div>
+            <Modal  trigger={<Button onClick={this.handleOpen}>USA IL QUICK CODE</Button>}
+            open={this.state.modalOpen}
+            onClose={this.handleClose}
+            size='fullscreen'
+            
+            >
+            {/* <Modal.Header>Profile Picture</Modal.Header> */}
+            <Modal.Content scrolling >            
+            <Embed
+                    active={true}
+                    url='http://www.betvip.fun/sport/oddstype'
+                    
+                />
+            {/* <Modal.Description>
+                <Header>Modal Header</Header>
+                <p>This is an example of expanded content that will cause the modal's dimmer to scroll</p>
+
+            </Modal.Description>          */}
+            </Modal.Content>
+            <Modal.Actions>
+            <Button color='green' onClick={this.handleClose} inverted>
+               <Icon name='checkmark' /> Close    
+            </Button>
+            </Modal.Actions>
+        </Modal>
              <div className="ui item">
             <div className="ui left floated content">
                         <div className="ui header">
