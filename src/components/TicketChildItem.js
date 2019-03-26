@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
+import { oddsTicketList } from '../actions';
 
 class TicketChildItem extends Component {
     constructor(props) {
@@ -35,6 +36,21 @@ class TicketChildItem extends Component {
       nestoUradi = (e, mId, OddId) => {
           e.preventDefault();
             alert(`MatchId: ${mId}, OddId: ${OddId}`)
+            let localTicket = JSON.parse(localStorage.ticket) 
+             
+            localTicket.isLive = false;
+            localTicket.matchId = mId;
+            localTicket.oddId = OddId;
+            localTicket.operationType = 2;
+            //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
+            //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
+            
+   
+            localStorage.setItem("ticket", JSON.stringify(localTicket));      
+   
+         console.log("TIKETARA 44444444444: ", localTicket)
+   
+         this.props.oddsTicketList(localTicket)
       }
         render() {          
             const { MatchName, OddValue, OddTypeName, MatchId, Odds} = this.props.data
@@ -71,5 +87,6 @@ class TicketChildItem extends Component {
         )
        }
     }    
-    // const mapStateToProps = ({ middleBoxButtons }) => ({ middleBoxButtons })
-export default TicketChildItem;
+// const mapStateToProps = ({ middleBoxButtons }) => ({ middleBoxButtons })
+export default connect(null, { oddsTicketList })(TicketChildItem);
+    
