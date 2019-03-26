@@ -47,7 +47,7 @@ class TicketChildItem extends Component {
                 <div className="ui middle aligned divided list">
                 <div className="ui item">
                 <div className="ui left floated content">     
-                <h5>{distinctValue}</h5>
+                <h4>{distinctValue}</h4>
                 </div>
                 </div>
                 {Odds.map((a) => {
