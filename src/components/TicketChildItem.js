@@ -35,7 +35,7 @@ class TicketChildItem extends Component {
       }
       nestoUradi = (e, mId, OddId) => {
           e.preventDefault();
-            alert(`MatchId: ${mId}, OddId: ${OddId}`)
+            // alert(`MatchId: ${mId}, OddId: ${OddId}`)
             let localTicket = JSON.parse(localStorage.ticket) 
              
             localTicket.isLive = false;
