@@ -4,7 +4,9 @@ import { fetchStartJson } from '../actions';
 import TicketChildItem from './TicketChildItem';
 
 const customStyle = {
-    background: 'yellow'
+    background: 'yellow',
+    border: '1px solid black',
+    padding: '5px'
 }
 //OVO JE JEDNOSTAVNI BUTTON COMPONENT koji prima samo color prop i textValue zasto
 class TicketGenerator extends Component {
@@ -33,7 +35,17 @@ class TicketGenerator extends Component {
             storageIsClear: true
         })
         this.props.fetchStartJson()
+    }    
+    
+    renderTicketChildren = (ticketValues) => {
+        console.log("Iz funkcije", ticketValues)        
+        const prom = ticketValues.Odds.map((a) => a.MatchId)
+        const unique = [...new Set(prom)]
+        console.log("Iz funkcije 2", unique)
+
+        return unique.map((data, i) => <TicketChildItem key={i} matchId={data} data={ticketValues}/>)
     }
+
     render() {
     if(this.props.ticket){         
         if(localStorage.getItem("ticket") === null){          
@@ -44,13 +56,14 @@ class TicketGenerator extends Component {
     const ticketValues = JSON.parse(localStorage.getItem('ticket'))
     //if(ticketValues) console.log(ticketValues.Odds.map((data) =>data))
     
+   
     return (    
         <div>
              <div className="ui item">
             <div className="ui left floated content">
                         <div className="ui header">
                                 Remove all odds 
-                        </div>   
+                        </div>      
                 </div>
                 <div className="ui right floated content">                                 
                     <div className="ui icon button" onClick={this.removeAllOdds}>
@@ -60,8 +73,14 @@ class TicketGenerator extends Component {
                 
             </div>
             <div className="ui items" style={customStyle}>
-               {ticketValues && ticketValues.Odds.map((data) => <TicketChildItem data={data}/>)}
+            {ticketValues && this.renderTicketChildren(ticketValues)}
+                {/* {ticketValues && ticketValues.Odds.map((data, i) => <TicketChildItem key={i} data={data}/>)} */}
+                {/* {ticketValues &&  [...(new Set(ticketValues.Odds.map(({ MatchId }) => <button>{MatchId}</button>)))]} */}
+                {/* {ticketValues && Array.from(new Set(ticketValues.Odds.map(s => s.MatchId)))
+                            .map(MatchId => <button>{MatchId}</button>)
+                            } */}  
             </div>   
+        
                
                     <button className="ui toggle button" onClick={() => this.setState({ activeButton: false})}>MULTIPLA</button>
                     <button className="ui toggle button" onClick={() => this.setState({ activeButton: true})}>SISTEMA</button>
@@ -75,8 +94,12 @@ class TicketGenerator extends Component {
                                 <input type="text" placeholder="0" />
                                 </div>
                             </div>                
-                            <div className="content">
-                                { data.GroupDescription}
+                            <div className="ui left floated content">
+                            <div class="ui checkbox">
+                                <input type="checkbox" name={data.GroupDescription} />
+                                <label> { data.GroupDescription}</label>
+                            </div>
+                               
                             </div>
                             {data.Cols}
                             </div>

@@ -142,8 +142,8 @@ class TestComponent extends Component {
          localTicket.matchId = matchCode;
          localTicket.oddId = oddCode;
          localTicket.operationType = 1;
-         localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
-         console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
+         //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
+         //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
          
 
          localStorage.setItem("ticket", JSON.stringify(localTicket));      
@@ -152,17 +152,7 @@ class TestComponent extends Component {
 
       this.props.oddsTicketList(localTicket)
 
-      // this.props.oddsTicketList({
-      //    sportCode,
-      //    tourCode,
-      //    oddType,
-      //    oddValue,
-      //    matchName,
-      //    oddGroup,
-      //    oddCode,
-      //    matchCode
-      // })
-      // alert(sportCode+"tcOde:"+ tourCode )
+
    }
 
    renderTournamentMatchList() {
