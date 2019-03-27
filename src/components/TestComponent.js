@@ -171,13 +171,14 @@ renderTitleList() {
 
             <Table.Row>
 
-               <Table.Cell>
-                  <Header>
-                     {val.QuickMatchCode}
-                     {val.MatchDate}
-                  </Header>
+               <Table.Cell width="three">                  
                   <Header.Content>
+                     {val.QuickMatchCode} {val.MatchDate}
+                     <Header.Subheader>
+                     
                      {val.MatchName}
+                     </Header.Subheader>
+                    
                   </Header.Content>
                </Table.Cell>
                {
@@ -185,7 +186,7 @@ renderTitleList() {
                      <Table.Cell
                         key={o}
                         textAlign="center"
-                        width="four"
+                        width="one"
                         selectable
                         active={oddIdList.includes(odds.OddCode) ? true : false}                        
                         style={{ cursor: 'pointer'}}
