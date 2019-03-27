@@ -19,7 +19,8 @@ class TestComponent extends Component {
          sportCode: '',
          DescriptionOrder: 0,
          broj: Number,
-         reRendered: Boolean
+         reRendered: Boolean,
+         updateBox: []
       }
       this.buttonRef = React.createRef();
    }
@@ -45,7 +46,7 @@ class TestComponent extends Component {
 
 
       //this.props.callFromBox(TournamentCode, SportCode, refOrangeButton)
-      this.props.updateChampList(TournamentCode, SportCode, [1, 2, 3, 6])
+      this.props.updateChampList(TournamentCode, SportCode, this.state.updateBox)
 
    }
 
@@ -64,7 +65,7 @@ class TestComponent extends Component {
    renderSecondButtonList(broj, data) {
       if (broj === undefined) return console.log("greska", broj)
 
-      console.log("Ovde radi2: ", broj)
+      console.log("Ovde radi2: ", data[0].Value)
       const { TounamentSpecialMainList } = this.props.objekat;
       if (!TounamentSpecialMainList) {
          return null;
@@ -77,7 +78,8 @@ class TestComponent extends Component {
 
       this.setState({
          secondGroup: ajdeVise,
-         thirdGroup: []
+         thirdGroup: [],
+         updateBox: data[0].Value
       })
       // console.log(TournamentSpecialMatchList.map((a) => a.Items.map((b) => b.Text)))
    }
