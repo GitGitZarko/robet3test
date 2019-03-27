@@ -1,5 +1,5 @@
 .ui.table td.active, .ui.table tr.active, .ui.active.button.moje-dugme{
-   background: lightgreen;        
+   background: lightgreen !important;        
 }
 .ui.button.moje-dugme{
     background: white;
