@@ -3,6 +3,7 @@ import { Header, Table, Button, SegmentInline, Ref } from 'semantic-ui-react'
 import MainButtonList from './MainButtonList';
 import SecondButtonList from './SecondButtonList';
 import ThirdButtonList from './ThirdButtonList';
+import '../public/css/Sports.css';
 import { connect } from 'react-redux';
 import { callFromBox, updateChampList, oddsTicketList } from '../actions';
 import '../public/css/Sports.css';
@@ -17,7 +18,8 @@ class TestComponent extends Component {
          tournamentCode: '',
          sportCode: '',
          DescriptionOrder: 0,
-         broj: Number
+         broj: Number,
+         reRendered: Boolean
       }
       this.buttonRef = React.createRef();
    }
@@ -98,12 +100,8 @@ class TestComponent extends Component {
       // console.log(TournamentSpecialMatchList.map((a) => a.Items.map((b) => b.Text)))
    }
 
-  
-
-
-   renderTounementMainTitleList() {
+renderTounementMainTitleList() {
       const { TounementMainTitleList } = this.props.objekat;
-
       // console.log('PROPS champsContent', this.props.champsContent);
       if (!TounementMainTitleList) {
          return null;
@@ -114,7 +112,7 @@ class TestComponent extends Component {
          )
       })
    }
-   renderTitleList() {
+renderTitleList() {
       const { TounementTitleList } = this.props.objekat;
       //console.log('PROPS champsContent', this.props.champsContent);
       if (!TounementTitleList) {
@@ -135,6 +133,9 @@ class TestComponent extends Component {
    }
    addOddToTicket = (e, sportCode, tourCode, oddType, oddValue, matchName, oddGroup, oddCode, matchCode) => {
       e.preventDefault();      
+            this.setState({
+               reRendered: !this.state.reRendered
+            }) 
       
          let localTicket = JSON.parse(localStorage.ticket) 
              
@@ -150,15 +151,16 @@ class TestComponent extends Component {
 
       console.log("TIKETARA", localTicket)
 
-      this.props.oddsTicketList(localTicket)
-
-
+      this.props.oddsTicketList(localTicket)  
+      
+   
    }
 
    renderTournamentMatchList() {
       const { TournamentMatchList } = this.props.objekat;
+      let localTicket = JSON.parse(localStorage.ticket) 
+      let oddIdList = localTicket.Odds.map((a) => a.OddId)
 
-      console.log('PROPS champsContent', this.props.objekat);
       if (!TournamentMatchList) {
          return null;
       }
@@ -179,13 +181,14 @@ class TestComponent extends Component {
                   </Header.Content>
                </Table.Cell>
                {
-                  val.TournamentMatchOddList.map((odds, o) =>
+                  val.TournamentMatchOddList.map((odds, o) =>              
                      <Table.Cell
                         key={o}
                         textAlign="center"
                         width="four"
                         selectable
-                        style={{ cursor: 'pointer' }}
+                        active={oddIdList.includes(odds.OddCode) ? true : false}                        
+                        style={{ cursor: 'pointer'}}
                         onClick={(e) =>
                            // this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup)}>
                            this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>
@@ -275,5 +278,5 @@ class TestComponent extends Component {
    }
 }
 
-const mapStateToProps = ({ middleBoxButtons }) => ({ middleBoxButtons })
+const mapStateToProps = ({ middleBoxButtons, oddList }) => ({ middleBoxButtons, oddList })
 export default connect(mapStateToProps, { callFromBox, updateChampList, oddsTicketList })(TestComponent);
