@@ -1,3 +1,27 @@
-.ui.table td.active, .ui.table tr.active{
-   background: lightgreen !important;        
+.ui.table td.active, .ui.table tr.active, .ui.active.button.moje-dugme{
+   background: lightgreen;        
 }
+.ui.button.moje-dugme{
+    background: white;
+}
+.ui.button.moje-dugme:hover{
+    background: rgba(34, 36, 38, 0.1);
+}
+.ui.active.button.moje-dugme:hover{
+    background: lightgreen; 
+}
+.buttons{
+  border: none;
+  color: white;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;  
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+

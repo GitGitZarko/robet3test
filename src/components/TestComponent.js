@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Table, Button, SegmentInline, Ref } from 'semantic-ui-react'
+import { Header, Table, Button, SegmentInline, Ref, Grid } from 'semantic-ui-react'
 import MainButtonList from './MainButtonList';
 import SecondButtonList from './SecondButtonList';
 import ThirdButtonList from './ThirdButtonList';
@@ -102,12 +102,15 @@ class TestComponent extends Component {
 
 renderTounementMainTitleList() {
       const { TounementMainTitleList } = this.props.objekat;
+      
       // console.log('PROPS champsContent', this.props.champsContent);
       if (!TounementMainTitleList) {
          return null;
       }
+      
       return TounementMainTitleList.map((name, a) => {
-         return (
+         console.log("KURAC!!!: ", a )
+         return (            
             <Table.HeaderCell key={a} textAlign="center" colSpan={name.numeroScommesse}>{name.nome}</Table.HeaderCell>
          )
       })
@@ -151,20 +154,18 @@ renderTitleList() {
 
       console.log("TIKETARA", localTicket)
 
-      this.props.oddsTicketList(localTicket)  
-      
-   
+      this.props.oddsTicketList(localTicket)   
    }
 
    renderTournamentMatchList() {
       const { TournamentMatchList } = this.props.objekat;
       let localTicket = JSON.parse(localStorage.ticket) 
       let oddIdList = localTicket.Odds.map((a) => a.OddId)
-
+      
       if (!TournamentMatchList) {
          return null;
       }
-
+      
       return TournamentMatchList.map(val => {
          // console.log(val.TournamentMatchOddList)
          return (
@@ -181,8 +182,8 @@ renderTitleList() {
                     
                   </Header.Content>
                </Table.Cell>
-               {
-                  val.TournamentMatchOddList.map((odds, o) =>              
+               {  !this.props.objekat.IsSpecial ?
+                  val.TournamentMatchOddList.map((odds, o) =>                      
                      <Table.Cell
                         key={o}
                         textAlign="center"
@@ -195,7 +196,19 @@ renderTitleList() {
                            this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>
                         {odds.OddValue}
                      </Table.Cell>
-                  )
+                  ) : val.TournamentMatchOddList.map((odds, o) => 
+                      <Button className="moje-dugme"
+                      key={o}                      
+                      style={{textAlign: 'left', margin: 0, width: '25%', borderRadius: 0}}
+                      active={oddIdList.includes(odds.OddCode) ? true : false} 
+                      onClick={(e) =>
+                        // this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup)}>
+                        this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>                      
+                      {odds.OddType}
+                      <span style={{float: 'right'}}>{odds.OddValue}</span>
+                      </Button>
+                      )
+               
                }
 
             </Table.Row>
