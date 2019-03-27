@@ -5,7 +5,7 @@ import SecondButtonList from './SecondButtonList';
 import ThirdButtonList from './ThirdButtonList';
 import '../public/css/Sports.css';
 import { connect } from 'react-redux';
-import { callFromBox, updateChampList, oddsTicketList } from '../actions';
+import { callFromBox, updateChampList, oddsTicketList, removeChampFromList } from '../actions';
 import '../public/css/Sports.css';
 
 class TestComponent extends Component {
@@ -23,7 +23,7 @@ class TestComponent extends Component {
       }
       this.buttonRef = React.createRef();
    }
-   
+
    // Toggle the visibility
    //  toggleHidden(e) {
    //    this.setState({
@@ -31,7 +31,7 @@ class TestComponent extends Component {
    //    });
    //    console.log(e.target.dataset.id)
    //  }
-   ajdeKlikni = (e, description) => {
+   ajdeKlikni = (e) => {
       e.preventDefault();
       const { TounamentSpecialMainList, SportCode, TournamentCode } = this.props.objekat;
       if (!TounamentSpecialMainList) {
@@ -40,14 +40,12 @@ class TestComponent extends Component {
 
       this.setState({
          isHidden: !this.state.isHidden,
-         DescriptionOrder: description,
-      })
-      const refOrangeButton = e.target.dataset.value
 
-      console.log(e.target.dataset.value)
+      })
+
 
       //this.props.callFromBox(TournamentCode, SportCode, refOrangeButton)
-      this.props.updateChampList(TournamentCode, SportCode, refOrangeButton)
+      this.props.updateChampList(TournamentCode, SportCode, [1, 2, 3, 6])
 
    }
 
@@ -90,32 +88,32 @@ class TestComponent extends Component {
       const { TounamentSpecialMainList } = this.props.objekat;
       if (!TounamentSpecialMainList) {
          return null;
-      } 
-      
-      const ajdeVise = data.Items.map((a, i) => <ThirdButtonList key={i} data={data} value={a.Value} imeDugmeta={a.Text}/>)
-      
+      }
+
+      const ajdeVise = data.Items.map((a, i) => <ThirdButtonList key={i} data={data} value={a.Value} imeDugmeta={a.Text} />)
+
       this.setState({
          thirdGroup: ajdeVise
       })
       // console.log(TournamentSpecialMatchList.map((a) => a.Items.map((b) => b.Text)))
    }
 
-renderTounementMainTitleList() {
+   renderTounementMainTitleList() {
       const { TounementMainTitleList } = this.props.objekat;
-      
+
       // console.log('PROPS champsContent', this.props.champsContent);
       if (!TounementMainTitleList) {
          return null;
       }
-      
+
       return TounementMainTitleList.map((name, a) => {
-         console.log("KURAC!!!: ", a )
-         return (            
+         console.log("KURAC!!!: ", a)
+         return (
             <Table.HeaderCell key={a} textAlign="center" colSpan={name.numeroScommesse}>{name.nome}</Table.HeaderCell>
          )
       })
    }
-renderTitleList() {
+   renderTitleList() {
       const { TounementTitleList } = this.props.objekat;
       //console.log('PROPS champsContent', this.props.champsContent);
       if (!TounementTitleList) {
@@ -135,80 +133,80 @@ renderTitleList() {
       //  })
    }
    addOddToTicket = (e, sportCode, tourCode, oddType, oddValue, matchName, oddGroup, oddCode, matchCode) => {
-      e.preventDefault();      
-            this.setState({
-               reRendered: !this.state.reRendered
-            }) 
-      
-         let localTicket = JSON.parse(localStorage.ticket) 
-             
-         localTicket.isLive = false;
-         localTicket.matchId = matchCode;
-         localTicket.oddId = oddCode;
-         localTicket.operationType = 1;
-         //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
-         //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
-         
+      e.preventDefault();
+      this.setState({
+         reRendered: !this.state.reRendered
+      })
 
-         localStorage.setItem("ticket", JSON.stringify(localTicket));      
+      let localTicket = JSON.parse(localStorage.ticket)
+
+      localTicket.isLive = false;
+      localTicket.matchId = matchCode;
+      localTicket.oddId = oddCode;
+      localTicket.operationType = 1;
+      //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
+      //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
+
+
+      localStorage.setItem("ticket", JSON.stringify(localTicket));
 
       console.log("TIKETARA", localTicket)
 
-      this.props.oddsTicketList(localTicket)   
+      this.props.oddsTicketList(localTicket)
    }
 
    renderTournamentMatchList() {
       const { TournamentMatchList } = this.props.objekat;
-      let localTicket = JSON.parse(localStorage.ticket) 
+      let localTicket = JSON.parse(localStorage.ticket)
       let oddIdList = localTicket.Odds.map((a) => a.OddId)
-      
+
       if (!TournamentMatchList) {
          return null;
       }
-      
+
       return TournamentMatchList.map(val => {
          // console.log(val.TournamentMatchOddList)
          return (
 
             <Table.Row>
 
-               <Table.Cell width="three">                  
+               <Table.Cell width="three">
                   <Header.Content>
                      {val.QuickMatchCode} {val.MatchDate}
                      <Header.Subheader>
-                     
-                     {val.MatchName}
+
+                        {val.MatchName}
                      </Header.Subheader>
-                    
+
                   </Header.Content>
                </Table.Cell>
-               {  !this.props.objekat.IsSpecial ?
-                  val.TournamentMatchOddList.map((odds, o) =>                      
+               {!this.props.objekat.IsSpecial ?
+                  val.TournamentMatchOddList.map((odds, o) =>
                      <Table.Cell
                         key={o}
                         textAlign="center"
                         width="one"
                         selectable
-                        active={oddIdList.includes(odds.OddCode) ? true : false}                        
-                        style={{ cursor: 'pointer'}}
+                        active={oddIdList.includes(odds.OddCode) ? true : false}
+                        style={{ cursor: 'pointer' }}
                         onClick={(e) =>
                            // this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup)}>
                            this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>
                         {odds.OddValue}
                      </Table.Cell>
-                  ) : val.TournamentMatchOddList.map((odds, o) => 
-                      <Button className="moje-dugme"
-                      key={o}                      
-                      style={{textAlign: 'left', margin: 0, width: '25%', borderRadius: 0}}
-                      active={oddIdList.includes(odds.OddCode) ? true : false} 
-                      onClick={(e) =>
-                        // this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup)}>
-                        this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>                      
-                      {odds.OddType}
-                      <span style={{float: 'right'}}>{odds.OddValue}</span>
-                      </Button>
-                      )
-               
+                  ) : val.TournamentMatchOddList.map((odds, o) =>
+                     <Button className="moje-dugme"
+                        key={o}
+                        style={{ textAlign: 'left', margin: 0, width: '25%', borderRadius: 0 }}
+                        active={oddIdList.includes(odds.OddCode) ? true : false}
+                        onClick={(e) =>
+                           // this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup)}>
+                           this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>
+                        {odds.OddType}
+                        <span style={{ float: 'right' }}>{odds.OddValue}</span>
+                     </Button>
+                  )
+
                }
 
             </Table.Row>
@@ -226,20 +224,24 @@ renderTitleList() {
          thirdGroup: data.Items
       })
    }
+   removeChampFromList = () => {
+      const { SportCode, TournamentCode } = this.props.objekat
+      this.props.removeChampFromList(TournamentCode, SportCode);
+   }
 
    render() {
       const { objekat } = this.props
 
       return (
          <div style={{ border: '2px green solid', marginBottom: '20px' }} >
-         <div className="ui main  clearing segment" style={{background: 'yellow'}}>             
-         <button className="ui right floated icon button">
-               <i className="close icon"></i>
-         </button>                
-         <button className="ui right floated icon button">
-               <i className="sync icon"></i>
-         </button>                     
-         {/* <div className="ui selection dropdown">
+            <div className="ui main  clearing segment" style={{ background: 'yellow' }}>
+               <button className="ui right floated icon button" onClick={this.removeChampFromList}>
+                  <i className="close icon"></i>
+               </button>
+               <button className="ui right floated icon button" onClick={this.ajdeKlikni}>
+                  <i className="sync icon"></i>
+               </button>
+               {/* <div className="ui selection dropdown">
                <input type="hidden" name="gender"/>
                <i className="dropdown icon"></i>
                <div className="default text">Odds</div>
@@ -250,11 +252,11 @@ renderTitleList() {
                         
          </div>
          </div> */}
-         <div className="left floated content">
-            <h5 >{objekat.TournamentName}</h5>
-         </div>
-         </div>
-         <div>
+               <div className="left floated content">
+                  <h5 >{objekat.TournamentName}</h5>
+               </div>
+            </div>
+            <div>
                {this.renderTounamentSpecialMainList()}
             </div>
             <div style={{ display: 'inline-block', width: '100%' }}>
@@ -293,4 +295,4 @@ renderTitleList() {
 }
 
 const mapStateToProps = ({ middleBoxButtons, oddList }) => ({ middleBoxButtons, oddList })
-export default connect(mapStateToProps, { callFromBox, updateChampList, oddsTicketList })(TestComponent);
+export default connect(mapStateToProps, { callFromBox, updateChampList, oddsTicketList, removeChampFromList })(TestComponent);
