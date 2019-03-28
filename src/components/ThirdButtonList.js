@@ -20,6 +20,7 @@ class ThirdButtonList extends Component {
     const { value } = this.props
     return (
       <button
+        style={{margin: 0, width: '25%', borderRadius: 0,border: '1px solid white'}}
         className="ui purple button"
         onClick={(e) => this.callUpdateTable(e, value)}>
         {this.props.imeDugmeta}

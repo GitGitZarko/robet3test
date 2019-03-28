@@ -65,7 +65,7 @@ class TestComponent extends Component {
    renderSecondButtonList(broj, data) {
       if (broj === undefined) return console.log("greska", broj)
 
-      console.log("Ovde radi2: ", data[0].Value)
+      // console.log("Ovde radi2: ", data[0].Value)
       const { TounamentSpecialMainList } = this.props.objekat;
       if (!TounamentSpecialMainList) {
          return null;
@@ -86,7 +86,7 @@ class TestComponent extends Component {
    renderThirdButtonList(broj, data) {
       if (broj === undefined) return console.log("greska", broj)
 
-      console.log("Ovde radi2: ", broj)
+      // console.log("Ovde radi2: ", broj)
       const { TounamentSpecialMainList } = this.props.objekat;
       if (!TounamentSpecialMainList) {
          return null;
@@ -109,7 +109,7 @@ class TestComponent extends Component {
       }
 
       return TounementMainTitleList.map((name, a) => {
-         console.log("KURAC!!!: ", a)
+         // console.log("KURAC!!!: ", a)
          return (
             <Table.HeaderCell key={a} textAlign="center" colSpan={name.numeroScommesse}>{name.nome}</Table.HeaderCell>
          )
@@ -152,7 +152,7 @@ class TestComponent extends Component {
 
       localStorage.setItem("ticket", JSON.stringify(localTicket));
 
-      console.log("TIKETARA", localTicket)
+      // console.log("TIKETARA", localTicket)
 
       this.props.oddsTicketList(localTicket)
    }
@@ -221,7 +221,7 @@ class TestComponent extends Component {
    }
    thirdButtons(e, data) {
       e.preventDefault();
-      console.log(data)
+      // console.log(data)
       this.setState({
          thirdGroup: data.Items
       })

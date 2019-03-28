@@ -50,6 +50,7 @@ class MainButtonList extends Component {
 
     return (
       <button
+        style={{margin: 0, width: '25%', borderRadius: 0,border: '1px solid white'}}
         className="ui orange button"
         ref={this.buttonRef}
         onClick={(e) => this.renderSecondButtonList(e, kljuc, TournamentSpecialMatchList)}>

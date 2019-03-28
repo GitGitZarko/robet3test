@@ -45,14 +45,22 @@ class TicketGenerator extends Component {
     }    
     
     renderTicketChildren = (ticketValues) => {
-        console.log("Iz funkcije", ticketValues)        
+        // console.log("Iz funkcije", ticketValues)        
         const prom = ticketValues.Odds.map((a) => a.MatchId)
         const unique = [...new Set(prom)]
-        console.log("Iz funkcije 2", unique)
+        // console.log("Iz funkcije 2", unique)
+        // this.checkTheOddsLenght()
 
         return unique.map((data, i) => <TicketChildItem key={i} matchId={data} data={ticketValues}/>)
     }
 
+    checkTheOddsLenght = () => {
+        //console.log(unique.lenght)
+        let localTicket = JSON.parse(localStorage.ticket)
+        let oddIdList = localTicket.Odds.map((a) => a.OddId)
+        let nesto = oddIdList.length < 1 || oddIdList.length == 0 ? true : false
+        return nesto
+    }   
     render() {
     if(this.props.ticket){         
         if(localStorage.getItem("ticket") === null){          
@@ -63,7 +71,6 @@ class TicketGenerator extends Component {
     const ticketValues = JSON.parse(localStorage.getItem('ticket'))
     //if(ticketValues) console.log(ticketValues.Odds.map((data) =>data))
     
-   
     return (    
         <div>
             <Modal  trigger={<Button onClick={this.handleOpen}>USA IL QUICK CODE</Button>}
@@ -114,8 +121,14 @@ class TicketGenerator extends Component {
             </div>   
         
                
-                    <button className="ui toggle button" onClick={() => this.setState({ activeButton: false})}>MULTIPLA</button>
-                    <button className="ui toggle button" onClick={() => this.setState({ activeButton: true})}>SISTEMA</button>
+                   { this.checkTheOddsLenght() &&   
+                            <div>
+                            <button className="ui toggle button" onClick={() => this.setState({ activeButton: false})}>MULTIPLA</button> 
+                            <button className="ui toggle button" onClick={() => this.setState({ activeButton: true})}>SISTEMA</button>
+                            </div>                                    
+                       
+                   
+                   }
             {
                 this.state.activeButton && ticketValues.Bets.map((data) => {
                     return(

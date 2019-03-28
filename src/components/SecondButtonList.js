@@ -35,6 +35,7 @@ class SecondButtonList extends Component {
     return (
 
       <button
+        style={{margin: 0, width: '25%', borderRadius: 0, border: '1px solid white'}}
         className="ui teal button"
         onClick={(e) => this.renderThirdButtonList(e, kljuc, this.props.special)}
       >
