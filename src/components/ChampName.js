@@ -10,38 +10,50 @@ class ChampName extends Component {
         this.state = {
           values: [],          
           isFocused: Boolean,
-          isOpen: false,         
-          color: ''
-          
+          isOpen: false,                  
         }
-    }
 
-    onFocus = () => {
-        this.setState({
-            isFocused: !this.state.isFocused,
-            color: this.state.isFocused ? 'red' : 'white'
-        })
+        
     }
     
+    onFocus = () => {
+        const { champs } = this.props
+        let listaTournamentCode = this.props.champsMiddleBoxList.map((objekat) => objekat.TournamentCode)
+        return listaTournamentCode
+    }
+
     azurirajContent = (e) =>
     {
-        e.preventDefault();        
-        this.onFocus();
+        e.preventDefault();  
+        
         const { champs } = this.props
-        const { sportId } = this.props        
-        if(this.state.isFocused == false){
-            this.props.removeChampFromList(champs.ChampId, sportId);
-        }else{
+        const { sportId } = this.props   
+        // const { TournamentCode } = this.props.champsMiddleBoxList        
+        
+        // console.log("LISTICA::::: JEDNAKO JE", listaTournamentCode, champs.ChampId)
+        if(this.onFocus().some(a => a == champs.ChampId)){ 
+            console.log('tu je ima ga')                 
+            this.props.removeChampFromList(champs.ChampId, sportId)
+            this.setState({isOpen: false})              
+        }else{                    
+            console.log('neje tu nema ga')                 
             this.props.addChampToList(champs.ChampId, sportId)
+            this.setState({isOpen: true})                
         }
+        //listaTournamentCode.includes(champs.ChampId) ? console.log('true') : this.props.addChampToList(champs.ChampId, sportId)
+
+        // this.props.removeChampFromList(champs.ChampId, sportId) : this.props.addChampToList(champs.ChampId, sportId)
+//    
+        // if(this.state.isFocused == false){
+        //     this.props.removeChampFromList(champs.ChampId, sportId)
+        // }else{
+        //     this.props.addChampToList(champs.ChampId, sportId)
+        // }
+
         //this.props.fetchChampList(champs.ChampId, sportId);      
         
-        console.debug(this.props.champsMiddleBoxList);
-        this.props.champsMiddleBoxList.map((objekat) => {
-            const { TournamentCode } = objekat            
-                console.log(TournamentCode);
-            
-        })
+        
+        // this.props.champsMiddleBoxList.map((objekat) => objekat.TournamentCode == champs.ChampId ? this.setState({ color: 'red'}) : this.setState({ color: 'blue'}) )
         
 
         // console.log(`Sampionat: ${champs.ChampName},
@@ -58,10 +70,11 @@ class ChampName extends Component {
     
     render() {       
         const { champs } = this.props
+      
        
      return ( 
                   
-           <div onClick={this.azurirajContent} className="ui middle aligned selection list" style={{ background: this.state.color, cursor: 'pointer', display: this.props.displayChild}}>
+           <div onClick={this.azurirajContent} className="ui middle aligned selection list" style={{ background: this.onFocus().some(a => a == champs.ChampId) ? 'red' : 'white', cursor: 'pointer'}}>
                 {champs.ChampName}                
             </div>
             
