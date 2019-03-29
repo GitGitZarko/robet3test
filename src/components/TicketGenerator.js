@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash'
 import { connect } from 'react-redux';
-import { fetchStartJson } from '../actions';
+import { fetchStartJson, removeAllOdds } from '../actions';
 import TicketChildItem from './TicketChildItem';
 import { Button, Header, Icon, Image, Modal, Embed } from 'semantic-ui-react';
 
@@ -40,9 +40,12 @@ class TicketGenerator extends Component {
         localStorage.clear();
         this.setState({
             storageIsClear: true
-        })
+        })        
         this.props.fetchStartJson()
+        this.props.removeAllOdds()
     }    
+        
+        
     
     renderTicketChildren = (ticketValues) => {
         // console.log("Iz funkcije", ticketValues)        
@@ -56,10 +59,18 @@ class TicketGenerator extends Component {
 
     checkTheOddsLenght = () => {
         //console.log(unique.lenght)
-        let localTicket = JSON.parse(localStorage.ticket)
-        let oddIdList = localTicket.Odds.map((a) => a.OddId)
-        let nesto = oddIdList.length < 1 || oddIdList.length == 0 ? true : false
+        // let localTicket = JSON.parse(localStorage.ticket)
+        // let oddIdList = localTicket.Odds.map((a) => a.OddId)
+        const { Odds }  = this.props.oddList
+        let oddIdList = [];
+        if(Odds) {
+        console.log("konzolica: ", Odds.map((a) => a.OddId))
+         oddIdList =  Odds.map((a) => a.OddId)
+         let nesto = oddIdList.length < 1 || oddIdList.length == 0 ? true : false
         return nesto
+        }
+        
+        return null
     }   
     render() {
     if(this.props.ticket){         
@@ -121,7 +132,7 @@ class TicketGenerator extends Component {
             </div>   
         
                
-                   { this.checkTheOddsLenght() &&   
+                   { !this.checkTheOddsLenght() &&   
                             <div>
                             <button className="ui toggle button" onClick={() => this.setState({ activeButton: false})}>MULTIPLA</button> 
                             <button className="ui toggle button" onClick={() => this.setState({ activeButton: true})}>SISTEMA</button>
@@ -248,4 +259,4 @@ class TicketGenerator extends Component {
     }   
     
 const mapStateToProps = ({ ticket, oddList }) => ({ ticket, oddList})
-export default connect(mapStateToProps, { fetchStartJson})(TicketGenerator);
+export default connect(mapStateToProps, { fetchStartJson, removeAllOdds})(TicketGenerator);

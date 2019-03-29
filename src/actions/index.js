@@ -8,7 +8,16 @@ export const CALL_FROM_BOX = 'CALL_FROM_BOX';
 export const UPDATE_CHAMP_LIST = 'UPDATE_CHAMP_LIST';
 export const FETCH_START_JSON = 'FETCH_START_JSON';
 export const ODDS_TICKET_LIST = 'ODDS_TICKET_LIST';
+export const REMOVE_ALL_ODDS = 'REMOVE_ALL_ODDS';
 // export const FIRST_LEVEL_BUTTON_ID = 'FIRST_LEVEL_BUTTON_ID';
+
+
+export const removeAllOdds = () => {
+  return {
+    type: REMOVE_ALL_ODDS    
+  }
+};
+
 
   export const oddsTicketList = (oddObject) => async dispatch =>{
     //console.log("LOG IZ AKCIJE: ", oddObject)  

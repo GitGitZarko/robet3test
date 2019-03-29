@@ -159,9 +159,15 @@ class TestComponent extends Component {
 
    renderTournamentMatchList() {
       const { TournamentMatchList } = this.props.objekat;
-      let localTicket = JSON.parse(localStorage.ticket)
-      let oddIdList = localTicket.Odds.map((a) => a.OddId)
-
+      const { Odds }  = this.props.oddList
+      let oddIdList = [];
+      if(Odds) {
+      console.log("konzolica: ", Odds.map((a) => a.OddId))
+       oddIdList =  Odds.map((a) => a.OddId)
+      }
+      // let localTicket = JSON.parse(localStorage.ticket)
+      // let oddIdList = localTicket.Odds.map((a) => a.OddId)
+      
       if (!TournamentMatchList) {
          return null;
       }

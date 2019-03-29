@@ -1,6 +1,9 @@
 .ui.table td.active, .ui.table tr.active, .ui.active.button.moje-dugme{
    background: lightgreen !important;        
 }
+td.active:hover, tr.active:hover{
+    background: lightgreen !important; 
+}
 .ui.button.moje-dugme{
     background: white;
 }

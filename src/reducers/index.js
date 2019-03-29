@@ -5,6 +5,7 @@ import champsMiddleBoxList from './champsMiddleBoxList';
 import middleBoxButtons from './middleBoxButtons';
 import ticketJsonReducer from './ticketJsonReducer';
 import oddListReducer from './oddListReducer';
+
 // import buttonsReducer from './buttonsReducer';
 
 export default combineReducers({
