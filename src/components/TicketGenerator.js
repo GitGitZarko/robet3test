@@ -37,12 +37,13 @@ class TicketGenerator extends Component {
     handleClose = () => this.setState({ modalOpen: false })
 
     removeAllOdds = () => {
-        localStorage.clear();
+        
         this.setState({
             storageIsClear: true
         })        
         this.props.fetchStartJson()
         this.props.removeAllOdds()
+        localStorage.clear();
     }    
         
         
@@ -63,14 +64,14 @@ class TicketGenerator extends Component {
         // let oddIdList = localTicket.Odds.map((a) => a.OddId)
         const { Odds }  = this.props.oddList
         let oddIdList = [];
-        if(Odds) {
+        if(!Odds){
+            return null
+        }
+        
         console.log("konzolica: ", Odds.map((a) => a.OddId))
          oddIdList =  Odds.map((a) => a.OddId)
          let nesto = oddIdList.length < 1 || oddIdList.length == 0 ? true : false
-        return nesto
-        }
-        
-        return null
+        return nesto        
     }   
     render() {
     if(this.props.ticket){         

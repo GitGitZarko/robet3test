@@ -18,7 +18,6 @@ export const removeAllOdds = () => {
   }
 };
 
-
   export const oddsTicketList = (oddObject) => async dispatch =>{
     //console.log("LOG IZ AKCIJE: ", oddObject)  
     await betvipApi.post("/Update",  JSON.stringify(oddObject))
