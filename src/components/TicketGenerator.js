@@ -88,30 +88,37 @@ class TicketGenerator extends Component {
         localTicket.Bets[row].ColAmount = colAmount
         console.log("resenje tiketa: " , localTicket)
             
-
     //   localTicket.isLive = false;
     //   localTicket.matchId = matchCode;
     //   localTicket.oddId = oddCode;
-    
-
-
-
       //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
       //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
 
-
     localStorage.setItem("ticket", JSON.stringify(localTicket));
-
     //   // console.log("TIKETARA", localTicket)
-
         this.props.oddsTicketList(localTicket)
-        this.setState({
-            reRender: !this.state.reRender
-        })
+        
     }
 
-    checkBoxInput = (e, data) => {
-        e.preventDefault();       
+    checkBoxInput = (data) => {      
+            
+            let localTicket = JSON.parse(localStorage.ticket)
+            let row = 0;
+            localTicket.Bets.map((ata, i) => data === ata.GroupDescription ?  row = i : null)
+
+            localTicket.operationType = 4;            
+            localTicket.Bets[row].IsActive = localTicket.Bets[row].IsActive ? false : true;
+            console.log("resenje tiketa: " , localTicket, row)
+                
+        //   localTicket.isLive = false;
+        //   localTicket.matchId = matchCode;
+        //   localTicket.oddId = oddCode;
+        //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
+        //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
+
+        localStorage.setItem("ticket", JSON.stringify(localTicket));
+        console.log("TIKETARA", localTicket)
+            this.props.oddsTicketList(localTicket) 
     }
 
     render() {
@@ -200,10 +207,9 @@ class TicketGenerator extends Component {
                             </div>                
                             <div className="ui left floated content">
                             <div className="ui checkbox">
-                                <input type="checkbox"  
-                                // checked={data.IsActive} 
+                                <input type="checkbox"                                  
                                 name={data.GroupDescription} 
-                                onChange={(e) => this.checkBoxInput(e, data.GroupDescription)}
+                                onChange={() => this.checkBoxInput(data.GroupDescription)}
                                 />
                                 <label> { data.GroupDescription }</label>
                             </div>
