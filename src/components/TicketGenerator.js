@@ -191,7 +191,7 @@ class TicketGenerator extends Component {
                             <div className="ui input">
                                 <DelayInput
                                     minLength={0}
-                                    delayTimeout={2000} 
+                                    delayTimeout={500} 
                                     type="text" 
                                     placeholder="0" 
                                     onChange={(e) => this.sistemInputChange(e, data.GroupDescription)}
@@ -205,7 +205,7 @@ class TicketGenerator extends Component {
                                 name={data.GroupDescription} 
                                 onChange={(e) => this.checkBoxInput(e, data.GroupDescription)}
                                 />
-                                <label> { data.GroupDescription}</label>
+                                <label> { data.GroupDescription }</label>
                             </div>
                                
                             </div>
@@ -234,7 +234,7 @@ class TicketGenerator extends Component {
                 <div className="ui middle aligned divided list">
                 <div className="item">
                 <div className="right floated content">
-                    <div className="ui purple label">{console.log(ticketValues && ticketValues.BetsNumber)}</div>
+                    <div className="ui purple label">{ticketValues && ticketValues.OddsNumber}</div>
                 </div>                
                 <div className="content">
                     EVENTI
