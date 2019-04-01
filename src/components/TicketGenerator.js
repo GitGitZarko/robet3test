@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import _ from 'lodash'
+import { DelayInput } from 'react-delay-input';
 import { connect } from 'react-redux';
-import { fetchStartJson, removeAllOdds } from '../actions';
+import { fetchStartJson, removeAllOdds, oddsTicketList } from '../actions';
 import TicketChildItem from './TicketChildItem';
 import { Button, Header, Icon, Image, Modal, Embed } from 'semantic-ui-react';
 
@@ -15,11 +16,13 @@ const customStyle = {
 class TicketGenerator extends Component {
     constructor(props) {
         super(props); 
+        this.timeout =  0;
         this.props.fetchStartJson()
         this.state = {
             storageIsClear: false,
             activeButton: false,
-            modalOpen: false
+            modalOpen: false,
+            reRender: Boolean            
         }
       }
 
@@ -73,6 +76,44 @@ class TicketGenerator extends Component {
          let nesto = oddIdList.length < 1 || oddIdList.length == 0 ? true : false
         return nesto        
     }   
+    sistemInputChange = (e, name) => {
+        e.preventDefault();       
+            console.log(e.target.value)
+            let localTicket = JSON.parse(localStorage.ticket)
+            let colAmount = 0;
+            let row = 0;
+        const noviTiket = localTicket.Bets.map((data, i) => name === data.GroupDescription ? (colAmount = e.target.value, row = i) : null)
+
+        localTicket.operationType = 4;
+        localTicket.Bets[row].ColAmount = colAmount
+        console.log("resenje tiketa: " , localTicket)
+            
+
+    //   localTicket.isLive = false;
+    //   localTicket.matchId = matchCode;
+    //   localTicket.oddId = oddCode;
+    
+
+
+
+      //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
+      //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
+
+
+    localStorage.setItem("ticket", JSON.stringify(localTicket));
+
+    //   // console.log("TIKETARA", localTicket)
+
+        this.props.oddsTicketList(localTicket)
+        this.setState({
+            reRender: !this.state.reRender
+        })
+    }
+
+    checkBoxInput = (e, data) => {
+        e.preventDefault();       
+    }
+
     render() {
     if(this.props.ticket){         
         if(localStorage.getItem("ticket") === null){          
@@ -148,12 +189,22 @@ class TicketGenerator extends Component {
                             <div className="item">
                             <div className="right floated content">
                             <div className="ui input">
-                                <input type="text" placeholder="0" />
+                                <DelayInput
+                                    minLength={0}
+                                    delayTimeout={2000} 
+                                    type="text" 
+                                    placeholder="0" 
+                                    onChange={(e) => this.sistemInputChange(e, data.GroupDescription)}
+                                    value={data.ColAmount}/>
                                 </div>
                             </div>                
                             <div className="ui left floated content">
-                            <div class="ui checkbox">
-                                <input type="checkbox" name={data.GroupDescription} />
+                            <div className="ui checkbox">
+                                <input type="checkbox"  
+                                // checked={data.IsActive} 
+                                name={data.GroupDescription} 
+                                onChange={(e) => this.checkBoxInput(e, data.GroupDescription)}
+                                />
                                 <label> { data.GroupDescription}</label>
                             </div>
                                
@@ -161,7 +212,6 @@ class TicketGenerator extends Component {
                             {data.Cols}
                             </div>
                             </div>                            
-                       
                     )
                 })
             }
@@ -180,10 +230,11 @@ class TicketGenerator extends Component {
                             </div>
                             </div>                            
             }
+            
                 <div className="ui middle aligned divided list">
                 <div className="item">
                 <div className="right floated content">
-                    <div className="ui purple label">{ticketValues && ticketValues.MatchNumber}</div>
+                    <div className="ui purple label">{console.log(ticketValues && ticketValues.BetsNumber)}</div>
                 </div>                
                 <div className="content">
                     EVENTI
@@ -260,4 +311,4 @@ class TicketGenerator extends Component {
     }   
     
 const mapStateToProps = ({ ticket, oddList }) => ({ ticket, oddList})
-export default connect(mapStateToProps, { fetchStartJson, removeAllOdds})(TicketGenerator);
+export default connect(mapStateToProps, { fetchStartJson, removeAllOdds, oddsTicketList})(TicketGenerator);
