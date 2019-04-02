@@ -129,8 +129,12 @@ class TicketGenerator extends Component {
         }
     }        
     const ticketValues = JSON.parse(localStorage.getItem('ticket'))
-    //if(ticketValues) console.log(ticketValues.Odds.map((data) =>data))
-    
+    const ticketCols = ticketValues.Bets.map((data) =>  data.IsActive === true ? data.Cols : null).filter((e) => e != null)
+    let sumCols;
+    if(ticketCols.length > 0) {
+    sumCols = ticketCols.reduce((cols, i) => cols + i)
+    console.log("colsssss:   :::  "+sumCols + "   sss    ", ticketCols.length)    
+    }
     return (    
         <div>
             <Modal  trigger={<Button onClick={this.handleOpen}>USA IL QUICK CODE</Button>}
@@ -150,7 +154,7 @@ class TicketGenerator extends Component {
                 <Header>Modal Header</Header>
                 <p>This is an example of expanded content that will cause the modal's dimmer to scroll</p>
 
-            </Modal.Description>          */}
+            </Modal.Description>*/}
             </Modal.Content>
             <Modal.Actions>
             <Button color='green' onClick={this.handleClose} inverted>
@@ -191,7 +195,8 @@ class TicketGenerator extends Component {
                    }
             {
                 this.state.activeButton && ticketValues.Bets.map((data) => {
-                    return(
+                    
+                    return(                        
                         <div className="ui middle aligned divided list">
                             <div className="item">
                             <div className="right floated content">
@@ -202,12 +207,13 @@ class TicketGenerator extends Component {
                                     type="text" 
                                     placeholder="0" 
                                     onChange={(e) => this.sistemInputChange(e, data.GroupDescription)}
-                                    value={data.ColAmount}/>
+                                    value={data.IsActive ? ticketValues.TotalAmount/sumCols : data.ColAmount}/>
                                 </div>
                             </div>                
                             <div className="ui left floated content">
                             <div className="ui checkbox">
-                                <input type="checkbox"                                  
+                                <input type="checkbox"  
+                                checked={data.IsActive}
                                 name={data.GroupDescription} 
                                 onChange={() => this.checkBoxInput(data.GroupDescription)}
                                 />
