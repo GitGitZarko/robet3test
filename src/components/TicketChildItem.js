@@ -55,9 +55,32 @@ class TicketChildItem extends Component {
    
          this.props.oddsTicketList(localTicket)
       }
-      pozoviState =  (e) => {
+      pozoviState =  (e, oddId, matchId) => {
           e.preventDefault()
           this.setState({isStarActive: !this.state.isStarActive})
+          let localTicket = JSON.parse(localStorage.ticket) 
+           
+        //   localTicket.isLive = false;
+        //   localTicket.matchId = mId;
+        //   localTicket.oddId = OddId;
+        //   localTicket.operationType = 2;
+          //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
+          //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
+          let setBanker;
+          let row = 0;
+          const noviTiket = localTicket.Odds.map((data, i) => matchId == data.MatchId ? setBanker = !data.Banker : null)
+
+            localTicket.isLive = false;
+            localTicket.matchId = matchId;
+            localTicket.oddId = oddId;            
+            localTicket.operationType = 3;
+            //localTicket.Odds[row].Banker = setBanker
+ 
+          localStorage.setItem("ticket", JSON.stringify(localTicket));      
+ 
+       console.log("TIKETARA BANKER: ", localTicket)
+ 
+       this.props.oddsTicketList(localTicket)
       }
         render() {          
             const { MatchName, OddValue, OddTypeName, MatchId, Odds} = this.props.data
@@ -82,12 +105,13 @@ class TicketChildItem extends Component {
                         <div className="ui right floated content">
                         {a.OddValue}
                                                                                                                         {/* OVDE TREBA NAPRAVITI SET BANKER FUNKCIJU */}
-                        <i className={"window "+ (this.state.isStarActive ? 'star' : 'star outline' )+ " icon"} style={{cursor: 'pointer'}} onClick={(e) => this.pozoviState(e)}></i>
+                        <i className={"window "+ (this.state.isStarActive ? 'star' : 'star outline' )+ " icon"} style={{cursor: 'pointer'}} onClick={(e) => this.pozoviState(e, a.OddId, a.MatchId)}></i>
                         <i className="window close icon" style={{cursor: 'pointer'}} onClick={(e) => this.nestoUradi(e, a.MatchId, a.OddId)}></i>
                             
                         </div>
                      </div>
-                     : null
+                     : null 
+
                    
                 })}
                 </div>
