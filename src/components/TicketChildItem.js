@@ -5,7 +5,10 @@ import { oddsTicketList } from '../actions';
 class TicketChildItem extends Component {
     constructor(props) {
         super(props);  
-       
+        
+        this.state = {
+            isStarActive: false
+        }
       }
 
       renderUniqueOdds = () => {
@@ -52,6 +55,10 @@ class TicketChildItem extends Component {
    
          this.props.oddsTicketList(localTicket)
       }
+      pozoviState =  (e) => {
+          e.preventDefault()
+          this.setState({isStarActive: !this.state.isStarActive})
+      }
         render() {          
             const { MatchName, OddValue, OddTypeName, MatchId, Odds} = this.props.data
             // console.log("<pre>is childa", Odds.map((a) => a), "</pre>")
@@ -74,8 +81,9 @@ class TicketChildItem extends Component {
                         </div>
                         <div className="ui right floated content">
                         {a.OddValue}
-                                
-                                    <i className="window close icon" style={{cursor: 'pointer'}} onClick={(e) => this.nestoUradi(e, a.MatchId, a.OddId)}></i>
+                                                                                                                        {/* OVDE TREBA NAPRAVITI SET BANKER FUNKCIJU */}
+                        <i className={"window "+ (this.state.isStarActive ? 'star' : 'star outline' )+ " icon"} style={{cursor: 'pointer'}} onClick={(e) => this.pozoviState(e)}></i>
+                        <i className="window close icon" style={{cursor: 'pointer'}} onClick={(e) => this.nestoUradi(e, a.MatchId, a.OddId)}></i>
                             
                         </div>
                      </div>
