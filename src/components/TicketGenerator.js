@@ -22,7 +22,7 @@ class TicketGenerator extends Component {
             storageIsClear: false,
             activeButton: false,
             modalOpen: false,
-            reRender: Boolean            
+            reRender: Boolean      
         }
       }
 
@@ -99,6 +99,34 @@ class TicketGenerator extends Component {
         this.props.oddsTicketList(localTicket)
         
     }
+    addTotalAmount = (e, data) => {
+        e.preventDefault()
+     
+        console.log(e.target.value)
+        let localTicket = JSON.parse(localStorage.ticket)
+        // let colAmount = 0;
+        // let row = 0;
+        //   const noviTiket = localTicket.Bets.map((data, i) => name === data.GroupDescription ? (colAmount = e.target.value, row = i) : null)
+            
+            localTicket.operationType = 4;
+            localTicket.TotalAmount = parseInt(e.target.value)
+        //     localTicket.Bets[row].ColAmount = colAmount
+        //     console.log("resenje tiketa: " , localTicket)
+                
+        // //   localTicket.isLive = false;
+        // //   localTicket.matchId = matchCode;
+        // //   localTicket.oddId = oddCode;
+        // //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
+        // //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
+
+        localStorage.setItem("ticket", JSON.stringify(localTicket));
+        // //   // console.log("TIKETARA", localTicket)
+        console.log("sta daje: ", localTicket)
+         this.props.oddsTicketList(localTicket)
+        
+            
+    }
+
 
     checkBoxInput = (data) => {      
             
@@ -118,7 +146,7 @@ class TicketGenerator extends Component {
 
         localStorage.setItem("ticket", JSON.stringify(localTicket));
         console.log("TIKETARA", localTicket)
-            this.props.oddsTicketList(localTicket) 
+        this.props.oddsTicketList(localTicket) 
     }
 
     render() {
@@ -194,8 +222,7 @@ class TicketGenerator extends Component {
                    
                    }
             {
-                this.state.activeButton && ticketValues.Bets.map((data) => {
-                    
+                this.state.activeButton && ticketValues.Bets.map((data) => {                    
                     return(                        
                         <div className="ui middle aligned divided list">
                             <div className="item">
@@ -212,7 +239,7 @@ class TicketGenerator extends Component {
                             </div>                
                             <div className="ui left floated content">
                             <div className="ui checkbox">
-                                <input type="checkbox"  
+                                <input type="checkbox"
                                 checked={data.IsActive}
                                 name={data.GroupDescription} 
                                 onChange={() => this.checkBoxInput(data.GroupDescription)}
@@ -226,6 +253,27 @@ class TicketGenerator extends Component {
                             </div>                            
                     )
                 })
+                
+                
+            }
+            {
+                    <div className="ui middle aligned divided list">
+                    <div className="item" style={{border: "1px solid black"}}>
+                            <div className="right floated content">
+                            <div className="ui input">
+                                <DelayInput type="text" placeholder="0" value={ticketValues.TotalAmount}
+                                delayTimeout={500} 
+                                onChange={(e) => this.addTotalAmount(e)}
+                                />
+                                </div>
+                            </div>               
+                            <div className="ui left floated content"> 
+                            <div className="content">
+                            TOTAL AMOUNT
+                            </div>
+                            </div>                            
+                            </div>
+                            </div>
             }
             {
                 !this.state.activeButton && <div className="ui middle aligned divided list">    
