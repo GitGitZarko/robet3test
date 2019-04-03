@@ -202,10 +202,32 @@ class TicketGenerator extends Component {
     getQuickBetsList = () =>{
         const { Items }  = this.props.getQuickBet
         if(!Items) return null
-        const response =  Items.map((data, i) => ({key: i, text: data.OddType, value: data.OddType}) )        
+        const response =  Items.map((data, i) => ({key: i, text: data.OddType, value: data.OddValue}) )        
         console.log(response)
         return response;
 
+    }
+    selectQuickBetOdd = (e, matchCode, oddValue) => {
+        
+        const { value } = oddValue.find(o => o.text === e.target.textContent)
+        console.log("aaaaaddddddBBBBBBBBBBBBB", value)
+         let localTicket = JSON.parse(localStorage.ticket)
+        // let colAmount = 0;
+        // let row = 0;
+        //   const noviTiket = localTicket.Bets.map((data, i) => name === data.GroupDescription ? (colAmount = e.target.value, row = i) : null)
+            
+            localTicket.operationType = 1;            
+            localTicket.isLive = false;
+            localTicket.matchId = matchCode;
+            localTicket.oddId = value;
+        // //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
+        // //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
+
+        localStorage.setItem("ticket", JSON.stringify(localTicket));
+        // //   // console.log("TIKETARA", localTicket)
+        console.log("sta daje: ", localTicket)
+         this.props.oddsTicketList(localTicket)
+        console.log("aaaaaaaaaaaaaaaaaa", e.target.textContent)
     }
 
     render() {
@@ -260,14 +282,22 @@ class TicketGenerator extends Component {
                                 placeholder='SELECT ODD'
                                 fluid
                                 selection
+                                search
                                 style={{width: '50%', float: 'right'}}
                                 options={this.getQuickBetsList()}
+                                onChange={(e) => this.selectQuickBetOdd(e, this.props.getQuickBet.MatchId, this.getQuickBetsList())}
                             />
                     {/* <div className="ui input" style={{width: '50%'}}>
                         <input type="text" placeholder="0" />
                                 </div> */}
                         </div> 
-                        </div>                              
+                        {   this.props.getQuickBet.ErrorMessage &&
+                                <div className="ui label">
+                                <i className="ui info circle icon"></i>
+                                {this.props.getQuickBet.ErrorMessage}
+                                </div>                                                   
+                        }
+                         </div>  
             </div>
 
              <div className="ui item">
