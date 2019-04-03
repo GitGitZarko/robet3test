@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import _ from 'lodash'
 import { DelayInput } from 'react-delay-input';
 import { connect } from 'react-redux';
-import { fetchStartJson, removeAllOdds, oddsTicketList } from '../actions';
+import { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction } from '../actions';
 import TicketChildItem from './TicketChildItem';
-import { Button, Header, Icon, Image, Modal, Embed } from 'semantic-ui-react';
+import { Button, Header, Icon, Image, Modal, Embed, Dropdown } from 'semantic-ui-react';
 
 
 const customStyle = {
@@ -12,6 +12,48 @@ const customStyle = {
     border: '1px solid black',
     padding: '5px'
 }
+
+const friendOptions = [
+    {
+      key: 'Jenny Hess',
+      text: 'Jenny Hess',
+      value: 'Jenny Hess',
+      image: { avatar: true, src: '/images/avatar/small/jenny.jpg' },
+    },
+    {
+      key: 'Elliot Fu',
+      text: 'Elliot Fu',
+      value: 'Elliot Fu',
+      image: { avatar: true, src: '/images/avatar/small/elliot.jpg' },
+    },
+    {
+      key: 'Stevie Feliciano',
+      text: 'Stevie Feliciano',
+      value: 'Stevie Feliciano',
+      image: { avatar: true, src: '/images/avatar/small/stevie.jpg' },
+    },
+    {
+      key: 'Christian',
+      text: 'Christian',
+      value: 'Christian',
+      image: { avatar: true, src: '/images/avatar/small/christian.jpg' },
+    },
+    {
+      key: 'Matt',
+      text: 'Matt',
+      value: 'Matt',
+      image: { avatar: true, src: '/images/avatar/small/matt.jpg' },
+    },
+    {
+      key: 'Justen Kitsune',
+      text: 'Justen Kitsune',
+      value: 'Justen Kitsune',
+      image: { avatar: true, src: '/images/avatar/small/justen.jpg' },
+    },
+  ]
+  
+
+
 //OVO JE JEDNOSTAVNI BUTTON COMPONENT koji prima samo color prop i textValue zasto
 class TicketGenerator extends Component {
     constructor(props) {
@@ -22,7 +64,7 @@ class TicketGenerator extends Component {
             storageIsClear: false,
             activeButton: false,
             modalOpen: false,
-            reRender: Boolean      
+            reRender: Boolean            
         }
       }
 
@@ -148,6 +190,23 @@ class TicketGenerator extends Component {
         console.log("TIKETARA", localTicket)
         this.props.oddsTicketList(localTicket) 
     }
+    quickBet = (e) => {
+        
+        console.log("ovo je vratilo cedo: ", e.target.value)
+        if(e.charCode === 13){
+            this.props.quickBetAction(e.target.value)
+            console.log("ovo je vratilo cedo2: ", this.props.getQuickBet)
+        }
+        
+    }
+    getQuickBetsList = () =>{
+        const { Items }  = this.props.getQuickBet
+        if(!Items) return null
+        const response =  Items.map((data, i) => ({key: i, text: data.OddType, value: data.OddType}) )        
+        console.log(response)
+        return response;
+
+    }
 
     render() {
     if(this.props.ticket){         
@@ -183,13 +242,34 @@ class TicketGenerator extends Component {
                 <p>This is an example of expanded content that will cause the modal's dimmer to scroll</p>
 
             </Modal.Description>*/}
-            </Modal.Content>
+            </Modal.Content>            
             <Modal.Actions>
             <Button color='green' onClick={this.handleClose} inverted>
                <Icon name='checkmark' /> Close    
             </Button>
             </Modal.Actions>
         </Modal>
+        <div className="ui container">
+        <div className="ui row">
+                <div className="item">                    
+                        <div className="ui input" style={{width: '50%', float: 'left'}}>
+                            <input type="text" placeholder="QUICK_BET" onKeyPress={(e) => this.quickBet(e)} />
+                        </div>  
+                        
+                        <Dropdown
+                                placeholder='SELECT ODD'
+                                fluid
+                                selection
+                                style={{width: '50%', float: 'right'}}
+                                options={this.getQuickBetsList()}
+                            />
+                    {/* <div className="ui input" style={{width: '50%'}}>
+                        <input type="text" placeholder="0" />
+                                </div> */}
+                        </div> 
+                        </div>                              
+            </div>
+
              <div className="ui item">
             <div className="ui left floated content">
                         <div className="ui header">
@@ -370,5 +450,5 @@ class TicketGenerator extends Component {
        }
     }   
     
-const mapStateToProps = ({ ticket, oddList }) => ({ ticket, oddList})
-export default connect(mapStateToProps, { fetchStartJson, removeAllOdds, oddsTicketList})(TicketGenerator);
+const mapStateToProps = ({ ticket, oddList, getQuickBet }) => ({ ticket, oddList, getQuickBet})
+export default connect(mapStateToProps, { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction})(TicketGenerator);

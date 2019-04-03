@@ -9,8 +9,15 @@ export const UPDATE_CHAMP_LIST = 'UPDATE_CHAMP_LIST';
 export const FETCH_START_JSON = 'FETCH_START_JSON';
 export const ODDS_TICKET_LIST = 'ODDS_TICKET_LIST';
 export const REMOVE_ALL_ODDS = 'REMOVE_ALL_ODDS';
+export const GET_QUICK_BET = 'GET_QUICK_BET';
 // export const FIRST_LEVEL_BUTTON_ID = 'FIRST_LEVEL_BUTTON_ID';
 
+
+export const quickBetAction = (matchCode) =>  async dispatch => {
+  const response =  await betvipApi.get(`/Quick?id=${matchCode}`);    
+  console.log("Iz akcije: ", response.data)
+dispatch({ type: GET_QUICK_BET, payload: response.data });  
+}
 
 export const removeAllOdds = () => {
   return {
@@ -25,7 +32,6 @@ export const removeAllOdds = () => {
       response => dispatch({ type: ODDS_TICKET_LIST, payload: response.data }),//console.log("ODGOVOR SERVERA:  ", response),
       error => console.log("ODGOVOR SERVERA", error)    
     );    
-
 }
 
 export const fetchStartJson = () =>  async dispatch => {
