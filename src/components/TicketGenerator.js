@@ -4,7 +4,7 @@ import { DelayInput } from 'react-delay-input';
 import { connect } from 'react-redux';
 import { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction } from '../actions';
 import TicketChildItem from './TicketChildItem';
-import { Button, Header, Icon, Image, Modal, Embed, Dropdown } from 'semantic-ui-react';
+import { Button, Header, Icon, Image, Modal, Embed, Dropdown, Checkbox } from 'semantic-ui-react';
 
 
 const customStyle = {
@@ -64,7 +64,8 @@ class TicketGenerator extends Component {
             storageIsClear: false,
             activeButton: false,
             modalOpen: false,
-            reRender: Boolean            
+            reRender: Boolean,
+            quickChecked: false         
         }
       }
 
@@ -202,7 +203,7 @@ class TicketGenerator extends Component {
     getQuickBetsList = () =>{
         const { Items }  = this.props.getQuickBet
         if(!Items) return null
-        const response =  Items.map((data, i) => ({key: i, text: data.OddType, value: data.OddValue}) )        
+        const response =  Items.map((data, i) => ({key: i, text: data.OddType, value: data.OddValue, qCode: data.QuickCode}) )        
         console.log(response)
         return response;
 
@@ -230,6 +231,29 @@ class TicketGenerator extends Component {
         console.log("aaaaaaaaaaaaaaaaaa", e.target.textContent)
     }
 
+    selectQuickCode = (e, matchCode) => {
+        const { Items }  = this.props.getQuickBet
+
+        if(!Items) return null
+        if(e.charCode === 13){
+        const { OddValue }  = Items.find((o) => o.QuickCode === e.target.value)
+        console.log("aaaaaddddddBBBBBBBBBBBBB", OddValue )
+         let localTicket = JSON.parse(localStorage.ticket)     
+            
+            localTicket.operationType = 1;            
+            localTicket.isLive = false;
+            localTicket.matchId = matchCode;
+            localTicket.oddId = OddValue;
+        // //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
+        // //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
+
+        localStorage.setItem("ticket", JSON.stringify(localTicket));
+        // //   // console.log("TIKETARA", localTicket)
+         this.props.oddsTicketList(localTicket)        
+        }
+    }
+
+
     render() {
     if(this.props.ticket){         
         if(localStorage.getItem("ticket") === null){          
@@ -246,7 +270,8 @@ class TicketGenerator extends Component {
     }
     return (    
         <div>
-            <Modal  trigger={<Button onClick={this.handleOpen}>USA IL QUICK CODE</Button>}
+            <Checkbox style={{width: '10%', float: 'left'}} onClick={() => this.setState({quickChecked: !this.state.quickChecked})} checked={this.state.quickChecked}/>
+            <Modal trigger={<h5 onClick={this.handleOpen} style={{cursor: 'pointer', width: '90%', textAlign: 'left'}}>USA IL QUICK CODE</h5>}
             open={this.state.modalOpen}
             onClose={this.handleClose}
             size='fullscreen'
@@ -278,8 +303,13 @@ class TicketGenerator extends Component {
                             <input type="text" placeholder="QUICK_BET" onKeyPress={(e) => this.quickBet(e)} />
                         </div>  
                         
-                        <Dropdown
-                                placeholder='SELECT ODD'
+                      {  this.state.quickChecked ? 
+                                <div className="ui input" style={{width: '50%', float: 'right'}}>
+                                <input type="text" placeholder="Quick Code" onKeyPress={(e) => this.selectQuickCode(e, this.props.getQuickBet.MatchId)} />
+                                </div>  
+                                :
+                                <Dropdown
+                                placeholder='Select Odd...'
                                 fluid
                                 selection
                                 search
@@ -287,16 +317,21 @@ class TicketGenerator extends Component {
                                 options={this.getQuickBetsList()}
                                 onChange={(e) => this.selectQuickBetOdd(e, this.props.getQuickBet.MatchId, this.getQuickBetsList())}
                             />
+                      }
                     {/* <div className="ui input" style={{width: '50%'}}>
                         <input type="text" placeholder="0" />
                                 </div> */}
                         </div> 
-                        {   this.props.getQuickBet.ErrorMessage &&
+                        {   this.props.getQuickBet.ErrorMessage ?
                                 <div className="ui label">
                                 <i className="ui info circle icon"></i>
                                 {this.props.getQuickBet.ErrorMessage}
-                                </div>                                                   
-                        }
+                                </div>          
+                                :
+                                <div className="ui text">                                
+                                <h5>{this.props.getQuickBet.MatchName}</h5>
+                                </div>  
+                            }
                          </div>  
             </div>
 
