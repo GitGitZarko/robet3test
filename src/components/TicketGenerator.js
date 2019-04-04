@@ -210,64 +210,65 @@ class TicketGenerator extends Component {
     }
     selectQuickBetOdd = (e, matchCode, oddValue) => {
         
-        const { value } = oddValue.find(o => o.text === e.target.textContent)
-        console.log("aaaaaddddddBBBBBBBBBBBBB", value)
+        let oddsObject = oddValue.find(o => o.text === e.target.textContent)     
+
+        if(!oddsObject) return null
+
+        const { value } = oddsObject
          let localTicket = JSON.parse(localStorage.ticket)
-        // let colAmount = 0;
-        // let row = 0;
-        //   const noviTiket = localTicket.Bets.map((data, i) => name === data.GroupDescription ? (colAmount = e.target.value, row = i) : null)
             
             localTicket.operationType = 1;            
             localTicket.isLive = false;
             localTicket.matchId = matchCode;
             localTicket.oddId = value;
         // //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
-        // //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
+        
 
-        localStorage.setItem("ticket", JSON.stringify(localTicket));
-        // //   // console.log("TIKETARA", localTicket)
-        console.log("sta daje: ", localTicket)
-         this.props.oddsTicketList(localTicket)
-        console.log("aaaaaaaaaaaaaaaaaa", e.target.textContent)
+        localStorage.setItem("ticket", JSON.stringify(localTicket));        
+        this.props.oddsTicketList(localTicket)    
     }
 
     selectQuickCode = (e, matchCode) => {
         const { Items }  = this.props.getQuickBet
-
         if(!Items) return null
+
         if(e.charCode === 13){
-        const { OddValue }  = Items.find((o) => o.QuickCode === e.target.value)
-        console.log("aaaaaddddddBBBBBBBBBBBBB", OddValue )
+        let oddsObject = Items.find((o) => o.QuickCode === e.target.value)
+        
+        if(!oddsObject) return null
+        const { OddValue } = oddsObject
          let localTicket = JSON.parse(localStorage.ticket)     
             
             localTicket.operationType = 1;            
             localTicket.isLive = false;
             localTicket.matchId = matchCode;
             localTicket.oddId = OddValue;
-        // //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
-        // //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
-
+        
         localStorage.setItem("ticket", JSON.stringify(localTicket));
-        // //   // console.log("TIKETARA", localTicket)
          this.props.oddsTicketList(localTicket)        
+        
         }
     }
-
-
+    
     render() {
+        let ticketValues;
+        let ticketCols;
+        let sumCols;
     if(this.props.ticket){         
         if(localStorage.getItem("ticket") === null){          
             console.log("KKK: ",this.props.ticket)   
-            localStorage.setItem('ticket', JSON.stringify(this.props.ticket));    
+            localStorage.setItem('ticket', JSON.stringify(this.props.ticket));   
         }
-    }        
-    const ticketValues = JSON.parse(localStorage.getItem('ticket'))
-    const ticketCols = ticketValues.Bets.map((data) =>  data.IsActive === true ? data.Cols : null).filter((e) => e != null)
-    let sumCols;
-    if(ticketCols.length > 0) {
-    sumCols = ticketCols.reduce((cols, i) => cols + i)
-    console.log("colsssss:   :::  "+sumCols + "   sss    ", ticketCols.length)    
-    }
+        
+        ticketValues = JSON.parse(localStorage.getItem('ticket')) 
+        ticketCols = ticketValues.Bets.map((data) =>  data.IsActive === true ? data.Cols : null).filter((e) => e != null)
+        if(ticketCols.length > 0) {
+            sumCols = ticketCols.reduce((cols, i) => cols + i)
+            console.log("colsssss:   :::  "+sumCols + "   sss    ", ticketCols.length)    
+            }
+    }         
+    
+   
     return (    
         <div>
             <Checkbox style={{width: '10%', float: 'left'}} onClick={() => this.setState({quickChecked: !this.state.quickChecked})} checked={this.state.quickChecked}/>
@@ -307,7 +308,7 @@ class TicketGenerator extends Component {
                                 <div className="ui input" style={{width: '50%', float: 'right'}}>
                                 <input type="text" placeholder="Quick Code" onKeyPress={(e) => this.selectQuickCode(e, this.props.getQuickBet.MatchId)} />
                                 </div>  
-                                :
+                                : 
                                 <Dropdown
                                 placeholder='Select Odd...'
                                 fluid
@@ -406,7 +407,7 @@ class TicketGenerator extends Component {
                     <div className="item" style={{border: "1px solid black"}}>
                             <div className="right floated content">
                             <div className="ui input">
-                                <DelayInput type="text" placeholder="0" value={ticketValues.TotalAmount}
+                                <DelayInput type="text" placeholder="0" value={ticketValues && ticketValues.TotalAmount}
                                 delayTimeout={500} 
                                 onChange={(e) => this.addTotalAmount(e)}
                                 />
