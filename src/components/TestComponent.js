@@ -49,7 +49,7 @@ class TestComponent extends Component {
       this.props.updateChampList(TournamentCode, SportCode, this.state.updateBox)
 
    }
-
+  
    renderTounamentSpecialMainList() {
       const { TounamentSpecialMainList, SportCode, TournamentCode } = this.props.objekat;
       if (!TounamentSpecialMainList) {
@@ -156,7 +156,10 @@ class TestComponent extends Component {
 
       this.props.oddsTicketList(localTicket)
    }
-
+   singleMatchView = (e, code, date, name) => {
+      e.preventDefault();
+      alert(code + " : " + date + " : " + name)      
+   }
    renderTournamentMatchList() {
       const { TournamentMatchList } = this.props.objekat;
       const { Odds }  = this.props.oddList
@@ -169,11 +172,6 @@ class TestComponent extends Component {
          let localTicket = JSON.parse(localStorage.getItem('ticket'))      
          oddIdList = localTicket.Odds.map((a) => a.OddId)
       }
-      
-
-      
-      
-      
       if (!TournamentMatchList) {
          return null;
       }
@@ -187,8 +185,7 @@ class TestComponent extends Component {
                <Table.Cell width="three">
                   <Header.Content>
                      {val.QuickMatchCode} {val.MatchDate}
-                     <Header.Subheader>
-
+                     <Header.Subheader className="betvip-subheader" onClick={(e) => this.singleMatchView(e, val.MatchCode, val.MatchDate, val.MatchName)}>
                         {val.MatchName}
                      </Header.Subheader>
 

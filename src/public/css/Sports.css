@@ -28,8 +28,11 @@ td.active:hover, tr.active:hover{
 }
 
 .komponenta{
-    background-color: red;
-   
+    background-color: red;       
+}
+.betvip-subheader:hover{
+    background-color: yellow;
+    cursor: pointer;
 }
 #tabelica > thead > tr > th{    
 	padding: 2px;
