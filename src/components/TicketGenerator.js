@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import _ from 'lodash'
 import { DelayInput } from 'react-delay-input';
+import '../public/css/Sports.css';
 import { connect } from 'react-redux';
 import { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction } from '../actions';
 import TicketChildItem from './TicketChildItem';
-import { Button, Header, Icon, Image, Modal, Embed, Dropdown, Checkbox } from 'semantic-ui-react';
+import { allOddsTable } from '../json/allOddsTable';
+import { Button, Header, Icon, Image, Modal, Embed, Dropdown, Checkbox, Table } from 'semantic-ui-react';
 
 
 const customStyle = {
@@ -68,6 +70,7 @@ class TicketGenerator extends Component {
             quickChecked: false         
         }
       }
+      
 
     // renderujOddListu(){    
     //     return this.props.oddList.map((name, i) => {
@@ -250,7 +253,7 @@ class TicketGenerator extends Component {
         }
     }
     
-    render() {
+    render() {       
         let ticketValues;
         let ticketCols;
         let sumCols;
@@ -266,6 +269,9 @@ class TicketGenerator extends Component {
             sumCols = ticketCols.reduce((cols, i) => cols + i)
             console.log("colsssss:   :::  "+sumCols + "   sss    ", ticketCols.length)    
             }
+
+             
+        console.log("aj kreni: ", allOddsTable)
     }         
     
    
@@ -279,12 +285,38 @@ class TicketGenerator extends Component {
             
             >
             {/* <Modal.Header>Profile Picture</Modal.Header> */}
-            <Modal.Content scrolling >            
-            <Embed
+            <Modal.Content scrolling >   
+            <table id="tabelica" style={{width: '100%', backgroundColor: '#2e3338', borderSpacing: 0, color: 'white', borderCollapse: 'collapse'}}>  
+                <tbody>                    
+                    <tr>
+                        <th>Sport</th>
+                        <th>Gruppo</th>
+                        <th>Tipo</th>
+                        <th>Codice</th>
+                    </tr>                
+                        {allOddsTable.map((data, i) =>                         
+                        <tr key={i}>
+                        <td>                
+                        {data.Sport}
+                        </td>
+                        <td>                
+                        {data.Gruppo}
+                        </td>
+                        <td>                
+                        {data.Tipo}
+                        </td>
+                        <td>                
+                        {data.Codice}
+                        </td>      
+                        </tr>           
+                        )}
+                    </tbody>
+                </table>
+            {/* <Embed
                     active={true}
                     url='http://www.betvip.fun/sport/oddstype'
                     
-                />
+                /> */}
             {/* <Modal.Description>
                 <Header>Modal Header</Header>
                 <p>This is an example of expanded content that will cause the modal's dimmer to scroll</p>

@@ -31,3 +31,20 @@ td.active:hover, tr.active:hover{
     background-color: red;
    
 }
+#tabelica > thead > tr > th{    
+	padding: 2px;
+	line-height: 1.42857143 !important;
+	vertical-align: top;
+	
+}
+#tabelica > thead > tr > th:hover{    
+    background-color: #777a41 !important;
+}
+#tabelica tr:hover{    
+    background-color: #777a41 !important;
+}
+#tabelica > tbody > tr:nth-child(2n+1) {
+    background-color: #353a41;
+    border-top: 1px solid #1c1e22;
+    border-bottom: 1px solid #1c1e22;
+}

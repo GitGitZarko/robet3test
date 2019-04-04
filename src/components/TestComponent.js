@@ -6,7 +6,7 @@ import ThirdButtonList from './ThirdButtonList';
 import '../public/css/Sports.css';
 import { connect } from 'react-redux';
 import { callFromBox, updateChampList, oddsTicketList, removeChampFromList } from '../actions';
-import '../public/css/Sports.css';
+
 
 class TestComponent extends Component {
    constructor(props) {
