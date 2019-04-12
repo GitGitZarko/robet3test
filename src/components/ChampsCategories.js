@@ -31,7 +31,8 @@ class ChampsCategories extends Component {
 
 render() {
         const { sportId } = this.props
-        const { categorie } = this.props        
+        const { categorie } = this.props    
+        console.log("ssssssssssssssssssssssssssss",this.props.categorie)         
         
      return ( 
             //  <div onClick={this.pokaziMiAlert}>            

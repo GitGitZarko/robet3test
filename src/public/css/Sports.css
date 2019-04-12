@@ -51,3 +51,7 @@ td.active:hover, tr.active:hover{
     border-top: 1px solid #1c1e22;
     border-bottom: 1px solid #1c1e22;
 }
+.table-cell{
+    padding: 5px 0 !important;
+    text-transform: uppercase;
+}

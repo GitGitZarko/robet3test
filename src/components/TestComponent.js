@@ -182,7 +182,7 @@ class TestComponent extends Component {
 
             <Table.Row>
 
-               <Table.Cell width="three">
+               <Table.Cell width="three" className="table-cell">
                   <Header.Content>
                      {val.QuickMatchCode} {val.MatchDate}
                      <Header.Subheader className="betvip-subheader" onClick={(e) => this.singleMatchView(e, val.MatchCode, val.MatchDate, val.MatchName)}>

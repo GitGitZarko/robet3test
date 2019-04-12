@@ -10,6 +10,8 @@ export const FETCH_START_JSON = 'FETCH_START_JSON';
 export const ODDS_TICKET_LIST = 'ODDS_TICKET_LIST';
 export const REMOVE_ALL_ODDS = 'REMOVE_ALL_ODDS';
 export const GET_QUICK_BET = 'GET_QUICK_BET';
+export const FETCH_IN_EVIDENCE = 'FETCH_IN_EVIDENCE';
+export const FETCH_STRUCTURE_OUTRIGHT = 'FETCH_STRUCTURE_OUTRIGHT';
 // export const FIRST_LEVEL_BUTTON_ID = 'FIRST_LEVEL_BUTTON_ID';
 
 
@@ -42,6 +44,15 @@ dispatch({ type: FETCH_START_JSON, payload: response.data });
 export const fetchChamps = () =>  async dispatch => {
         const response =  await betvipApi.get(`/structure?q=0`);        
     dispatch({ type: FETCH_CHAMPS, payload: response.data.Sports });  
+}
+
+export const fetchInEvidence = () =>  async dispatch => {
+  const response =  await betvipApi.get(`/inEvidence`);        
+dispatch({ type: FETCH_IN_EVIDENCE, payload: response.data });  
+}
+export const fetchStructureOutright = () =>  async dispatch => {
+  const response =  await betvipApi.get(`/structureOutright`);        
+dispatch({ type: FETCH_STRUCTURE_OUTRIGHT, payload: response.data.Sports });  
 }
 
 export const fetchChampList = (champId = null, sportId = null ) =>  async dispatch => {

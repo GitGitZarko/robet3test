@@ -6,6 +6,8 @@ import middleBoxButtons from './middleBoxButtons';
 import ticketJsonReducer from './ticketJsonReducer';
 import oddListReducer from './oddListReducer';
 import quickBetReducer from './quickBetReducer';
+import fetchInEvidence from './fetchInEvidenceReducer';
+import fetchOutright from './fetchOutrightReducer';
 
 // import buttonsReducer from './buttonsReducer';
 
@@ -16,6 +18,8 @@ export default combineReducers({
         middleBoxButtons: middleBoxButtons,
         ticket: ticketJsonReducer,
         oddList: oddListReducer,
-        getQuickBet: quickBetReducer
+        getQuickBet: quickBetReducer,
+        inEvidence: fetchInEvidence,
+        outright: fetchOutright
         // buttonId: buttonsReducer 
 })

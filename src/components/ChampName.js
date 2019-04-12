@@ -28,6 +28,7 @@ class ChampName extends Component {
         
         const { champs } = this.props
         const { sportId } = this.props   
+        
         // const { TournamentCode } = this.props.champsMiddleBoxList        
         
         // console.log("LISTICA::::: JEDNAKO JE", listaTournamentCode, champs.ChampId)
@@ -40,6 +41,7 @@ class ChampName extends Component {
             this.props.addChampToList(champs.ChampId, sportId)
             this.setState({isOpen: true})                
         }
+    
         //listaTournamentCode.includes(champs.ChampId) ? console.log('true') : this.props.addChampToList(champs.ChampId, sportId)
 
         // this.props.removeChampFromList(champs.ChampId, sportId) : this.props.addChampToList(champs.ChampId, sportId)
