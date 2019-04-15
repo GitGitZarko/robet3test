@@ -24,7 +24,6 @@ class ChampsCategories extends Component {
             dataId: event.target.dataset.id,
             showChildren: !this.state.showChildren,
             displayChild: this.state.showChildren ? 'block' : 'none'
-
         })
     }
 }
@@ -32,7 +31,7 @@ class ChampsCategories extends Component {
 render() {
         const { sportId } = this.props
         const { categorie } = this.props    
-        console.log("ssssssssssssssssssssssssssss",this.props.categorie)         
+        console.log("ssssssssssssssssssssssssssss",this.props.categorie,this.props.antepost)         
         
      return ( 
             //  <div onClick={this.pokaziMiAlert}>            
@@ -43,6 +42,7 @@ render() {
                      <ChampName
                      champs={item} 
                      key={i} 
+                     antepost={this.props.antepost}
                      sportId={sportId}  
                      displayChild={this.state.displayChild}                                      
                      /> 

@@ -136,14 +136,16 @@ class TestComponent extends Component {
    }
    addOddToTicket = (e, sportCode, tourCode, oddType, oddValue, matchName, oddGroup, oddCode, matchCode) => {
       e.preventDefault();
+      const { IsAntepost }  = this.props.objekat;
+      
       this.setState({
          reRendered: !this.state.reRendered
       })
 
       let localTicket = JSON.parse(localStorage.ticket)
-
+      
       localTicket.isLive = false;
-      localTicket.matchId = matchCode;
+      localTicket.matchId = IsAntepost ? tourCode : matchCode;
       localTicket.oddId = oddCode;
       localTicket.operationType = 1;
       //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
@@ -161,7 +163,7 @@ class TestComponent extends Component {
       alert(code + " : " + date + " : " + name)      
    }
    renderTournamentMatchList() {
-      const { TournamentMatchList } = this.props.objekat;
+      const { TournamentMatchList } = this.props.objekat;      
       const { Odds }  = this.props.oddList
       let oddIdList = [];
 

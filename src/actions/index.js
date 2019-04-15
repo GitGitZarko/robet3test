@@ -28,7 +28,7 @@ export const removeAllOdds = () => {
 };
 
   export const oddsTicketList = (oddObject) => async dispatch =>{
-    //console.log("LOG IZ AKCIJE: ", oddObject)  
+    console.log("LOG IZ AKCIJE: ", oddObject)  
     await betvipApi.post("/Update",  JSON.stringify(oddObject))
     .then(
       response => dispatch({ type: ODDS_TICKET_LIST, payload: response.data }),//console.log("ODGOVOR SERVERA:  ", response),
@@ -61,10 +61,15 @@ export const fetchChampList = (champId = null, sportId = null ) =>  async dispat
 dispatch({ type: FETCH_CHAMP_LIST, payload: response.data });  
 }
 
-export const addChampToList = (champId = null, sportId = null ) =>  async dispatch => {
+export const addChampToList = (champId = null, sportId = null, ante = null ) =>  async dispatch => {
+    if(!ante){
     const response =  await betvipApi.get(`/tournament?c=${champId}&s=${sportId}`);    
+    dispatch({ type: ADD_CHAMP_TO_LIST, payload: response.data });  
+    }else{
+    const response =  await betvipApi.get(`/TournamentOutright?m=${champId}`);    
+    dispatch({ type: ADD_CHAMP_TO_LIST, payload: response.data });  
+      }
 
-dispatch({ type: ADD_CHAMP_TO_LIST, payload: response.data });  
 }
 export const removeChampFromList = (champId = null, sportId = null) => {
     return {

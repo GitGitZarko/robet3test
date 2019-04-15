@@ -27,8 +27,9 @@ class ChampName extends Component {
         e.preventDefault();  
         
         const { champs } = this.props
-        const { sportId } = this.props   
-        
+        const { sportId } = this.props  
+        const { antepost } = this.props
+        console.log("KAKO KO", this.props.antepost, "Champs: ", champs)
         // const { TournamentCode } = this.props.champsMiddleBoxList        
         
         // console.log("LISTICA::::: JEDNAKO JE", listaTournamentCode, champs.ChampId)
@@ -38,7 +39,7 @@ class ChampName extends Component {
             this.setState({isOpen: false})              
         }else{                    
             console.log('neje tu nema ga')                 
-            this.props.addChampToList(champs.ChampId, sportId)
+            this.props.addChampToList(champs.ChampId, sportId, antepost)
             this.setState({isOpen: true})                
         }
     
@@ -90,5 +91,5 @@ class ChampName extends Component {
 }
 
  
-const mapStateToProps = ({ champsContent, champsMiddleBoxList }) => ({ champsContent, champsMiddleBoxList })
+const mapStateToProps = ({ champsContent, champsMiddleBoxList, outright }) => ({ champsContent, champsMiddleBoxList, outright })
 export default connect(mapStateToProps, { fetchChampList, addChampToList, removeChampFromList })(ChampName);

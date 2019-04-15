@@ -47,6 +47,7 @@ class ChampsList extends Component {
                                 <ChampsCategories 
                                 categorie={cat} 
                                 key={k} 
+                                antepost={false}
                                 sportId={sport.SportId} 
                                 displayChildren={this.state.displayChildren}/> 
                                 : null
@@ -86,6 +87,7 @@ class ChampsList extends Component {
                                 <ChampsCategories 
                                 categorie={cat} 
                                 key={k} 
+                                antepost={true}
                                 sportId={sport.SportId} 
                                 displayChildren={this.state.anteDisplay}/> 
                                 : null
