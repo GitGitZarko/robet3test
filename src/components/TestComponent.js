@@ -165,6 +165,7 @@ class TestComponent extends Component {
    renderTournamentMatchList() {
       const { TournamentMatchList } = this.props.objekat;      
       const { Odds }  = this.props.oddList
+      const { IsAntepost }  = this.props.objekat;
       let oddIdList = [];
 
 
@@ -186,7 +187,7 @@ class TestComponent extends Component {
 
                <Table.Cell width="three" className="table-cell">
                   <Header.Content>
-                     {val.QuickMatchCode} {val.MatchDate}
+                     { !IsAntepost ? val.QuickMatchCode + " "+ val.MatchDate : null}
                      <Header.Subheader className="betvip-subheader" onClick={(e) => this.singleMatchView(e, val.MatchCode, val.MatchDate, val.MatchName)}>
                         {val.MatchName}
                      </Header.Subheader>
@@ -294,11 +295,11 @@ class TestComponent extends Component {
             </Table>
             {/* <h1>{`This is the separate tournament box: ${objekat.TournamentCode}`}</h1> */}
             <div className="ui center aligned segment">
-               <button class="ui yellow basic button">UNICA</button>
-               <button class="ui black basic button">SINGLE</button>
-               <button class="ui green basic button">TRIPLA</button>
-               <button class="ui blue basic button">4UPLA</button>
-               <button class="ui red basic button">SUPLA</button>
+               <button className="ui yellow basic button">UNICA</button>
+               <button className="ui black basic button">SINGLE</button>
+               <button className="ui green basic button">TRIPLA</button>
+               <button className="ui blue basic button">4UPLA</button>
+               <button className="ui red basic button">SUPLA</button>
             </div>
          </div>
 

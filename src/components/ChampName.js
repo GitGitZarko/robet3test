@@ -29,17 +29,19 @@ class ChampName extends Component {
         const { champs } = this.props
         const { sportId } = this.props  
         const { antepost } = this.props
+        const { isFavorite } = this.props
+
         console.log("KAKO KO", this.props.antepost, "Champs: ", champs)
         // const { TournamentCode } = this.props.champsMiddleBoxList        
+        const champIdChangable = isFavorite ? champs.TournamentSourceID : champs.ChampId;
         
-        // console.log("LISTICA::::: JEDNAKO JE", listaTournamentCode, champs.ChampId)
-        if(this.onFocus().some(a => a == champs.ChampId)){ 
+        if(this.onFocus().some(a => a == champIdChangable)){ 
             console.log('tu je ima ga')                 
-            this.props.removeChampFromList(champs.ChampId, sportId)
+            this.props.removeChampFromList(champIdChangable, sportId)
             this.setState({isOpen: false})              
         }else{                    
             console.log('neje tu nema ga')                 
-            this.props.addChampToList(champs.ChampId, sportId, antepost)
+            this.props.addChampToList(champIdChangable, sportId, antepost)
             this.setState({isOpen: true})                
         }
     
@@ -73,12 +75,11 @@ class ChampName extends Component {
     
     render() {       
         const { champs } = this.props
-      
+        const { isFavorite } = this.props
        
-     return ( 
-                  
-           <div onClick={this.azurirajContent} className="ui middle aligned selection list" style={{ background: this.onFocus().some(a => a == champs.ChampId) ? 'red' : 'white', cursor: 'pointer'}}>
-                {champs.ChampName}                
+     return (                   
+           <div onClick={this.azurirajContent} className={isFavorite ? '' : 'ui middle aligned selection list'} style={{ background: this.onFocus().some(a => a == (isFavorite ? champs.TournamentSourceID : champs.ChampId)) ? 'red' : 'white', cursor: 'pointer'}}>
+                {isFavorite && <i className="serbia flag"></i>}{isFavorite ? champs.TrounamentDescription : champs.ChampName}                
             </div>
             
           

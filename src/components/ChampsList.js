@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchChamps, fetchInEvidence, fetchStructureOutright } from '../actions';
 import ChampsCategories from './ChampsCategories'
+import ChampName from './ChampName';
 
 class ChampsList extends Component {
     state = {
@@ -65,12 +66,24 @@ class ChampsList extends Component {
         return inEvidence.map((sport, i ) => {            
             return(
                 <li>
-                <div className="item">                    
-                    <div className="content">
-                        <div className="header"><i className="serbia flag"></i>  {sport.TrounamentDescription}</div>
-                     
+                <div className="item" style={{display: 'block'}}>                    
+                    <div className="content" >
+                        <div className="header" onClick={(e) => this.uradiNesto(e, sport.SportId)} style={{cursor: 'pointer'}}>
+                        
+                    {  
+                        <ChampName                       
+                        champs={sport} 
+                        key={i} 
+                        antepost={false}
+                        isFavorite={true}
+                        sportId={1}  
+                        displayChild={this.state.displayChild}   
+                        /> 
+                    }
+                    </div>                     
+                      </div>
             </div>
-                </div>
+                
             </li>
             )
         })
@@ -83,7 +96,7 @@ class ChampsList extends Component {
                 <div className="item">                    
                     <div className="content">
                         <div className="header" onClick={(e) => this.uradiNestoAnte(e, sport.SportId)} ><i className="italy flag"></i>  {sport.SportName}</div>
-            { sport.Categories.map((cat, k) => <div> {sport.SportId == this.state.targetAnte ?                                 
+                        {sport.Categories.map((cat, k) => <div> {sport.SportId == this.state.targetAnte ?                                 
                                 <ChampsCategories 
                                 categorie={cat} 
                                 key={k} 
@@ -113,15 +126,12 @@ class ChampsList extends Component {
                     {this.renderEvidenceList()}
                     </div>                       
                 </div>
-
                 <div className="ui relaxed divided list">     
                     <div className="ui middle aligned selection list" style={{border: '1px dotted black'}}>
                     <h5>SPORT DISPONIBILI</h5>
                     {this.renderSportList()}
                     </div>                              
-                </div>
-
-                
+                </div>                
                     <div className="ui relaxed divided list">     
                     <div className="ui middle aligned selection list" style={{border: '1px dotted black'}}>
                     <h5>ANTEPOST</h5>
