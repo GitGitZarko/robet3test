@@ -68,7 +68,7 @@ class ChampsList extends Component {
                 <li>
                 <div className="item" style={{display: 'block'}}>                    
                     <div className="content" >
-                        <div className="header" onClick={(e) => this.uradiNesto(e, sport.SportId)} style={{cursor: 'pointer'}}>
+                        <div className="header"  style={{cursor: 'pointer'}}>
                         
                     {  
                         <ChampName                       
