@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchChamps, fetchChampList, addChampToList, removeChampFromList } from '../actions';
+import { fetchChamps, fetchChampList, addChampToList, removeChampFromList, sportViewChamps} from '../actions';
 
 
 class ChampName extends Component {    
@@ -25,7 +25,7 @@ class ChampName extends Component {
     azurirajContent = (e) =>
     {
         e.preventDefault();  
-        
+        this.props.sportViewChamps(0)
         const { champs } = this.props
         const { sportId } = this.props  
         const { antepost } = this.props
@@ -93,4 +93,4 @@ class ChampName extends Component {
 
  
 const mapStateToProps = ({ champsContent, champsMiddleBoxList, outright }) => ({ champsContent, champsMiddleBoxList, outright })
-export default connect(mapStateToProps, { fetchChampList, addChampToList, removeChampFromList })(ChampName);
+export default connect(mapStateToProps, { fetchChampList, addChampToList, removeChampFromList, sportViewChamps })(ChampName);

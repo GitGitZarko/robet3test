@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchChamps, fetchInEvidence, fetchStructureOutright } from '../actions';
+import { fetchChamps, fetchInEvidence, fetchStructureOutright, sportViewChamps } from '../actions';
 import ChampsCategories from './ChampsCategories'
 import ChampName from './ChampName';
 
@@ -19,13 +19,16 @@ class ChampsList extends Component {
         this.props.fetchStructureOutright(); 
     }
 
-    uradiNesto(event, i){
+    uradiNesto(event, i, sport){
             event.preventDefault();            
             this.setState({
                 valueTriger: !this.state.valueTriger,
                 displayChildren: this.state.valueTriger ? 'block' : 'none',
                 target: i
             })
+            console.log("AADADSASDADASDS", i)
+            this.props.sportViewChamps(i)
+            
     }
     uradiNestoAnte(event, i){
         event.preventDefault();            
@@ -43,7 +46,7 @@ class ChampsList extends Component {
                 <li >
                 <div className="item">                    
                     <div className="content">
-                        <div className="header" onClick={(e) => this.uradiNesto(e, sport.SportId)} ><i className="italy flag"></i>  {sport.SportName}</div>
+                        <div className="header" onClick={(e) => this.uradiNesto(e, sport.SportId, sport)} ><i className="italy flag"></i>  {sport.SportName}</div>
             { sport.Categories.map((cat, k) => <div> {sport.SportId == this.state.target ?                                 
                                 <ChampsCategories 
                                 categorie={cat} 
@@ -144,4 +147,4 @@ class ChampsList extends Component {
  }
  
  const mapStateToProps = ({ champs, inEvidence, outright }) => ({ champs, inEvidence, outright })
- export default connect(mapStateToProps, {fetchChamps, fetchInEvidence, fetchStructureOutright})(ChampsList);
+ export default connect(mapStateToProps, {fetchChamps, fetchInEvidence, fetchStructureOutright, sportViewChamps})(ChampsList);

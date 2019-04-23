@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ChampName from './ChampName';
 
+
 class ChampsCategories extends Component {
     state = {        
         dataId: null,
@@ -16,8 +17,8 @@ class ChampsCategories extends Component {
     //     console.log(this.props.sportId)
     // }
     uradiNesto(event, i){
-        event.preventDefault();    
-     
+        event.preventDefault();  
+        
         if(event.target.dataset.id){
             console.log("dataset",event.target.dataset.id)
         this.setState({
@@ -44,7 +45,7 @@ render() {
                      key={i} 
                      antepost={this.props.antepost}
                      sportId={sportId}  
-                     displayChild={this.state.displayChild}                                      
+                     displayChild={this.state.displayChild}                                                           
                      /> 
                      : 
                      null

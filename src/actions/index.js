@@ -12,8 +12,16 @@ export const REMOVE_ALL_ODDS = 'REMOVE_ALL_ODDS';
 export const GET_QUICK_BET = 'GET_QUICK_BET';
 export const FETCH_IN_EVIDENCE = 'FETCH_IN_EVIDENCE';
 export const FETCH_STRUCTURE_OUTRIGHT = 'FETCH_STRUCTURE_OUTRIGHT';
+export const SPORT_VIEW_CHAMPS = 'SPORT_VIEW_CHAMPS';
 // export const FIRST_LEVEL_BUTTON_ID = 'FIRST_LEVEL_BUTTON_ID';
 
+
+export const sportViewChamps = (sportId) => {
+  return {
+    type: SPORT_VIEW_CHAMPS,
+    payload: sportId
+  }
+};
 
 export const quickBetAction = (matchCode) =>  async dispatch => {
   const response =  await betvipApi.get(`/Quick?id=${matchCode}`);    
