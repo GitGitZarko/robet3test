@@ -25,7 +25,8 @@ class ChampName extends Component {
     azurirajContent = (e) =>
     {
         e.preventDefault();  
-        this.props.sportViewChamps(0)
+        this.props.sportViewChamps(0);
+
         const { champs } = this.props
         const { sportId } = this.props  
         const { antepost } = this.props
@@ -81,11 +82,6 @@ class ChampName extends Component {
            <div onClick={this.azurirajContent} className={isFavorite ? '' : 'ui middle aligned selection list'} style={{ background: this.onFocus().some(a => a == (isFavorite ? champs.TournamentSourceID : champs.ChampId)) ? 'red' : 'white', cursor: 'pointer'}}>
                 {isFavorite && <i className="serbia flag"></i>}{isFavorite ? champs.TrounamentDescription : champs.ChampName}                
             </div>
-            
-          
-            
-                      
-            
          )
    }
 

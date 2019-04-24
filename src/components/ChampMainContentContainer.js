@@ -2,14 +2,10 @@ import React, { Component } from 'react';
 import ChampMainContent from './ChampMainContent';
 import { connect } from 'react-redux';
 import '../public/css/Sports.css';
-import { fetchChampList, addChampToList } from '../actions';
+import { fetchChampList, addChampToList, removeChampFromList} from '../actions';
 import { DimmerDimmable } from 'semantic-ui-react';
 import TestComponent from './TestComponent';
-import { Header, Table, Button, SegmentInline, Ref, Grid } from 'semantic-ui-react'
-
-
-
-
+import { Header, Table, Checkbox, Button, SegmentInline, Ref, Grid } from 'semantic-ui-react'
 
 class ChampMainContentContainer extends Component {
     constructor(props) {
@@ -17,10 +13,42 @@ class ChampMainContentContainer extends Component {
 
         this.testKontejner = React.createRef();
     }
+
+    onFocus = () => {
+      const { champs } = this.props
+      let listaTournamentCode = this.props.champsMiddleBoxList.map((objekat) => objekat.TournamentCode)
+      return listaTournamentCode
+  }
+
+
+    mainContainerAddRemove = (champId, sportId) => {
+            
+      console.log("CLICK IZ VIEW-A", champId ," I B " , sportId )
+    //   const { champs } = this.props
+    //   const { sportId } = this.props  
+    //   const { antepost } = this.props
+    //   const { isFavorite } = this.props
+
+    //   console.log("KAKO KO", this.props.antepost, "Champs: ", champs)
+    //   // const { TournamentCode } = this.props.champsMiddleBoxList        
+    //   const champIdChangable = isFavorite ? champs.TournamentSourceID : champs.ChampId;
+      
+      if(this.onFocus().some(a => a == champId)){ 
+          console.log('tu je ima ga')                 
+          this.props.removeChampFromList(champId, sportId)
+          this.setState({isOpen: false})              
+      }else{                    
+          console.log('neje tu nema ga')                 
+          this.props.addChampToList(champId, sportId, null)
+          this.setState({isOpen: true})                
+      }
+    }
+
     includesInMiddleBox(value){
       const result = this.props.champsMiddleBoxList.some(name => name.TournamentCode == value)      
       return result;
     }
+
     novaFunkcija() {
         // const { TournamentCode } = this.props.champsMiddleBoxList;
         // console.log('PROPS champsMiddleBoxList', this.props.champsMiddleBoxList);
@@ -42,23 +70,25 @@ class ChampMainContentContainer extends Component {
 
           console.log("SPORT SPORT" , champsSport)
             return (
-                <Table>          
+                <Table columns={3}>          
                 {
                   champsSport.map((sport, i) => { 
                     return (                                       
                       sport.Categories.map((item) => {
                       return (
-                        <div >
-                        <Table.Header>
-                        <Table.Row>
-                          <Table.HeaderCell>{item.CategoryName}</Table.HeaderCell>
+                        <div >                       
+                        <Table.Row style={{background: '#0a437f', color: 'white', width: '100%', display: 'inline-block', padding: '10px 0'}}>
+                          <Table.HeaderCell >
+                          {item.CategoryName}
+                          </Table.HeaderCell>
+                         
                           </Table.Row> 
-                          </Table.Header>
-                           <Table.Body>
-                           <Table.Row>
-                      {item.Champs.map((val) => <Table.Cell style={this.includesInMiddleBox(val.ChampId) ? {background: 'red', cursor: 'pointer'} : {background: 'white', cursor: 'pointer'}}>{val.ChampName}</Table.Cell>)}
+                      
+                           <Table.Body style={{display: 'block', width: '100%'}}>
+                              <Table.Row style={{display: 'block', width: '100%'}}>
+                      {item.Champs.map((val) => <button  style={{margin: 0, width: '50%', borderRadius: 0, border: '1px solid white', textTransform: 'uppercase', textAlign: 'left', padding: '10px 0'}}><Checkbox checked={this.includesInMiddleBox(val.ChampId) ? true : false} onChange={() => this.mainContainerAddRemove(val.ChampId, sport.SportId)}/>{val.ChampName}</button>)}
                              {/* { item.Champs.map((val) =>  <Table.Row><Table.Cell></Table.Cell>{val}</Table.Row> )}                               */}
-                             </Table.Row>
+                              </Table.Row>
                             </Table.Body>
                           </div>
                       )
@@ -79,4 +109,4 @@ class ChampMainContentContainer extends Component {
     }
 }
 const mapStateToProps = ({ champsMiddleBoxList,champs, sportView }) => ({ champsMiddleBoxList, champs, sportView })
-export default connect(mapStateToProps, { fetchChampList, addChampToList })(ChampMainContentContainer);
+export default connect(mapStateToProps, { fetchChampList, addChampToList, removeChampFromList })(ChampMainContentContainer);
