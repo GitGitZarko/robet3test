@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import '../public/css/Sports.css';
 import { fetchChamps, fetchInEvidence, fetchStructureOutright, sportViewChamps } from '../actions';
 import ChampsCategories from './ChampsCategories'
 import ChampName from './ChampName';
@@ -46,7 +47,7 @@ class ChampsList extends Component {
                 <li >
                 <div className="item">                    
                     <div className="content">
-                        <div className="header" onClick={(e) => this.uradiNesto(e, sport.SportId, sport)} ><i className="italy flag"></i>  {sport.SportName}</div>
+                        <div className="headerLeftMenu" onClick={(e) => this.uradiNesto(e, sport.SportId, sport)} ><i className="italy flag"></i>  {sport.SportName}</div>
             { sport.Categories.map((cat, k) => <div> {sport.SportId == this.state.target ?                                 
                                 <ChampsCategories 
                                 categorie={cat} 

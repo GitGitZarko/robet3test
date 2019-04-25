@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ChampMainContent from './ChampMainContent';
 import { connect } from 'react-redux';
 import '../public/css/Sports.css';
-import { fetchChampList, addChampToList, removeChampFromList} from '../actions';
+import { fetchChampList, addChampToList, removeChampFromList, sportViewChamps} from '../actions';
 import { DimmerDimmable } from 'semantic-ui-react';
 import TestComponent from './TestComponent';
 import { Header, Table, Checkbox, Button, SegmentInline, Ref, Grid } from 'semantic-ui-react'
@@ -78,10 +78,13 @@ class ChampMainContentContainer extends Component {
                       return (
                         <div >                       
                         <Table.Row style={{background: '#0a437f', color: 'white', width: '100%', display: 'inline-block', padding: '10px 0'}}>
-                          <Table.HeaderCell >
+                          <Table.HeaderCell style={{float: 'left'}}>
                           {item.CategoryName}
                           </Table.HeaderCell>
-                         
+                          <Table.HeaderCell  style={{float: 'right', cursor: 'pointer'}} onClick={() => this.props.sportViewChamps(0)}>
+                          <h5>VISUALIZZA SELEZIONATO</h5>
+                          </Table.HeaderCell>
+ 
                           </Table.Row> 
                       
                            <Table.Body style={{display: 'block', width: '100%'}}>
@@ -109,4 +112,4 @@ class ChampMainContentContainer extends Component {
     }
 }
 const mapStateToProps = ({ champsMiddleBoxList,champs, sportView }) => ({ champsMiddleBoxList, champs, sportView })
-export default connect(mapStateToProps, { fetchChampList, addChampToList, removeChampFromList })(ChampMainContentContainer);
+export default connect(mapStateToProps, { fetchChampList, addChampToList, removeChampFromList, sportViewChamps })(ChampMainContentContainer);

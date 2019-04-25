@@ -1,3 +1,14 @@
+.headerLeftMenu {
+    cursor: pointer;  
+    
+} 
+.headerLeftMenu:hover {    
+    background: #c38004;
+    -webkit-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;
+} 
+
 .ui.table td.active, .ui.table tr.active, .ui.active.button.moje-dugme{
    background: lightgreen !important;        
 }

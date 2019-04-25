@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import '../public/css/Sports.css';
 import { fetchChamps, fetchChampList, addChampToList, removeChampFromList, sportViewChamps} from '../actions';
 
 
@@ -79,7 +80,7 @@ class ChampName extends Component {
         const { isFavorite } = this.props
        
      return (                   
-           <div onClick={this.azurirajContent} className={isFavorite ? '' : 'ui middle aligned selection list'} style={{ background: this.onFocus().some(a => a == (isFavorite ? champs.TournamentSourceID : champs.ChampId)) ? 'red' : 'white', cursor: 'pointer'}}>
+           <div onClick={this.azurirajContent} className={isFavorite ? '' : 'ui middle aligned selection list' } style={{ background: this.onFocus().some(a => a == (isFavorite ? champs.TournamentSourceID : champs.ChampId)) ? '#ffd051' : 'white', cursor: 'pointer'}}>
                 {isFavorite && <i className="serbia flag"></i>}{isFavorite ? champs.TrounamentDescription : champs.ChampName}                
             </div>
          )

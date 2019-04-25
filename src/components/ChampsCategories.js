@@ -36,7 +36,7 @@ render() {
         
      return ( 
             //  <div onClick={this.pokaziMiAlert}>            
-            <div data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)} style={{ display: this.props.displayChildren}} >
+            <div className="headerLeftMenu" data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)} style={{ display: this.props.displayChildren}} >
                 {categorie.CategoryName}
                  
                      {categorie.Champs.map((item, i) => <div> {categorie.CategoryId == this.state.dataId ?     
