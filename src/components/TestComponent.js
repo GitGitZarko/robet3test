@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Table, Button, SegmentInline, Ref, Grid } from 'semantic-ui-react'
+import { Header, Table, Button, SegmentInline, Ref, Grid, Dropdown } from 'semantic-ui-react'
 import MainButtonList from './MainButtonList';
 import SecondButtonList from './SecondButtonList';
 import ThirdButtonList from './ThirdButtonList';
@@ -20,7 +20,8 @@ class TestComponent extends Component {
          DescriptionOrder: 0,
          broj: Number,
          reRendered: Boolean,
-         updateBox: []
+         updateBox: [],
+         selectedValue: ''
       }
       this.buttonRef = React.createRef();
    }
@@ -102,14 +103,12 @@ class TestComponent extends Component {
 
    renderTounementMainTitleList() {
       const { TounementMainTitleList } = this.props.objekat;
-
-      // console.log('PROPS champsContent', this.props.champsContent);
+      
       if (!TounementMainTitleList) {
          return null;
       }
 
-      return TounementMainTitleList.map((name, a) => {
-         // console.log("KURAC!!!: ", a)
+      return TounementMainTitleList.map((name, a) => {         
          return (
             <Table.HeaderCell key={a} textAlign="center" colSpan={name.numeroScommesse}>{name.nome}</Table.HeaderCell>
          )
@@ -117,7 +116,7 @@ class TestComponent extends Component {
    }
    renderTitleList() {
       const { TounementTitleList } = this.props.objekat;
-      //console.log('PROPS champsContent', this.props.champsContent);
+      
       if (!TounementTitleList) {
          return null;
       }
@@ -168,7 +167,6 @@ class TestComponent extends Component {
       const { IsAntepost }  = this.props.objekat;
       let oddIdList = [];
 
-
       //console.log("konzolica: ", Odds.map((a) => a.OddId))
       console.log("localTicket:", JSON.parse(localStorage.getItem('ticket')))
       if(localStorage.getItem("ticket") !== null){
@@ -184,7 +182,6 @@ class TestComponent extends Component {
          return (
 
             <Table.Row>
-
                <Table.Cell width="three" className="table-cell">
                   <Header.Content>
                      { !IsAntepost ? val.QuickMatchCode + " "+ val.MatchDate : null}
@@ -243,18 +240,49 @@ class TestComponent extends Component {
       this.props.removeChampFromList(TournamentCode, SportCode);
    }
 
+   getAllOddsGroups = () => {
+      const { TounamentGroupList } = this.props.objekat
+
+      const rezultat = TounamentGroupList.map((data, i) => ({ key: i, text: data.Text, value: data.Value }))
+
+      return rezultat;
+   }
+   //MAX IMPORTANT EXTRUDE VALUE FROM SEMANTIC UI DROPDOWN
+   samoProba  = (e, { value }) => {
+      console.log("ASKJHJASDKHASDKJHASDKJASDHASDJ", value)
+      const { SportCode, TournamentCode, TournamentSpecialMatchList } = this.props.objekat
+      this.props.updateChampList(TournamentCode, SportCode, value)
+      this.setState({
+         selectedValue: e.target.textContent
+      })
+   }
    render() {
       const { objekat } = this.props
 
       return (
          <div style={{ border: '2px green solid', marginBottom: '20px' }} >
-            <div className="ui main  clearing segment" style={{ background: 'yellow' }}>
+            <div className="ui main  clearing segment" style={{ background: 'yellow' }}>        
                <button className="ui right floated icon button" onClick={this.removeChampFromList}>
                   <i className="close icon"></i>
                </button>
                <button className="ui right floated icon button" onClick={this.ajdeKlikni}>
                   <i className="sync icon"></i>
                </button>
+               <div className="ui right floated icon button"  style={{ background: 'transparent', padding: 0, width: '30%'}}>
+                 <Dropdown
+                                    placeholder='Select Odd Group...'
+                                    fluid
+                                    selection
+                                    options={this.getAllOddsGroups()}
+                                    //value={this.state.selectedValue}
+                                    // selectionn
+                                    // search                                   
+                                    // options={this.getQuickBetsList()}
+                                    onChange={this.samoProba}
+                                    //TREBA SREDITI !!!!!!!!!!!!!!!!!!
+                                    //this.props.updateChampList(tcode, scode, TournamentSpecialMatchList[0].Value)
+               />
+               </div>
                {/* <div className="ui selection dropdown">
                <input type="hidden" name="gender"/>
                <i className="dropdown icon"></i>

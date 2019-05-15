@@ -47,7 +47,6 @@ class MainButtonList extends Component {
     const { TournamentSpecialMatchList, Text } = this.props.special
     const { kljuc } = this.props
 
-
     return (
       <button
         style={{margin: 0, width: '25%', borderRadius: 0,border: '1px solid white', textTransform: 'uppercase'}}

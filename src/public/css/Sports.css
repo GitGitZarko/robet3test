@@ -66,3 +66,9 @@ td.active:hover, tr.active:hover{
     padding: 5px 0 !important;
     text-transform: uppercase;
 }
+.ui.fluid.search.selection.dropdown.true{
+    border: 1px solid rgba(131, 181, 214, 0.914);
+}
+.ui.fluid.search.selection.dropdown, .ui.fluid.search.selection.dropdown.false{
+    border: 1px solid rgba(34, 36, 38, 0.15);
+}

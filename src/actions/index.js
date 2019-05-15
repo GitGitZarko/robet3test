@@ -36,12 +36,13 @@ export const removeAllOdds = () => {
 };
 
   export const oddsTicketList = (oddObject) => async dispatch =>{
-    console.log("LOG IZ AKCIJE: ", oddObject)  
-    await betvipApi.post("/Update",  JSON.stringify(oddObject))
-    .then(
+     console.log("CONSOLE LOOOOOOOOOOOOOOOOOOOOOG!", oddObject)
+    await betvipApi.post("/Update",  JSON.stringify(oddObject))    
+    .then(        
       response => dispatch({ type: ODDS_TICKET_LIST, payload: response.data }),//console.log("ODGOVOR SERVERA:  ", response),
-      error => console.log("ODGOVOR SERVERA", error)    
+      error => console.log("ODGOVOR SERVERA", error),        
     );    
+    
 }
 
 export const fetchStartJson = () =>  async dispatch => {
