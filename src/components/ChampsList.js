@@ -59,8 +59,8 @@ class ChampsList extends Component {
                 <li >
                     <div className="item">
                         <div className="content">
-                            <div className="headerLeftMenu" onClick={(e) => this.uradiNestoPlayer(e, sport.SportId, sport)} ><i className="italy flag"></i>  {sport.SportName}</div>
-                            {sport.Categories.map((cat, k) => <div> {sport.SportId == this.state.target ?
+                            <div className="headerLeftMenu" onClick={(e) => this.uradiNestoPlayer(e, sport.SportId, sport)} ><i className="serbia flag"></i>  {sport.SportName}</div>
+                            {sport.Categories.map((cat, k) => <div> {sport.SportId == this.state.targetPlayer ?
                                 <ChampsCategories
                                     categorie={cat}
                                     key={k}
@@ -68,7 +68,7 @@ class ChampsList extends Component {
                                     isFavorite={false}
                                     players={true}
                                     sportId={sport.SportId}
-                                    displayChildren={this.state.displayPlayers} />
+                                    displayChildren={this.state.displayPlayer} />
                                 : null
                             }
                             </div>

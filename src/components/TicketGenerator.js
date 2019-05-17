@@ -49,6 +49,8 @@ class TicketGenerator extends Component {
         // Explicitly focus the text input using the raw DOM API
         // Note: we're accessing "current" to get the DOM node     
         this.textInputMain.current.blur();
+        //THIS NEED TO BE IMPLEMENTED
+        //this.textInputMain.current.value = "";
         this.setState({ focus: true})
         
       }
