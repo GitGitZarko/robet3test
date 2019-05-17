@@ -50,7 +50,7 @@ class TestComponent extends Component {
       this.props.updateChampList(TournamentCode, SportCode, this.state.updateBox)
 
    }
-  
+
    renderTounamentSpecialMainList() {
       const { TounamentSpecialMainList, SportCode, TournamentCode } = this.props.objekat;
       if (!TounamentSpecialMainList) {
@@ -103,12 +103,12 @@ class TestComponent extends Component {
 
    renderTounementMainTitleList() {
       const { TounementMainTitleList } = this.props.objekat;
-      
+
       if (!TounementMainTitleList) {
          return null;
       }
 
-      return TounementMainTitleList.map((name, a) => {         
+      return TounementMainTitleList.map((name, a) => {
          return (
             <Table.HeaderCell key={a} textAlign="center" colSpan={name.numeroScommesse}>{name.nome}</Table.HeaderCell>
          )
@@ -116,7 +116,7 @@ class TestComponent extends Component {
    }
    renderTitleList() {
       const { TounementTitleList } = this.props.objekat;
-      
+
       if (!TounementTitleList) {
          return null;
       }
@@ -135,14 +135,14 @@ class TestComponent extends Component {
    }
    addOddToTicket = (e, sportCode, tourCode, oddType, oddValue, matchName, oddGroup, oddCode, matchCode) => {
       e.preventDefault();
-      const { IsAntepost }  = this.props.objekat;
-      
+      const { IsAntepost } = this.props.objekat;
+
       this.setState({
          reRendered: !this.state.reRendered
       })
 
       let localTicket = JSON.parse(localStorage.ticket)
-      
+
       localTicket.isLive = false;
       localTicket.matchId = IsAntepost ? tourCode : matchCode;
       localTicket.oddId = oddCode;
@@ -159,24 +159,24 @@ class TestComponent extends Component {
    }
    singleMatchView = (e, code, date, name) => {
       e.preventDefault();
-      alert(code + " : " + date + " : " + name)      
+      alert(code + " : " + date + " : " + name)
    }
    renderTournamentMatchList() {
-      const { TournamentMatchList } = this.props.objekat;      
-      const { Odds }  = this.props.oddList
-      const { IsAntepost }  = this.props.objekat;
+      const { TournamentMatchList } = this.props.objekat;
+      const { Odds } = this.props.oddList
+      const { IsAntepost } = this.props.objekat;
       let oddIdList = [];
 
       //console.log("konzolica: ", Odds.map((a) => a.OddId))
       console.log("localTicket:", JSON.parse(localStorage.getItem('ticket')))
-      if(localStorage.getItem("ticket") !== null){
-         let localTicket = JSON.parse(localStorage.getItem('ticket'))      
+      if (localStorage.getItem("ticket") !== null) {
+         let localTicket = JSON.parse(localStorage.getItem('ticket'))
          oddIdList = localTicket.Odds.map((a) => a.OddId)
       }
       if (!TournamentMatchList) {
          return null;
       }
-   
+
       return TournamentMatchList.map(val => {
          // console.log(val.TournamentMatchOddList)
          return (
@@ -184,7 +184,7 @@ class TestComponent extends Component {
             <Table.Row>
                <Table.Cell width="three" className="table-cell">
                   <Header.Content>
-                     { !IsAntepost ? val.QuickMatchCode + " "+ val.MatchDate : null}
+                     {!IsAntepost ? val.QuickMatchCode + " " + val.MatchDate : null}
                      <Header.Subheader className="betvip-subheader" onClick={(e) => this.singleMatchView(e, val.MatchCode, val.MatchDate, val.MatchName)}>
                         {val.MatchName}
                      </Header.Subheader>
@@ -242,15 +242,15 @@ class TestComponent extends Component {
 
    getAllOddsGroups = () => {
       const { TounamentGroupList } = this.props.objekat
-
+      if (!TounamentGroupList) return null
       const rezultat = TounamentGroupList.map((data, i) => ({ key: i, text: data.Text, value: data.Value }))
 
       return rezultat;
    }
    //MAX IMPORTANT EXTRUDE VALUE FROM SEMANTIC UI DROPDOWN
-   samoProba  = (e, { value }) => {
+   samoProba = (e, { value }) => {
       console.log("ASKJHJASDKHASDKJHASDKJASDHASDJ", value)
-      const { SportCode, TournamentCode, TournamentSpecialMatchList } = this.props.objekat
+      const { SportCode, TournamentCode } = this.props.objekat
       this.props.updateChampList(TournamentCode, SportCode, value)
       this.setState({
          selectedValue: e.target.textContent
@@ -258,31 +258,34 @@ class TestComponent extends Component {
    }
    render() {
       const { objekat } = this.props
+      const { TounamentGroupList } = this.props.objekat
 
       return (
          <div style={{ border: '2px green solid', marginBottom: '20px' }} >
-            <div className="ui main  clearing segment" style={{ background: 'yellow' }}>        
+            <div className="ui main  clearing segment" style={{ background: 'yellow' }}>
                <button className="ui right floated icon button" onClick={this.removeChampFromList}>
                   <i className="close icon"></i>
                </button>
                <button className="ui right floated icon button" onClick={this.ajdeKlikni}>
                   <i className="sync icon"></i>
                </button>
-               <div className="ui right floated icon button"  style={{ background: 'transparent', padding: 0, width: '30%'}}>
-                 <Dropdown
-                                    placeholder='Select Odd Group...'
-                                    fluid
-                                    selection
-                                    options={this.getAllOddsGroups()}
-                                    //value={this.state.selectedValue}
-                                    // selectionn
-                                    // search                                   
-                                    // options={this.getQuickBetsList()}
-                                    onChange={this.samoProba}
-                                    //TREBA SREDITI !!!!!!!!!!!!!!!!!!
-                                    //this.props.updateChampList(tcode, scode, TournamentSpecialMatchList[0].Value)
-               />
+               {TounamentGroupList ? <div className="ui right floated icon button" style={{ background: 'transparent', padding: 0, width: '30%' }}>
+                  <Dropdown
+                     placeholder='Select Odd Group...'
+                     fluid
+                     selection
+                     options={this.getAllOddsGroups()}
+                     //value={this.state.selectedValue}
+                     // selectionn
+                     // search                                   
+                     // options={this.getQuickBetsList()}
+                     onChange={this.samoProba}
+                  //TREBA SREDITI !!!!!!!!!!!!!!!!!!
+                  //this.props.updateChampList(tcode, scode, TournamentSpecialMatchList[0].Value)
+                  />
                </div>
+                  : null
+               }
                {/* <div className="ui selection dropdown">
                <input type="hidden" name="gender"/>
                <i className="dropdown icon"></i>

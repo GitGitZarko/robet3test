@@ -9,6 +9,7 @@ import quickBetReducer from './quickBetReducer';
 import fetchInEvidence from './fetchInEvidenceReducer';
 import fetchOutright from './fetchOutrightReducer';
 import sportViewChamps from './sportViewChampsReducer';
+import fetchPlayerReducer from './fetchPlayerReducer';
 
 // import buttonsReducer from './buttonsReducer';
 
@@ -22,6 +23,7 @@ export default combineReducers({
         getQuickBet: quickBetReducer,
         inEvidence: fetchInEvidence,
         outright: fetchOutright,
-        sportView: sportViewChamps
+        sportView: sportViewChamps,
+        players: fetchPlayerReducer
         // buttonId: buttonsReducer 
 })

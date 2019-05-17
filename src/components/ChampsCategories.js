@@ -3,12 +3,12 @@ import ChampName from './ChampName';
 
 
 class ChampsCategories extends Component {
-    state = {        
+    state = {
         dataId: null,
         showChildren: Boolean,
         displayChild: ''
-        
-        
+
+
     }
     // pokaziMiAlert = (e) =>
     // {
@@ -16,46 +16,47 @@ class ChampsCategories extends Component {
     //     //const { sportId } = this.props
     //     console.log(this.props.sportId)
     // }
-    uradiNesto(event, i){
-        event.preventDefault();  
-        
-        if(event.target.dataset.id){
-            console.log("dataset",event.target.dataset.id)
-        this.setState({
-            dataId: event.target.dataset.id,
-            showChildren: !this.state.showChildren,
-            displayChild: this.state.showChildren ? 'block' : 'none'
-        })
-    }
-}
+    uradiNesto(event, i) {
+        event.preventDefault();
 
-render() {
+        if (event.target.dataset.id) {
+            console.log("dataset", event.target.dataset.id)
+            this.setState({
+                dataId: event.target.dataset.id,
+                showChildren: !this.state.showChildren,
+                displayChild: this.state.showChildren ? 'block' : 'none'
+            })
+        }
+    }
+
+    render() {
         const { sportId } = this.props
-        const { categorie } = this.props    
-        console.log("ssssssssssssssssssssssssssss",this.props.categorie,this.props.antepost)         
-        
-     return ( 
+        const { categorie } = this.props
+        console.log("ssssssssssssssssssssssssssss", this.props.categorie, this.props.antepost)
+
+        return (
             //  <div onClick={this.pokaziMiAlert}>            
-            <div className="headerLeftMenu" data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)} style={{ display: this.props.displayChildren}} >
+            <div className="headerLeftMenu" data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)} style={{ display: this.props.displayChildren }} >
                 {categorie.CategoryName}
-                 
-                     {categorie.Champs.map((item, i) => <div> {categorie.CategoryId == this.state.dataId ?     
-                     <ChampName
-                     champs={item} 
-                     key={i} 
-                     antepost={this.props.antepost}
-                     sportId={sportId}  
-                     displayChild={this.state.displayChild}                                                           
-                     /> 
-                     : 
-                     null
-                         } 
-                         </div>
-                     )}                     
-                 
+
+                {categorie.Champs.map((item, i) => <div> {categorie.CategoryId == this.state.dataId ?
+                    <ChampName
+                        champs={item}
+                        key={i}
+                        antepost={this.props.antepost}
+                        players={this.props.players}
+                        sportId={sportId}
+                        displayChild={this.state.displayChild}
+                    />
+                    :
+                    null
+                }
+                </div>
+                )}
+
             </div>
-         )
-   }
+        )
+    }
 }
 
 export default ChampsCategories;
