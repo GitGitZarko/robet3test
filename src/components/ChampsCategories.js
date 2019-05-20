@@ -26,6 +26,7 @@ class ChampsCategories extends Component {
                 showChildren: !this.state.showChildren,
                 displayChild: this.state.showChildren ? 'block' : 'none'
             })
+            
         }
     }
 

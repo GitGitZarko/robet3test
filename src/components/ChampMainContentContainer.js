@@ -102,14 +102,32 @@ class ChampMainContentContainer extends Component {
                 </Table>
             )       
     }
-    render() {              
-        return (
+    render() {      
+         return (
             <div >
-                {this.props.sportView == 0 ? this.novaFunkcija() : this.renderujSportChamps()}
+
+                { this.props.singleMatch == null ? 
+                  this.props.sportView == 0 ? this.novaFunkcija() : this.renderujSportChamps()
+                :  (   
+                  <div> 
+                    <div style={{textAlign: 'center'}}>
+                    <h1>{this.props.singleMatch.name}</h1>
+                    <h4>{this.props.singleMatch.date}</h4>
+                    </div>
+                      {this.props.singleMatch.data.Items.map((data, i) => 
+                        <div key={i}>
+                              {data.GroupName}
+                              {data.OddItems.map((gege,i) => <button>{gege.Value}</button>)}
+                        </div>
+                        
+                      )}
+                    </div>       
+                )
+                }
                 {/* {this.renderujSportChamps()} */}
             </div>
         )
     }
 }
-const mapStateToProps = ({ champsMiddleBoxList,champs, sportView }) => ({ champsMiddleBoxList, champs, sportView })
+const mapStateToProps = ({ champsMiddleBoxList,champs, sportView, singleMatch }) => ({ champsMiddleBoxList, champs, sportView, singleMatch })
 export default connect(mapStateToProps, { fetchChampList, addChampToList, removeChampFromList, sportViewChamps })(ChampMainContentContainer);

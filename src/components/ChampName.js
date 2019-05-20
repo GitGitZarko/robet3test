@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../public/css/Sports.css';
-import { fetchChamps, fetchChampList, addChampToList, removeChampFromList, sportViewChamps } from '../actions';
+import { fetchChamps, fetchChampList, addChampToList, removeChampFromList, sportViewChamps, removeSingleMatch } from '../actions';
 
 
 class ChampName extends Component {
@@ -48,6 +48,8 @@ class ChampName extends Component {
             this.setState({ isOpen: true })
         }
 
+
+        if(this.props.singleMatch) this.props.removeSingleMatch()
         //listaTournamentCode.includes(champs.ChampId) ? console.log('true') : this.props.addChampToList(champs.ChampId, sportId)
 
         // this.props.removeChampFromList(champs.ChampId, sportId) : this.props.addChampToList(champs.ChampId, sportId)
@@ -90,5 +92,5 @@ class ChampName extends Component {
 }
 
 
-const mapStateToProps = ({ champsContent, champsMiddleBoxList, outright }) => ({ champsContent, champsMiddleBoxList, outright })
-export default connect(mapStateToProps, { fetchChampList, addChampToList, removeChampFromList, sportViewChamps })(ChampName);
+const mapStateToProps = ({ champsContent, champsMiddleBoxList, outright, singleMatch }) => ({ champsContent, champsMiddleBoxList, outright, singleMatch })
+export default connect(mapStateToProps, { fetchChampList, addChampToList, removeChampFromList, sportViewChamps, removeSingleMatch })(ChampName);

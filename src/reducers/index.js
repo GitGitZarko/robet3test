@@ -10,6 +10,7 @@ import fetchInEvidence from './fetchInEvidenceReducer';
 import fetchOutright from './fetchOutrightReducer';
 import sportViewChamps from './sportViewChampsReducer';
 import fetchPlayerReducer from './fetchPlayerReducer';
+import fetchSingleMatch from './fetchSingleMatchReducer';
 
 // import buttonsReducer from './buttonsReducer';
 
@@ -24,6 +25,7 @@ export default combineReducers({
         inEvidence: fetchInEvidence,
         outright: fetchOutright,
         sportView: sportViewChamps,
-        players: fetchPlayerReducer
+        players: fetchPlayerReducer,
+        singleMatch: fetchSingleMatch
         // buttonId: buttonsReducer 
 })

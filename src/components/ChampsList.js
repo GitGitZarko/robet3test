@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../public/css/Sports.css';
-import { fetchChamps, fetchInEvidence, fetchStructureOutright, sportViewChamps, fetchStructurePlayer } from '../actions';
+import { fetchChamps, fetchInEvidence, fetchStructureOutright, sportViewChamps, fetchStructurePlayer,removeSingleMatch } from '../actions';
 import ChampsCategories from './ChampsCategories'
 import ChampName from './ChampName';
 
@@ -33,6 +33,7 @@ class ChampsList extends Component {
         })
         console.log("AADADSASDADASDS", i)
         this.props.sportViewChamps(i)
+        if(this.props.singleMatch) this.props.removeSingleMatch()
 
     }
     uradiNestoAnte(event, i) {
@@ -42,6 +43,7 @@ class ChampsList extends Component {
             anteDisplay: this.state.valueAnte ? 'block' : 'none',
             targetAnte: i
         })
+        if(this.props.singleMatch) this.props.removeSingleMatch()
     }
     uradiNestoPlayer(event, i) {
         event.preventDefault();
@@ -50,6 +52,7 @@ class ChampsList extends Component {
             displayPlayer: this.state.valuePlayer ? 'block' : 'none',
             targetPlayer: i
         })
+        if(this.props.singleMatch) this.props.removeSingleMatch()
     }
 
     renderPlayersList() {
@@ -161,6 +164,7 @@ class ChampsList extends Component {
         console.log(this.props.champs)
         console.log("Evidencija: ", this.props.inEvidence)
         console.log("OUTRIGHT: ", this.props.outright)
+        
         return (
             <div>
                 <div className="ui relaxed divided list">
@@ -192,5 +196,5 @@ class ChampsList extends Component {
     }
 }
 
-const mapStateToProps = ({ champs, inEvidence, outright, players }) => ({ champs, inEvidence, outright, players })
-export default connect(mapStateToProps, { fetchChamps, fetchInEvidence, fetchStructureOutright, sportViewChamps, fetchStructurePlayer })(ChampsList);
+const mapStateToProps = ({ champs, inEvidence, outright, players, singleMatch }) => ({ champs, inEvidence, outright, players, singleMatch })
+export default connect(mapStateToProps, { fetchChamps, fetchInEvidence, fetchStructureOutright, sportViewChamps, fetchStructurePlayer, removeSingleMatch })(ChampsList);

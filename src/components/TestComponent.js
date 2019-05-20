@@ -5,7 +5,7 @@ import SecondButtonList from './SecondButtonList';
 import ThirdButtonList from './ThirdButtonList';
 import '../public/css/Sports.css';
 import { connect } from 'react-redux';
-import { callFromBox, updateChampList, oddsTicketList, removeChampFromList } from '../actions';
+import { callFromBox, updateChampList, oddsTicketList, removeChampFromList, fetchSingleMatch } from '../actions';
 
 
 class TestComponent extends Component {
@@ -159,7 +159,7 @@ class TestComponent extends Component {
    }
    singleMatchView = (e, code, date, name) => {
       e.preventDefault();
-      alert(code + " : " + date + " : " + name)
+      this.props.fetchSingleMatch(code, date, name);
    }
    renderTournamentMatchList() {
       const { TournamentMatchList } = this.props.objekat;
@@ -339,5 +339,5 @@ class TestComponent extends Component {
    }
 }
 
-const mapStateToProps = ({ middleBoxButtons, oddList }) => ({ middleBoxButtons, oddList })
-export default connect(mapStateToProps, { callFromBox, updateChampList, oddsTicketList, removeChampFromList })(TestComponent);
+const mapStateToProps = ({ middleBoxButtons, oddList, singleMatch }) => ({ middleBoxButtons, oddList, singleMatch })
+export default connect(mapStateToProps, { callFromBox, updateChampList, oddsTicketList, removeChampFromList, fetchSingleMatch })(TestComponent);

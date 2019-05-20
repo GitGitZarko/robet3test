@@ -14,7 +14,18 @@ export const FETCH_IN_EVIDENCE = 'FETCH_IN_EVIDENCE';
 export const FETCH_STRUCTURE_OUTRIGHT = 'FETCH_STRUCTURE_OUTRIGHT';
 export const FETCH_STRUCTURE_PLAYER = 'FETCH_STRUCTURE_PLAYER';
 export const SPORT_VIEW_CHAMPS = 'SPORT_VIEW_CHAMPS';
+export const FETCH_SINGLE_MATCH = 'FETCH_SINGLE_MATCH';
+export const REMOVE_SINGLE_MATCH = 'REMOVE_SINGLE_MATCH';
 // export const FIRST_LEVEL_BUTTON_ID = 'FIRST_LEVEL_BUTTON_ID';
+
+
+export const fetchSingleMatch = (singleMatchCode = null, date = null, name = null) => async dispatch => {
+  const response = await betvipApi.get(`/Match?id=${singleMatchCode}`);
+  dispatch({ type: FETCH_SINGLE_MATCH, payload: { data: response.data, date: date, name: name }});
+}
+export const removeSingleMatch = (s) => async dispatch => {  
+  dispatch({ type: REMOVE_SINGLE_MATCH });
+}
 
 
 export const sportViewChamps = (sportId) => {
