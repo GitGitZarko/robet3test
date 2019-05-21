@@ -13,11 +13,20 @@ const Header = () => {
             <img src={logo}/>
           </div>
       </Link>
-        <Link to="/" className="item" style={{textTransform: 'uppercase'}}>
-          Sport
+        <Link to="/" className="item" >
+          SPORT
         </Link>
-        <Link to="/LiveBet" className="item" style={{textTransform: 'uppercase'}}>
-        LiveBet
+        <Link to="/LiveBet" className="item" >
+        SPORT LIVE
+        </Link>
+        <Link to="/Casino" className="item" >
+        CASINO'
+        </Link>
+        <Link to="/Virtual" className="item" >
+        VIRTUAL SPORT
+        </Link>
+        <Link to="/Poker" className="item" >
+        POKER
         </Link>
         <div className="right menu">
         <Link to="/Login" className="item">
