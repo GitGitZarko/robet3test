@@ -7,16 +7,16 @@ import { Link } from 'react-router-dom';
 const Header = () => {  
     return (
       <div class="center aligned column">
-      <div className="ui pointing menu"> 
-       <Link to="/" className="left item">
+      <div className="ui secondary  pointing menu" > 
+       <Link to="/" className="left item" >
           <div class="ui logo image">
             <img src={logo}/>
           </div>
       </Link>
-        <Link to="/" className="item">
+        <Link to="/" className="item" style={{textTransform: 'uppercase'}}>
           Sport
         </Link>
-        <Link to="/LiveBet" className="item">
+        <Link to="/LiveBet" className="item" style={{textTransform: 'uppercase'}}>
         LiveBet
         </Link>
         <div className="right menu">
