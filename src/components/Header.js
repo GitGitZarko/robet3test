@@ -5,8 +5,7 @@ import { Link } from 'react-router-dom';
 
 
 const Header = () => {  
-    return (
-      <div class="center aligned column">
+    return (      
       <div className="ui secondary  pointing menu" > 
        <Link to="/" className="left item" >
           <div class="ui logo image">
@@ -34,7 +33,7 @@ const Header = () => {
         </Link>
         </div>
       </div>
-      </div>
+      
         )
   
 }

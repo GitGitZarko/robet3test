@@ -2,23 +2,22 @@ import React from 'react';
 //import '../public/css/Sports.css';
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 import Header from './Header';
-import TicketGenerator from './TicketGenerator';
 
 
-const LiveBet = () => {
+const Poker = () => {
     return (
         <div className="ui three grid">        
-        <div className="three column row" style={{marginRight: '20px'}}>
+        <div className="three column row">
         
             <div className="three wide column">
             Left Sidebar
             </div>  
             <div className="ten wide column">  
-            LIVE PAGE
+            POKER PAGE
             Middle Part
             </div>                  
-            <div className="three wide column" style={{ background: 'aliceblue', textAlign: 'center', border: '1px solid blue' }}>
-                    <TicketGenerator />     
+            <div className="three wide column" >
+                    Right part
             </div>
             </div>
         </div>       
@@ -28,4 +27,4 @@ const LiveBet = () => {
     )
 }
 
-export default LiveBet;
+export default Poker;
