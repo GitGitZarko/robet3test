@@ -5,6 +5,7 @@ import '../public/css/Sports.css';
 import { fetchChampList, addChampToList, removeChampFromList, sportViewChamps} from '../actions';
 import { DimmerDimmable } from 'semantic-ui-react';
 import TestComponent from './TestComponent';
+import SingleMatch from './SingleMatch';
 import { Header, Table, Checkbox, Button, SegmentInline, Ref, Grid } from 'semantic-ui-react'
 
 class ChampMainContentContainer extends Component {
@@ -110,7 +111,8 @@ class ChampMainContentContainer extends Component {
                   this.props.sportView == 0 ? this.novaFunkcija() : this.renderujSportChamps()
                 :  (   
                   <div> 
-                    <div style={{textAlign: 'center'}}>
+                    <SingleMatch  singleMatch={this.props.singleMatch}/>
+                    {/* <div style={{textAlign: 'center'}}>
                     <h1>{this.props.singleMatch.name}</h1>
                     <h4>{this.props.singleMatch.date}</h4>
                     </div>
@@ -120,8 +122,8 @@ class ChampMainContentContainer extends Component {
                               {data.OddItems.map((gege,i) => <button>{gege.Value}</button>)}
                         </div>
                         
-                      )}
-                    </div>       
+                      )}*/}
+                    </div>        
                 )
                 }
                 {/* {this.renderujSportChamps()} */}
