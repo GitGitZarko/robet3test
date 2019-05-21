@@ -1,33 +1,22 @@
 import React from 'react';
 //import '../public/css/Sports.css';
+import { BrowserRouter, Route } from 'react-router-dom';
 import Header from './Header';
-import ChampsList from './ChampsList';
-import ChampMainContentContainer from './ChampMainContentContainer';
-import TicketGenerator from './TicketGenerator';
+import Sport from './Sport';
+import LiveBet from './LiveBet';
 
 const App = () => {
     return (
-        
-        <div className="ui fluid container">
-        <Header/>         
-
-        <div className="ui three grid">
-                <div className="three column row">
-                    <div className="three wide column">
-                    <ul>
-                        <ChampsList/>
-                        </ul>
-                    </div>  
-                    <div className="ten wide column">  
-                    <ChampMainContentContainer />
-                    </div>                  
-                    <div className="three wide column" style={{ background: 'aliceblue', textAlign: 'center', border: '1px solid blue' }}>
-                    <TicketGenerator />
-             
-                    </div>
-                    </div>
-                </div>       
+        <div >            
+            <BrowserRouter>
+            <div>
+                <Header/>
+                <Route path="/" exact component={Sport}></Route>
+                <Route path="/LiveBet" exact component={LiveBet}></Route>
+            </div>
+            </BrowserRouter>
         </div>
+      
         
     )
 }

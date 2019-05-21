@@ -18,15 +18,14 @@ export const FETCH_SINGLE_MATCH = 'FETCH_SINGLE_MATCH';
 export const REMOVE_SINGLE_MATCH = 'REMOVE_SINGLE_MATCH';
 // export const FIRST_LEVEL_BUTTON_ID = 'FIRST_LEVEL_BUTTON_ID';
 
-
 export const fetchSingleMatch = (singleMatchCode = null, date = null, name = null) => async dispatch => {
   const response = await betvipApi.get(`/Match?id=${singleMatchCode}`);
   dispatch({ type: FETCH_SINGLE_MATCH, payload: { data: response.data, date: date, name: name }});
 }
+
 export const removeSingleMatch = (s) => async dispatch => {  
   dispatch({ type: REMOVE_SINGLE_MATCH });
 }
-
 
 export const sportViewChamps = (sportId) => {
   return {
@@ -54,7 +53,6 @@ export const oddsTicketList = (oddObject) => async dispatch => {
       response => dispatch({ type: ODDS_TICKET_LIST, payload: response.data }),//console.log("ODGOVOR SERVERA:  ", response),
       error => console.log("ODGOVOR SERVERA", error),
     );
-
 }
 
 export const fetchStartJson = () => async dispatch => {
