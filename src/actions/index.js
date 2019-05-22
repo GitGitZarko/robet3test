@@ -20,7 +20,7 @@ export const REMOVE_SINGLE_MATCH = 'REMOVE_SINGLE_MATCH';
 
 export const fetchSingleMatch = (singleMatchCode = null, date = null, name = null) => async dispatch => {
   const response = await betvipApi.get(`/Match?id=${singleMatchCode}`);
-  dispatch({ type: FETCH_SINGLE_MATCH, payload: { data: response.data, date: date, name: name }});
+  dispatch({ type: FETCH_SINGLE_MATCH, payload: { data: response.data, date: date, name: name, mcode: singleMatchCode }});
 }
 
 export const removeSingleMatch = (s) => async dispatch => {  
