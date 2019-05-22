@@ -10,9 +10,7 @@ class ThirdButtonList extends Component {
   callUpdateTable(e, value){
     e.preventDefault();
 
-    const { ChampId , SportId} = this.props.data
-    
-    console.log("Call from third button list: ", value)
+    const { ChampId , SportId} = this.props.data    
     this.props.updateChampList(ChampId, SportId, value)    
   }
 

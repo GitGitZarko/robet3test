@@ -25,14 +25,7 @@ class TestComponent extends Component {
       }
       this.buttonRef = React.createRef();
    }
-
-   // Toggle the visibility
-   //  toggleHidden(e) {
-   //    this.setState({
-   //      isHidden: !this.state.isHidden
-   //    });
-   //    console.log(e.target.dataset.id)
-   //  }
+  
    ajdeKlikni = (e) => {
       e.preventDefault();
       const { TounamentSpecialMainList, SportCode, TournamentCode } = this.props.objekat;
@@ -66,28 +59,22 @@ class TestComponent extends Component {
    renderSecondButtonList(broj, data) {
       if (broj === undefined) return console.log("greska", broj)
 
-      // console.log("Ovde radi2: ", data[0].Value)
       const { TounamentSpecialMainList } = this.props.objekat;
       if (!TounamentSpecialMainList) {
          return null;
       }
-      // const result = Object.entries(TounamentSpecialMainList)[broj]
-      const { TournamentSpecialMatchList } = TounamentSpecialMainList[broj]
-      // const ssss = TournamentSpecialMatchList.map((a) => a.Items.map((b) => <SecondButtonList imeDugmeta={b.Text}/>{b.Text}</SecondButtonList>))
-      // const ajdeVise = TournamentSpecialMatchList.map((data) => data.Items.map((ata) => <SecondButtonList imeDugmeta={ata.Text} />))
+      const { TournamentSpecialMatchList } = TounamentSpecialMainList[broj]      
       const ajdeVise = TournamentSpecialMatchList.map((data, i) => <SecondButtonList imeDugmeta={data.Text} key={i} kljuc={i} special={data} renderThirdButtonList={this.renderThirdButtonList.bind(this)} />)
 
       this.setState({
          secondGroup: ajdeVise,
          thirdGroup: [],
          updateBox: data[0].Value
-      })
-      // console.log(TournamentSpecialMatchList.map((a) => a.Items.map((b) => b.Text)))
+      })      
    }
    renderThirdButtonList(broj, data) {
       if (broj === undefined) return console.log("greska", broj)
 
-      // console.log("Ovde radi2: ", broj)
       const { TounamentSpecialMainList } = this.props.objekat;
       if (!TounamentSpecialMainList) {
          return null;
@@ -97,8 +84,7 @@ class TestComponent extends Component {
 
       this.setState({
          thirdGroup: ajdeVise
-      })
-      // console.log(TournamentSpecialMatchList.map((a) => a.Items.map((b) => b.Text)))
+      })  
    }
 
    renderTounementMainTitleList() {
@@ -126,13 +112,8 @@ class TestComponent extends Component {
             {TounementTitleList.map((name, f) => <Table.HeaderCell key={f} textAlign="center" >{name.nome}</Table.HeaderCell>)}
          </Table.Row>
       );
-
-      // return TounementTitleList.map(name => {
-      //       return (
-      //          <Table.HeaderCell>{name.nome}</Table.HeaderCell>
-      //       )
-      //  })
    }
+
    addOddToTicket = (e, sportCode, tourCode, oddType, oddValue, matchName, oddGroup, oddCode, matchCode) => {
       e.preventDefault();
       const { IsAntepost } = this.props.objekat;
@@ -147,16 +128,11 @@ class TestComponent extends Component {
       localTicket.matchId = IsAntepost ? tourCode : matchCode;
       localTicket.oddId = oddCode;
       localTicket.operationType = 1;
-      //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
-      //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
-
 
       localStorage.setItem("ticket", JSON.stringify(localTicket));
-
-      // console.log("TIKETARA", localTicket)
-
       this.props.oddsTicketList(localTicket)
    }
+
    singleMatchView = (e, code, date, name) => {
       e.preventDefault();
       this.props.fetchSingleMatch(code, date, name);
@@ -167,8 +143,6 @@ class TestComponent extends Component {
       const { IsAntepost } = this.props.objekat;
       let oddIdList = [];
 
-      //console.log("konzolica: ", Odds.map((a) => a.OddId))
-      console.log("localTicket:", JSON.parse(localStorage.getItem('ticket')))
       if (localStorage.getItem("ticket") !== null) {
          let localTicket = JSON.parse(localStorage.getItem('ticket'))
          oddIdList = localTicket.Odds.map((a) => a.OddId)
@@ -177,10 +151,8 @@ class TestComponent extends Component {
          return null;
       }
 
-      return TournamentMatchList.map(val => {
-         // console.log(val.TournamentMatchOddList)
+      return TournamentMatchList.map(val => {        
          return (
-
             <Table.Row>
                <Table.Cell width="three" className="table-cell">
                   <Header.Content>
@@ -229,8 +201,7 @@ class TestComponent extends Component {
       })
    }
    thirdButtons(e, data) {
-      e.preventDefault();
-      // console.log(data)
+      e.preventDefault();      
       this.setState({
          thirdGroup: data.Items
       })
@@ -248,8 +219,7 @@ class TestComponent extends Component {
       return rezultat;
    }
    //MAX IMPORTANT EXTRUDE VALUE FROM SEMANTIC UI DROPDOWN
-   samoProba = (e, { value }) => {
-      console.log("ASKJHJASDKHASDKJHASDKJASDHASDJ", value)
+   samoProba = (e, { value }) => {      
       const { SportCode, TournamentCode } = this.props.objekat
       this.props.updateChampList(TournamentCode, SportCode, value)
       this.setState({

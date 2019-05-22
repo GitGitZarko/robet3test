@@ -22,24 +22,11 @@ class ChampMainContentContainer extends Component {
   }
 
 
-    mainContainerAddRemove = (champId, sportId) => {
-            
-      console.log("CLICK IZ VIEW-A", champId ," I B " , sportId )
-    //   const { champs } = this.props
-    //   const { sportId } = this.props  
-    //   const { antepost } = this.props
-    //   const { isFavorite } = this.props
-
-    //   console.log("KAKO KO", this.props.antepost, "Champs: ", champs)
-    //   // const { TournamentCode } = this.props.champsMiddleBoxList        
-    //   const champIdChangable = isFavorite ? champs.TournamentSourceID : champs.ChampId;
-      
-      if(this.onFocus().some(a => a == champId)){ 
-          console.log('tu je ima ga')                 
+    mainContainerAddRemove = (champId, sportId) => {      
+      if(this.onFocus().some(a => a == champId)){             
           this.props.removeChampFromList(champId, sportId)
           this.setState({isOpen: false})              
-      }else{                    
-          console.log('neje tu nema ga')                 
+      }else{                                     
           this.props.addChampToList(champId, sportId, null)
           this.setState({isOpen: true})                
       }
@@ -50,14 +37,8 @@ class ChampMainContentContainer extends Component {
       return result;
     }
 
-    novaFunkcija() {
-        // const { TournamentCode } = this.props.champsMiddleBoxList;
-        // console.log('PROPS champsMiddleBoxList', this.props.champsMiddleBoxList);
-        // if (!TournamentCode) {
-        //    return null;
-        // }
-        return this.props.champsMiddleBoxList.map((name, i) => {
-            // console.log('PROPS inside map', name.TournamentCode);
+    novaFunkcija() {  
+        return this.props.champsMiddleBoxList.map((name, i) => {            
             return (
                 <TestComponent                 
                 key={i} objekat={name} 
@@ -68,8 +49,7 @@ class ChampMainContentContainer extends Component {
     renderujSportChamps(){        
           const { champs } = this.props
           const champsSport = champs.filter(item => item.SportId === this.props.sportView )
-
-          console.log("SPORT SPORT" , champsSport)
+          
             return (
                 <Table columns={3}>          
                 {

@@ -8,7 +8,7 @@ class ChampMainContent extends Component {
 
     renderTounementMainTitleList(){
       const { TounementMainTitleList } = this.props.champsContent;
-      // console.log('PROPS champsContent', this.props.champsContent);
+      
       if (!TounementMainTitleList) {
          return null;
       }
@@ -21,7 +21,7 @@ class ChampMainContent extends Component {
 
     renderTitleList(){
       const { TounementTitleList } = this.props.champsContent;
-      //console.log('PROPS champsContent', this.props.champsContent);
+      
       if (!TounementTitleList) {
          return null;
       }
@@ -43,14 +43,12 @@ class ChampMainContent extends Component {
     }
     renderTournamentMatchList(){
       const { TournamentMatchList } = this.props.champsContent;
-      
-      console.log('PROPS champsContent', this.props.champsContent);
+            
       if (!TournamentMatchList) {
          return null;
       }
       
-      return TournamentMatchList.map(val => {
-         // console.log(val.TournamentMatchOddList)
+      return TournamentMatchList.map(val => {      
             return (
                
                <Table.Row>  
@@ -72,21 +70,11 @@ class ChampMainContent extends Component {
                   
                </Table.Cell>
                </Table.Row>  
-               // <Table.Table.Cell>{val.MatchCode}</Table.Table.Cell>
-               // <Table.Table.Cell>{val.MatchCode}</Table.Table.Cell>
-               // <Table.Table.Cell>{val.MatchCode}</Table.Table.Cell>
-               // <Table.Table.Cell>{val.MatchCode}</Table.Table.Cell>
             )
        })
     }
 
     render() {         
-      // const { TounamentGroupList } = this.props.champsContent;      
-      // //const { TounementMainTitleList } = this.props.champsContent;
-      // const { TournamentMatchList } = this.props.champsContent;
-      // const { TounamentSpecialMainList } = this.props.champsContent;     
-      // console.log(TounamentGroupList)  
-
      return (    
         <div>
             <Table celled>

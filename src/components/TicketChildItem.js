@@ -13,59 +13,26 @@ class TicketChildItem extends Component {
 
       renderUniqueOdds = () => {
         const { MatchName, OddValue, OddTypeName, MatchId, Odds} = this.props.data
-        const currentMatchId = this.props.matchId
-        console.log(" trenutni", this.props.data)
-        
-        // Odds.map((data, i ) =>  {
-        //     if(currentMatchId === data.MatchId) alert(data.OddValue)
-        //     // return (
-        //     // <div className="ui item">
-        //     //     <div className="ui left floated content">
-        //     //                 <div className="ui header">
-        //     //                 {data.MatchId}
-        //     //                 </div><br/>                                
-        //     //         </div>
-        //     //         <div className="ui right floated content">
-        //     //                     {/* {OddValue} */}
-        //     //             <div className="ui icon button">
-        //     //                 <i className="close icon"></i>
-        //     //             </div>
-        //     //         </div>
-        //     // </div>
-        //     // )
-        //     // return null
-        // })
+        const currentMatchId = this.props.matchId        
       }
+
       nestoUradi = (e, mId, OddId) => {
-          e.preventDefault();
-            // alert(`MatchId: ${mId}, OddId: ${OddId}`)
+          e.preventDefault();            
             let localTicket = JSON.parse(localStorage.ticket) 
              
             localTicket.isLive = false;
             localTicket.matchId = mId;
             localTicket.oddId = OddId;
             localTicket.operationType = 2;
-            //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
-            //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
-            
-   
+           
             localStorage.setItem("ticket", JSON.stringify(localTicket));      
-   
-         console.log("TIKETARA 44444444444: ", localTicket)
-   
-         this.props.oddsTicketList(localTicket)
+            this.props.oddsTicketList(localTicket)
       }
       pozoviState =  (e, oddId, matchId) => {
           e.preventDefault()
           this.setState({isStarActive: !this.state.isStarActive})
           let localTicket = JSON.parse(localStorage.ticket) 
-           
-        //   localTicket.isLive = false;
-        //   localTicket.matchId = mId;
-        //   localTicket.oddId = OddId;
-        //   localTicket.operationType = 2;
-          //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
-          //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
+       
           let setBanker;
           let row = 0;
           const noviTiket = localTicket.Odds.map((data, i) => matchId == data.MatchId ? setBanker = !data.Banker : null)
@@ -78,15 +45,13 @@ class TicketChildItem extends Component {
  
           localStorage.setItem("ticket", JSON.stringify(localTicket));      
  
-       console.log("TIKETARA BANKER: ", localTicket)
- 
        this.props.oddsTicketList(localTicket)
       }
         render() {          
             const { MatchName, OddValue, OddTypeName, MatchId, Odds} = this.props.data
-            // console.log("<pre>is childa", Odds.map((a) => a), "</pre>")
+           
             const prom = Odds.map((elem) => elem.MatchId === this.props.matchId ? elem.MatchName : null)
-            console.log("asdddddddddddddd", prom)
+           
             const distinctValue = [...new Set(prom)]
         return (
             <div>                

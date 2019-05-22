@@ -35,8 +35,7 @@ export const sportViewChamps = (sportId) => {
 };
 
 export const quickBetAction = (matchCode) => async dispatch => {
-  const response = await betvipApi.get(`/Quick?id=${matchCode}`);
-  console.log("Iz akcije: ", response.data)
+  const response = await betvipApi.get(`/Quick?id=${matchCode}`);  
   dispatch({ type: GET_QUICK_BET, payload: response.data });
 }
 
@@ -46,11 +45,10 @@ export const removeAllOdds = () => {
   }
 };
 
-export const oddsTicketList = (oddObject) => async dispatch => {
-  console.log("CONSOLE LOOOOOOOOOOOOOOOOOOOOOG!", oddObject)
+export const oddsTicketList = (oddObject) => async dispatch => {  
   await betvipApi.post("/Update", JSON.stringify(oddObject))
     .then(
-      response => dispatch({ type: ODDS_TICKET_LIST, payload: response.data }),//console.log("ODGOVOR SERVERA:  ", response),
+      response => dispatch({ type: ODDS_TICKET_LIST, payload: response.data }),
       error => console.log("ODGOVOR SERVERA", error),
     );
 }
@@ -112,8 +110,7 @@ export const removeChampFromList = (champId = null, sportId = null) => {
 //   };
 
 export const callFromBox = (champId = null, sportId = null, button = null) => async dispatch => {
-  const response = await betvipApi.get(`/tournament?c=${champId}&s=${sportId}&g=${button}`);
-  console.log("akcija", response.data)
+  const response = await betvipApi.get(`/tournament?c=${champId}&s=${sportId}&g=${button}`);  
   dispatch({ type: CALL_FROM_BOX, payload: response.data });
 }
 

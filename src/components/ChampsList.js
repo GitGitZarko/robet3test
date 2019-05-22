@@ -30,11 +30,9 @@ class ChampsList extends Component {
             valueTriger: !this.state.valueTriger,
             displayChildren: this.state.valueTriger ? 'block' : 'none',
             target: i
-        })
-        console.log("AADADSASDADASDS", i)
+        })        
         this.props.sportViewChamps(i)
         if(this.props.singleMatch) this.props.removeSingleMatch()
-
     }
     uradiNestoAnte(event, i) {
         event.preventDefault();
@@ -160,11 +158,7 @@ class ChampsList extends Component {
         })
     }
 
-    render() {
-        console.log(this.props.champs)
-        console.log("Evidencija: ", this.props.inEvidence)
-        console.log("OUTRIGHT: ", this.props.outright)
-        
+    render() {        
         return (
             <div>
                 <div className="ui relaxed divided list">

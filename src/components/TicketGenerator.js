@@ -55,18 +55,6 @@ class TicketGenerator extends Component {
         
       }
 
-
-
-    // renderujOddListu(){    
-    //     return this.props.oddList.map((name, i) => {
-    //         // console.log('PROPS inside map', name.TournamentCode);
-    //         return (
-    //             <div className="ui middle aligned divided list">
-    //            <TicketChildItem  key={i} objekat={name}/>
-    //            </div>
-    //         )
-    //    })
-    // }
     handleOpen = () => this.setState({ modalOpen: true })
     handleClose = () => this.setState({ modalOpen: false })
 
@@ -82,26 +70,20 @@ class TicketGenerator extends Component {
     }
 
     renderTicketChildren = (ticketValues) => {
-        // console.log("Iz funkcije", ticketValues)        
+              
         const prom = ticketValues.Odds.map((a) => a.MatchId)
         const unique = [...new Set(prom)]
-        // console.log("Iz funkcije 2", unique)
-        // this.checkTheOddsLenght()
-
+        
         return unique.map((data, i) => <TicketChildItem key={i} matchId={data} data={ticketValues} />)
     }
 
-    checkTheOddsLenght = () => {
-        //console.log(unique.lenght)
-        // let localTicket = JSON.parse(localStorage.ticket)
-        // let oddIdList = localTicket.Odds.map((a) => a.OddId)
+    checkTheOddsLenght = () => {    
         const { Odds } = this.props.oddList
         let oddIdList = [];
         if (!Odds) {
             return null
         }
 
-        console.log("konzolica: ", Odds.map((a) => a.OddId))
         oddIdList = Odds.map((a) => a.OddId)
         let nesto = oddIdList.length < 1 || oddIdList.length == 0 ? true : false
         return nesto
@@ -111,11 +93,7 @@ class TicketGenerator extends Component {
         let convertTotalAmount;
         let localCurentInputValue;
         convertTotalAmount = (this.state.localTotalAmount / sumColumns) * columns
-        localCurentInputValue = e.target.value * columns
-            // convertTotalAmount =  (ticketTotalValue - ((ticketTotalValue / sumColumns) * columns)) + e.target.value * columns        
-            // convertTotalAmount =  (this.state.localTotalAmount - ((this.state.localTotalAmount / sumColumns) * columns)) + e.target.value * columns        
-        // Math.round(num * 100) / 100
-      
+        localCurentInputValue = e.target.value * columns     
         
         let localTicket = JSON.parse(localStorage.ticket)
         let colAmount = 0;
@@ -127,16 +105,8 @@ class TicketGenerator extends Component {
         localTicket.isLive = false;
         localTicket.oddId = 0;
         localTicket.Bets[row].ColAmount = colAmount
-        console.log("resenje tiketa: ", localTicket)
-
-        //   localTicket.isLive = false;
-        //   localTicket.matchId = matchCode;
-        //   localTicket.oddId = oddCode;
-        //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
-        //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
-
-        localStorage.setItem("ticket", JSON.stringify(localTicket));
-         console.log("TIKETARA18", localTicket)
+        
+        localStorage.setItem("ticket", JSON.stringify(localTicket));        
         this.props.oddsTicketList(localTicket)
         this.setState({
             localTotalAmount: +this.state.localTotalAmount-convertTotalAmount + localCurentInputValue,            
@@ -149,28 +119,7 @@ class TicketGenerator extends Component {
 
         this.setState({
             localTotalAmount: e.target.value
-        })
-        // console.log(e.target.value)
-        // let localTicket = JSON.parse(localStorage.ticket)
-        // // let colAmount = 0;
-        // // let row = 0;
-        // //   const noviTiket = localTicket.Bets.map((data, i) => name === data.GroupDescription ? (colAmount = e.target.value, row = i) : null)
-
-        // localTicket.operationType = 4;
-        // localTicket.TotalAmount = parseInt(e.target.value)
-        // //     localTicket.Bets[row].ColAmount = colAmount
-        // //     console.log("resenje tiketa: " , localTicket)
-
-        // // //   localTicket.isLive = false;
-        // // //   localTicket.matchId = matchCode;
-        // // //   localTicket.oddId = oddCode;
-        // // //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
-        // // //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
-
-        // localStorage.setItem("ticket", JSON.stringify(localTicket));
-        // // //   // console.log("TIKETARA", localTicket)
-        // console.log("sta daje: ", localTicket)
-        // this.props.oddsTicketList(localTicket)
+        })       
     }
 
     checkBoxInput = (e, data, aktivan, cols) => {
@@ -178,27 +127,17 @@ class TicketGenerator extends Component {
         const localTicket = JSON.parse(localStorage.ticket)
         let row;
 
-        // localTicket.Bets.map((ata, i) => data === ata.GroupDescription ? console.log("testiraj", i) : null)
         localTicket.Bets.map((ata, i) => data === ata.GroupDescription ? row = i : null )
-        //localTicket.Bets.map((ata, i) => ata.IsActive ? conuter++ : null)
-        
+                
         localTicket.operationType = 4        
-        console.log("GDE PRAVIS GRESKU MAJMUNE:! ", aktivan);
-        let pormenaZnaka = !localTicket.Bets[row].IsActive
         
+        let pormenaZnaka = !localTicket.Bets[row].IsActive        
         localTicket.Bets[row].IsActive = pormenaZnaka
         localTicket.isLive = false;
         localTicket.oddId = 0;
-        //console.log("resenje tiketa: ", localTicket, row)
-        //   localTicket.isLive = false;
-        //   localTicket.matchId = matchCode;
-        //   localTicket.oddId = oddCode;
-        //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
-        //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
-
-        localStorage.setItem("ticket", JSON.stringify(localTicket));
-        console.log("TIKETARA", localTicket)
         
+        localStorage.setItem("ticket", JSON.stringify(localTicket));
+                
         this.setState({
             colsCalculateValue: 100
         })   
@@ -207,23 +146,19 @@ class TicketGenerator extends Component {
                 this.props.oddsTicketList(localTicket)   
     }
 
-    quickBet = (e) => {
-
-        console.log("ovo je vratilo cedo: ", e.target.value)
+    quickBet = (e) => {        
         if (e.charCode === 13) {                  
             if(this.state.quickChecked)
                 this.focusInput();
                 else this.focusDrop();
-            this.props.quickBetAction(e.target.value)
-            
+            this.props.quickBetAction(e.target.value)            
         }
     }
 
     getQuickBetsList = () => {
         const { Items } = this.props.getQuickBet
         if (!Items) return null
-        const response = Items.map((data, i) => ({ key: i, text: data.OddType, value: data.OddValue, qCode: data.QuickCode }))
-        console.log(response)
+        const response = Items.map((data, i) => ({ key: i, text: data.OddType, value: data.OddValue, qCode: data.QuickCode }))        
         return response;
     }
 
@@ -239,7 +174,7 @@ class TicketGenerator extends Component {
         localTicket.isLive = false;
         localTicket.matchId = matchCode;
         localTicket.oddId = value;
-        // //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
+        
         localStorage.setItem("ticket", JSON.stringify(localTicket));
         this.props.oddsTicketList(localTicket)
     }
@@ -272,8 +207,7 @@ class TicketGenerator extends Component {
         let ticketType;
 
         if (this.props.ticket) {
-            if (localStorage.getItem("ticket") === null) {
-                console.log("KKK: ", this.props.ticket)
+            if (localStorage.getItem("ticket") === null) {                
                 localStorage.setItem('ticket', JSON.stringify(this.props.ticket));
             }
 
@@ -281,10 +215,8 @@ class TicketGenerator extends Component {
             ticketCols = ticketValues.Bets.map((data) => data.IsActive === true ? data.Cols : null)//.filter((e) => e != null)
             ticketType = ticketValues.TicketType;
             if (ticketCols.length > 0) {
-                sumCols = ticketCols.reduce((cols, i) => cols + i)
-                console.log(ticketCols.length, "colsssss:   :::  " + sumCols + "   sss    ", ticketCols.length)
-            }
-            console.log("aj kreni: ", allOddsTable)
+                sumCols = ticketCols.reduce((cols, i) => cols + i)                
+            }            
         }
         
         return (

@@ -10,17 +10,11 @@ class ChampsCategories extends Component {
 
 
     }
-    // pokaziMiAlert = (e) =>
-    // {
-    //     e.preventDefault();
-    //     //const { sportId } = this.props
-    //     console.log(this.props.sportId)
-    // }
+  
     uradiNesto(event, i) {
         event.preventDefault();
 
-        if (event.target.dataset.id) {
-            console.log("dataset", event.target.dataset.id)
+        if (event.target.dataset.id) {          
             this.setState({
                 dataId: event.target.dataset.id,
                 showChildren: !this.state.showChildren,
@@ -32,8 +26,7 @@ class ChampsCategories extends Component {
 
     render() {
         const { sportId } = this.props
-        const { categorie } = this.props
-        console.log("ssssssssssssssssssssssssssss", this.props.categorie, this.props.antepost)
+        const { categorie } = this.props      
 
         return (
             //  <div onClick={this.pokaziMiAlert}>            

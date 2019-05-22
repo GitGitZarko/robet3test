@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Header, Table, Button, SegmentInline, Ref, Grid, Dropdown, Tab, Segment } from 'semantic-ui-react';
-import { updateChampList, oddsTicketList, removeChampFromList, fetchSingleMatch } from '../actions';
+import { updateChampList, oddsTicketList, removeChampFromList, fetchSingleMatch, removeSingleMatch } from '../actions';
 
 //import '../public/css/Sports.css';
 
@@ -26,13 +26,8 @@ class SingleMatch extends Component{
         localTicket.matchId = matchCode;
         localTicket.oddId = oddCode;
         localTicket.operationType = 1;
-        //localTicket.Bets[0].ColAmount = 200;  // THIS IS HARD CODED, IT IS JUST FOR TESTING
-        //console.log("BETOVI :  ", localTicket.Bets[0].ColAmount)
-  
-  
-        localStorage.setItem("ticket", JSON.stringify(localTicket));
-  
-        // console.log("TIKETARA", localTicket)
+        
+        localStorage.setItem("ticket", JSON.stringify(localTicket));        
   
         this.props.oddsTicketList(localTicket)
      }
@@ -43,14 +38,16 @@ class SingleMatch extends Component{
         
         if (localStorage.getItem("ticket") !== null) {
             let localTicket = JSON.parse(localStorage.getItem('ticket'))
-            oddIdList = localTicket.Odds.map((a) => a.OddId)
-            console.log("OOOOOOOODDDDDDDDDDDDDDDDDDDD", oddIdList)
+            oddIdList = localTicket.Odds.map((a) => a.OddId)            
         }
     return (
         <div> 
-        <div style={{textAlign: 'center', background: 'aliceblue'}}>
+        <div className="ui main  clearing segment" style={{textAlign: 'center', background: 'aliceblue'}}>
+        <button className="ui right floated icon button" onClick={() => this.props.removeSingleMatch()}>
+                  <i className="close icon"></i>
+        </button>
         <h1>{singleMatch.name}</h1>
-        <h4>{singleMatch.date}</h4>
+        <h4>{singleMatch.date}</h4>        
         </div>
         <Grid celled='internally'>
                                   
@@ -90,4 +87,4 @@ class SingleMatch extends Component{
 }
 
 const mapStateToProps = ({  oddList, singleMatch }) => ({ oddList, singleMatch })
-export default connect(mapStateToProps, { updateChampList, oddsTicketList, removeChampFromList, fetchSingleMatch })(SingleMatch);
+export default connect(mapStateToProps, { updateChampList, oddsTicketList, removeChampFromList, fetchSingleMatch, removeSingleMatch })(SingleMatch);

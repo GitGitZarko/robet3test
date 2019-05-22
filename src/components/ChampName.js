@@ -33,49 +33,24 @@ class ChampName extends Component {
         const { isFavorite } = this.props
         const { players } = this.props
 
-
-        console.log("KAKO KO", this.props.antepost, "Champs: ", players)
-        // const { TournamentCode } = this.props.champsMiddleBoxList        
         const champIdChangable = isFavorite ? champs.TournamentSourceID : champs.ChampId;
 
-        if (this.onFocus().some(a => a == champIdChangable)) {
-            console.log('tu je ima ga')
+        if (this.onFocus().some(a => a == champIdChangable)) {            
             this.props.removeChampFromList(champIdChangable, sportId)
             this.setState({ isOpen: false })
-        } else {
-            console.log('neje tu nema ga')
+        } else {            
             this.props.addChampToList(champIdChangable, sportId, antepost, players)
             this.setState({ isOpen: true })
         }
 
 
         if(this.props.singleMatch) this.props.removeSingleMatch()
-        //listaTournamentCode.includes(champs.ChampId) ? console.log('true') : this.props.addChampToList(champs.ChampId, sportId)
-
-        // this.props.removeChampFromList(champs.ChampId, sportId) : this.props.addChampToList(champs.ChampId, sportId)
-        //    
-        // if(this.state.isFocused == false){
-        //     this.props.removeChampFromList(champs.ChampId, sportId)
-        // }else{
-        //     this.props.addChampToList(champs.ChampId, sportId)
-        // }
-
-        //this.props.fetchChampList(champs.ChampId, sportId);      
-
-
-        // this.props.champsMiddleBoxList.map((objekat) => objekat.TournamentCode == champs.ChampId ? this.setState({ color: 'red'}) : this.setState({ color: 'blue'}) )
-
-
-        // console.log(`Sampionat: ${champs.ChampName},
-        //              Id Sampionata: ${champs.ChampId}, 
-        //              Id sporta: ${sportId}`)
+        
     }
     removeBox = (e) => {
         e.preventDefault();
         const { champs } = this.props
-        const { sportId } = this.props
-        //this.props.removeChampFromList(champs.ChampId, sportId);
-        // console.log("posle delete"+this.props.champsMiddleBoxList)
+        const { sportId } = this.props       
     }
 
     render() {
