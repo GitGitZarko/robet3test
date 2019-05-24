@@ -13,6 +13,9 @@ const Header = () => {
           </div>
       </Link>
         <Link to="/" className="item" >
+          HOME
+        </Link>
+        <Link to="/Sport" className="item" >
           SPORT
         </Link>
         <Link to="/LiveBet" className="item" >

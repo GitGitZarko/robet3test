@@ -1,4 +1,5 @@
 import betvipApi from '../apis/betvipApi';
+import liveBetApi from '../apis/liveBetApi';
 
 export const FETCH_CHAMPS = 'FETCH_CHAMPS';
 export const FETCH_CHAMP_LIST = 'FETCH_CHAMP_LIST';
@@ -17,6 +18,18 @@ export const SPORT_VIEW_CHAMPS = 'SPORT_VIEW_CHAMPS';
 export const FETCH_SINGLE_MATCH = 'FETCH_SINGLE_MATCH';
 export const REMOVE_SINGLE_MATCH = 'REMOVE_SINGLE_MATCH';
 // export const FIRST_LEVEL_BUTTON_ID = 'FIRST_LEVEL_BUTTON_ID';
+
+
+// LIVE SPORT PAGE CONSTANTS - START 
+export const FETCH_LIVE_BET_GAMES = 'FETCH_LIVE_BET_GAMES';
+// LIVE SPORT PAGE CONSTANTS - END
+
+// LIVE SPORT PAGE ACTIONS - START 
+    export const fetchLiveBetGames = () => async dispatch => {
+      const response = await liveBetApi.get(`/Overview?sportId=1`);
+      dispatch({ type: FETCH_LIVE_BET_GAMES, payload: response.data});
+    }
+// LIVE SPORT PAGE ACTIONS - END 
 
 export const fetchSingleMatch = (singleMatchCode = null, date = null, name = null) => async dispatch => {
   const response = await betvipApi.get(`/Match?id=${singleMatchCode}`);

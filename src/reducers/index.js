@@ -12,6 +12,8 @@ import sportViewChamps from './sportViewChampsReducer';
 import fetchPlayerReducer from './fetchPlayerReducer';
 import fetchSingleMatch from './fetchSingleMatchReducer';
 
+import fetchLiveBetGames from './LiveBetReducers/fetchLiveBetGames';
+
 // import buttonsReducer from './buttonsReducer';
 
 export default combineReducers({
@@ -26,6 +28,7 @@ export default combineReducers({
         outright: fetchOutright,
         sportView: sportViewChamps,
         players: fetchPlayerReducer,
-        singleMatch: fetchSingleMatch
+        singleMatch: fetchSingleMatch,
+        liveBetGames: fetchLiveBetGames
         // buttonId: buttonsReducer 
 })
