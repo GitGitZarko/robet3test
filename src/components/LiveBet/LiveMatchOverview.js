@@ -29,7 +29,7 @@ const LiveMatchOverview = (props) => {
                                             </Table.Cell>  
                                             <Table.Cell textAlign='right' style={{color: 'gold', padding: 0, cursor: 'pointer'}}>
                                                 {gego.Score1} 
-                                                {gego.Comment}                                                
+                                                <a style={{marginLeft: '5px'}} className="ui teal label"> {gego.Comment}</a>                                          
                                             </Table.Cell>                     
                                             </Table.Row>                   
                                         </Table>
@@ -39,7 +39,7 @@ const LiveMatchOverview = (props) => {
                                        
                                         {gego.Bets.map((fufu, k) => {   
                                             return (                                                
-                                                <Table.Cell textAlign='center' colRow={2} style={{padding: 0, background: '#424242', color: 'white', fontWeight: 600, borderRight: '1px solid white'}}>
+                                                <Table.Cell textAlign='center' colRow={2} style={{padding: 0, background: '#424242', color: 'white', fontWeight: 600}}>
                                                     {fufu.BetLabel}
                                                     <Table columns={fufu.Odds.length}>
                                                     <Table.Row verticalAlign='middle'>
@@ -48,7 +48,7 @@ const LiveMatchOverview = (props) => {
                                                     <Table.Row verticalAlign='middle'>
                                                     {fufu.Odds.map((stato)=> { return <Table.Cell 
                                                             style={{    background: '#424242', color: 'white', fontWeight: 600, 
-                                                                        borderBottom: `3px solid ${stato.Trend === 1 ? '#04f872' : 'red'}`, 
+                                                                        borderBottom: `3px solid ${stato.Trend === 1 ? '#04f872' : 'black' || stato.Trend === -1 ? 'red' : 'black'}`, 
                                                                         borderRight: '1px solid white',
                                                                         cursor: 'pointer'}}
                                                         textAlign='center'>{stato.OddValue}</Table.Cell>})}

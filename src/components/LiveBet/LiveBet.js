@@ -12,8 +12,13 @@ class LiveBet extends Component {
     }
 
     componentDidMount(){
-        this.props.fetchLiveBetGames();
+        this.props.fetchLiveBetGames()
+        this.interval = setInterval(() => this.props.fetchLiveBetGames(), 2000); 
     }
+
+    componentWillUnmount() {
+        clearInterval(this.interval);
+      }
 
     renderSports() {
 
@@ -23,7 +28,7 @@ class LiveBet extends Component {
         return rezultat
     }
 
-    render(){      
+    render(){    
 
         return (
             <div className="ui three grid">        
