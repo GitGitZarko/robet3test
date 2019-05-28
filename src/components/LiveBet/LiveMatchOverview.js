@@ -1,5 +1,5 @@
 import React from 'react';
-//import '../public/css/Sports.css';
+//import '../../public/Sports.css';
 import { Header, Table, Button} from 'semantic-ui-react'
 
 const LiveMatchOverview = (props) => {
@@ -46,7 +46,7 @@ const LiveMatchOverview = (props) => {
                                                     {fufu.Odds.map((stato)=> { return <Table.Cell style={{background: 'orange', color: 'white', fontWeight: 600}} textAlign='center'>{stato.OddLabel}</Table.Cell>})}
                                                     </Table.Row>
                                                     <Table.Row verticalAlign='middle'>
-                                                    {fufu.Odds.map((stato)=> { return <Table.Cell 
+                                                    {fufu.Odds.map((stato)=> { return <Table.Cell className="live-bet-odds"
                                                             style={{    background: '#424242', color: 'white', fontWeight: 600, 
                                                                         borderBottom: `3px solid ${stato.Trend === 1 ? '#04f872' : 'black' || stato.Trend === -1 ? 'red' : 'black'}`, 
                                                                         borderRight: '1px solid white',

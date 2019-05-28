@@ -9,14 +9,18 @@ class LiveBet extends Component {
     constructor(props) {
         super(props)
         
+        this.state = {
+            sportId: 1
+        }
+        
     }
 
-    componentDidMount(){
-        this.props.fetchLiveBetGames()
-        this.interval = setInterval(() => this.props.fetchLiveBetGames(), 2000); 
+    componentDidMount(){        
+        this.props.fetchLiveBetGames(Math.random(), this.state.sportId)
+        this.interval = setInterval(() => this.props.fetchLiveBetGames(Math.random(), this.state.sportId), 2000); 
     }
 
-    componentWillUnmount() {
+    componentWillUnmount() { 
         clearInterval(this.interval);
       }
 
@@ -24,7 +28,15 @@ class LiveBet extends Component {
 
         if(!this.props.liveBetGames) return null;
         const { SportItems } = this.props.liveBetGames
-        const rezultat = SportItems.map(data => <div style={{display: 'inline-block', textAlign: 'center'}}><div style={{margin: '10px'}}>{data.SportName}</div><span className="ui red circular label">{data.MatchNumber}</span></div> )
+        const rezultat = SportItems.map(data => <div 
+                                                        onClick={() => this.setState({sportId: data.SportId})} 
+                                                        style={{display: 'inline-block', textAlign: 'center'}}>
+                                                <div    style={{margin: '10px'}}>{data.SportName}
+                                                </div>
+                                                <span className="ui red circular label">
+                                                        {data.MatchNumber}
+                                                </span>
+                                                </div> )        
         return rezultat
     }
 

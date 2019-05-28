@@ -72,3 +72,6 @@ td.active:hover, tr.active:hover{
 .ui.fluid.search.selection.dropdown, .ui.fluid.search.selection.dropdown.false{
     border: 1px solid rgba(34, 36, 38, 0.15);
 }
+.live-bet-odds:hover{
+    background: #424242;
+}
