@@ -1,11 +1,31 @@
-import React from 'react';
+import React, {Component} from 'react';
 //import '../../public/Sports.css';
 import { Header, Table, Button} from 'semantic-ui-react'
+import { connect } from 'react-redux';
+import { oddsTicketList } from '../../actions';
 
-const LiveMatchOverview = (props) => {
-    if(!props.sportOverview) return null;
-    const { Sports } = props.sportOverview
+class LiveMatchOverview extends Component{
+    
+addOddToTicket = (e, oddCode, matchCode) => {
+    e.preventDefault();    
 
+    // this.setState({
+    //     reRendered: !this.state.reRendered
+    // })
+
+    let localTicket = JSON.parse(localStorage.ticket)
+
+    localTicket.isLive = true;
+    localTicket.matchId = matchCode;
+    localTicket.oddId = oddCode;
+    localTicket.operationType = 1;
+
+    localStorage.setItem("ticket", JSON.stringify(localTicket));
+    this.props.oddsTicketList(localTicket)
+    }
+render() {
+        if(!this.props.sportOverview) return null;
+        const { Sports } = this.props.sportOverview
     return (
         <div>
             <Table fixed>
@@ -51,6 +71,7 @@ const LiveMatchOverview = (props) => {
                                                                         borderBottom: `3px solid ${stato.Trend === 1 ? '#04f872' : 'black' || stato.Trend === -1 ? 'red' : 'black'}`, 
                                                                         borderRight: '1px solid white',
                                                                         cursor: 'pointer'}}
+                                                            onClick={(e) => this.addOddToTicket(e, stato.OddId, gego.MatchId )}
                                                         textAlign='center'>{stato.OddValue}</Table.Cell>})}
                                                     </Table.Row>
                                                     </Table>
@@ -78,5 +99,7 @@ const LiveMatchOverview = (props) => {
         
     )
 }
+}
 
-export default LiveMatchOverview;
+const mapStateToProps = ({ oddList }) => ({ oddList })
+export default connect(mapStateToProps, { oddsTicketList })(LiveMatchOverview);

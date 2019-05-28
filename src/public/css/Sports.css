@@ -73,5 +73,5 @@ td.active:hover, tr.active:hover{
     border: 1px solid rgba(34, 36, 38, 0.15);
 }
 .live-bet-odds:hover{
-    background: #424242;
+    background: green !important;
 }
