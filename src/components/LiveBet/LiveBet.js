@@ -24,12 +24,20 @@ class LiveBet extends Component {
         clearInterval(this.interval);
       }
 
+      klik(e, sport){
+        e.preventDefault();
+        this.props.fetchLiveBetGames(Math.random(), sport)
+        this.setState({
+            sportId: sport
+        })
+      }
+
     renderSports() {
 
         if(!this.props.liveBetGames) return null;
         const { SportItems } = this.props.liveBetGames
         const rezultat = SportItems.map(data => <div 
-                                                        onClick={() => this.setState({sportId: data.SportId})} 
+                                                        onClick={(e) => this.klik(e, data.SportId) } 
                                                         style={{display: 'inline-block', textAlign: 'center'}}>
                                                 <div    style={{margin: '10px'}}>{data.SportName}
                                                 </div>
