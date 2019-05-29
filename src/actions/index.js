@@ -22,13 +22,18 @@ export const REMOVE_SINGLE_MATCH = 'REMOVE_SINGLE_MATCH';
 
 // LIVE SPORT PAGE CONSTANTS - START 
 export const FETCH_LIVE_BET_GAMES = 'FETCH_LIVE_BET_GAMES';
+export const FETCH_LIVE_CALENDAR = 'FETCH_LIVE_CALENDAR';
 // LIVE SPORT PAGE CONSTANTS - END
 
 // LIVE SPORT PAGE ACTIONS - START 
 export const fetchLiveBetGames = (rand, sportId) => async dispatch => {
       const response = await liveBetApi.get(`/Overview?r=${rand}&sportId=${sportId}`);
       dispatch({ type: FETCH_LIVE_BET_GAMES, payload: response.data});
-    }
+}
+export const fetchLiveCalendar = (rand, sportId) => async dispatch => {
+  const response = await liveBetApi.get(`/Calendar?r=${rand}&id=${sportId}`);
+  dispatch({ type: FETCH_LIVE_CALENDAR, payload: response.data});
+}
 // LIVE SPORT PAGE ACTIONS - END 
 
 export const fetchSingleMatch = (singleMatchCode = null, date = null, name = null) => async dispatch => {

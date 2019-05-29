@@ -72,7 +72,7 @@ render() {
                                                                         borderRight: '1px solid white',
                                                                         cursor: 'pointer'}}
                                                             onClick={(e) => this.addOddToTicket(e, stato.OddId, gego.MatchId )}
-                                                        textAlign='center'>{stato.OddValue}</Table.Cell>})}
+                                                        textAlign='center'>{stato.OddValue == 0 ? <i class="lock icon"></i> : stato.OddValue}</Table.Cell>})}
                                                     </Table.Row>
                                                     </Table>
                                                 </Table.Cell>                        
