@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //import '../public/css/Sports.css';
-import { fetchLiveBetGames, fetchLiveCalendar } from '../../actions';
+import { fetchLiveBetGames, fetchLiveCalendar, fetchSingleMatchLive } from '../../actions';
 import LiveMatchOverview from './LiveMatchOverview';
 import TicketGenerator from '../TicketGenerator';
 import SingleMatchLive from './SingleMatchLive';
@@ -19,7 +19,7 @@ class LiveBet extends Component {
     }
 
     componentDidMount(){        
-        this.props.fetchLiveBetGames(Math.random(), this.state.sportId)
+        this.props.fetchLiveBetGames(Math.random(), this.state.sportId)        
         this.interval = setInterval(() => this.props.fetchLiveBetGames(Math.random(), this.state.sportId), 2000); 
     }
 
@@ -30,12 +30,20 @@ class LiveBet extends Component {
       klik(e, sport){
         e.preventDefault();
         this.props.fetchLiveBetGames(Math.random(), sport)
+        const singleMatchId = this.props.liveBetGames.Sports[0].Tournaments[0].Matchies[0].MatchId     
+        this.props.fetchSingleMatchLive(Math.random(), singleMatchId)
         this.setState({
             sportId: sport
         })
       }
+    klickMatch(e){
+        if(!this.props.liveBetGames) return null;
+        const singleMatchId = this.props.liveBetGames.Sports[0].Tournaments[0].Matchies[0].MatchId     
+        this.props.fetchSingleMatchLive(Math.random(), singleMatchId)  
+        
+    }
 
-    renderSports() {
+    renderSports() {       
 
         if(!this.props.liveBetGames) return null;
         const { SportItems } = this.props.liveBetGames
@@ -84,7 +92,7 @@ class LiveBet extends Component {
                 <button className="ui purple button" onClick={(e) => this.calendarRender(e) }>Calendar</button>
                 </div>
                 {this.state.componentView === 0 || this.state.componentView === 1 ? <LiveMatchOverview sportOverview={this.props.liveBetGames}/> : null}
-                {this.state.componentView === 2 ? <SingleMatchLive /> : null}
+                {this.state.componentView === 2 ? <SingleMatchLive sportOverview={this.props.liveBetGames} sportId={this.state.sportId} /> : null}
                 {this.state.componentView === 3 ? <Calendar /> : null}
                 </div>                  
                 <div className="three wide column" style={{ background: 'aliceblue', textAlign: 'center', border: '1px solid blue' }}>
@@ -100,5 +108,5 @@ class LiveBet extends Component {
     
 }
 
-const mapStateToProps = ({ liveBetGames, calendar }) => ({ liveBetGames, calendar })
-export default connect(mapStateToProps,{ fetchLiveBetGames, fetchLiveCalendar })(LiveBet);
+const mapStateToProps = ({ liveBetGames, calendar, singleMatchLive }) => ({ liveBetGames, calendar, singleMatchLive })
+export default connect(mapStateToProps,{ fetchLiveBetGames, fetchLiveCalendar, fetchSingleMatchLive })(LiveBet);

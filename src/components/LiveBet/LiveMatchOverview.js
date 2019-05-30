@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 //import '../../public/Sports.css';
-import { Header, Table, Button} from 'semantic-ui-react'
+import { Header, Table, Button} from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { oddsTicketList } from '../../actions';
 

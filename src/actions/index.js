@@ -23,6 +23,7 @@ export const REMOVE_SINGLE_MATCH = 'REMOVE_SINGLE_MATCH';
 // LIVE SPORT PAGE CONSTANTS - START 
 export const FETCH_LIVE_BET_GAMES = 'FETCH_LIVE_BET_GAMES';
 export const FETCH_LIVE_CALENDAR = 'FETCH_LIVE_CALENDAR';
+export const FETCH_SINGLE_MATCH_LIVE = 'FETCH_SINGLE_MATCH_LIVE';
 // LIVE SPORT PAGE CONSTANTS - END
 
 // LIVE SPORT PAGE ACTIONS - START 
@@ -33,6 +34,10 @@ export const fetchLiveBetGames = (rand, sportId) => async dispatch => {
 export const fetchLiveCalendar = (rand, sportId) => async dispatch => {
   const response = await liveBetApi.get(`/Calendar?r=${rand}&id=${sportId}`);
   dispatch({ type: FETCH_LIVE_CALENDAR, payload: response.data});
+}
+export const fetchSingleMatchLive = (rand, sportId) => async dispatch => {
+  const response = await liveBetApi.get(`/single?id=${sportId}&r=${rand}`);
+  dispatch({ type: FETCH_SINGLE_MATCH_LIVE, payload: response.data});
 }
 // LIVE SPORT PAGE ACTIONS - END 
 
