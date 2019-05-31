@@ -7,12 +7,15 @@ import { fetchLiveBetGames, fetchSingleMatchLive } from '../../actions';
 
 class SingleMatchLive extends Component {
     constructor(props) {
-        super(props)                   
+        super(props)       
+        this.state = {
+            matchId: ''
+        }             
     }
 
     componentDidMount(){                   
-        this.props.fetchSingleMatchLive(Math.random(), this.getFirstMatchOfSport())
-        this.interval = setInterval(() => this.props.fetchSingleMatchLive(Math.random(), this.getFirstMatchOfSport()), 2000); 
+        this.props.fetchSingleMatchLive(Math.random(),this.state.matchId !== '' ? this.state.matchId :this.getFirstMatchOfSport())
+        this.interval = setInterval(() => this.props.fetchSingleMatchLive(Math.random(), this.state.matchId !== '' ? this.state.matchId :this.getFirstMatchOfSport()), 2000); 
     }
 
     componentWillUnmount() {       
@@ -23,7 +26,13 @@ class SingleMatchLive extends Component {
         const singleMatchId = this.props.sportOverview.Sports[0].Tournaments[0].Matchies[0].MatchId        
         return singleMatchId
     }
-
+    novaFunkcijua(e, mid){
+        e.preventDefault();
+        this.setState({
+            matchId: mid
+        })
+        this.props.fetchSingleMatchLive(Math.random(), mid)
+    }
     render(){    
         if(!this.props.singleMatchLive) return null;
         const { Bets } = this.props.singleMatchLive
@@ -44,7 +53,7 @@ class SingleMatchLive extends Component {
                                 </Header>                                 
                                 {ata.Matchies.map((gego, b) => {
                                     return <Table.Row verticalAlign='middle' style={{background: 'black', color: 'white'}}>
-                                    <Table.Cell colSpan='2' width="four">
+                                    <Table.Cell colSpan='2' width="four" onClick={(e) => this.novaFunkcijua(e, gego.MatchId)}>
                                         <Table style={{background: 'black', color: 'white' }}>
                                             <Table.Row verticalAlign='middle' >
                                             <Table.Cell style={{padding: 0, cursor: 'pointer'}}>

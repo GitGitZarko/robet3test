@@ -50,12 +50,11 @@ class UniqueSingleMatch extends Component {
                                        <Table fixed>
                                        <Table.Row textAlign='center'>  
                                             <Header>
-                                                        {data.BetLabel}   
+                                                {data.BetLabel}   
                                             </Header>
                                             </Table.Row>
                                             <Table.Cell width="tvelwe" style={{padding: 0}}>
-                                    <Table  style={{tableLayout: 'fixed'}}>
-                                       
+                                    <Table style={{tableLayout: 'fixed'}}>
                                         {   data.Odds.length > 3 ? 
                                                 <div className="ui two padded grid">
                                                 {data.Odds.map((ata, k) => {   
@@ -64,8 +63,7 @@ class UniqueSingleMatch extends Component {
                                                         <Table fixed> 
                                                         <Table.Cell textAlign='center' style={{padding: 0, background: '#424242', color: 'white', fontWeight: 600}}>
                                                         {ata.OddLabel}                                                         
-                                                        </Table.Cell> 
-                                                        
+                                                        </Table.Cell>                                                         
                                                                 <Table.Row textAlign='center'>
                                                                     <Table.Cell 
                                                                     style={{ padding: 0, fontWeight: 600, 
@@ -74,26 +72,14 @@ class UniqueSingleMatch extends Component {
                                                                         onClick={(e) => this.addOddToTicket(e, ata.OddId, data.MatchId )}
                                                                         >   
                                                                         {ata.OddValue == 0 ? <i class="lock icon"></i> : ata.OddValue}   
-                                                                    </Table.Cell>                                                                 
-                                                                                                                                                                                                        
-                                                                </Table.Row>                                                                                                                           
-                                                                
+                                                                    </Table.Cell>                                                                                                                                                                                          
+                                                                </Table.Row>                 
                                                         </Table>
-                                                                                       
-                                                                    {/* <Table>
-                                                                        <Table.Row textAlign='center' verticalAlign='middle'>
-                                                                            {ata.OddValue}
-                                                                        </Table.Row>                                                    
-                                                                        </Table>            
-                                                                                                                 */}
                                                         </div>                       
                                                     )
-                                                 
-        
                                                 })}
                                                 </div>
                                                 :  
-                                            
                                             data.Odds.map((ata, k) => {   
                                             return (                                                                                           
                                                 <Table.Cell textAlign='center'  style={{padding: 0, background: '#424242', color: 'white', fontWeight: 600}}>
@@ -112,20 +98,14 @@ class UniqueSingleMatch extends Component {
                                                                 </Table>                                                    
                                                 </Table.Cell>                        
                                             )
-                                         
-
-                                        })}
-                                       
+                                        })}                                       
                                     </Table>
                                     </Table.Cell>
                                        </Table>
-                                       
                         </div>
                     })
-
                 }
-            
-            </div>
+                </div>
            </div>   
             
         )
