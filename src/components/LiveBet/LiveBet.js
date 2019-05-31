@@ -83,7 +83,7 @@ class LiveBet extends Component {
 
         return (
             <div className="ui three grid">        
-            <div className="two column row" style={{marginRight: '20px'}}>                    
+            <div className="three column row" style={{marginRight: '20px'}}>                    
                 <div className="thirteen wide column">  
                 <div>{this.state.componentView === 3 ? this.renderSportsCalendar() : this.renderSports()}</div>
                 <div style={{textAlign: "right"}}>

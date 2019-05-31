@@ -27,7 +27,7 @@ render() {
         if(!this.props.sportOverview) return null;
         const { Sports } = this.props.sportOverview
     return (
-        <div>
+        <div className="thirteen wide column">  
             <Table fixed>
                 <Table.Row >  
                     {Sports.map((data, i ) => {
