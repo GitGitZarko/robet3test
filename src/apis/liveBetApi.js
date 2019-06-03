@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: `http://www.betvip.fun/LiveBetExe`    
+    baseURL: `http://www.betvip.fun/LiveBetSlick`    
 })

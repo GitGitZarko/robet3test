@@ -19,11 +19,13 @@ export const FETCH_SINGLE_MATCH = 'FETCH_SINGLE_MATCH';
 export const REMOVE_SINGLE_MATCH = 'REMOVE_SINGLE_MATCH';
 // export const FIRST_LEVEL_BUTTON_ID = 'FIRST_LEVEL_BUTTON_ID';
 
+export const CHANGE_ODD_VALUE = 'CHANGE_ODD_VALUE';
 
 // LIVE SPORT PAGE CONSTANTS - START 
 export const FETCH_LIVE_BET_GAMES = 'FETCH_LIVE_BET_GAMES';
 export const FETCH_LIVE_CALENDAR = 'FETCH_LIVE_CALENDAR';
 export const FETCH_SINGLE_MATCH_LIVE = 'FETCH_SINGLE_MATCH_LIVE';
+
 // LIVE SPORT PAGE CONSTANTS - END
 
 // LIVE SPORT PAGE ACTIONS - START 
@@ -54,6 +56,13 @@ export const sportViewChamps = (sportId) => {
   return {
     type: SPORT_VIEW_CHAMPS,
     payload: sportId
+  }
+};
+
+export const changeOddValueType = (value) => {
+  return {
+    type: CHANGE_ODD_VALUE,
+    payload: value
   }
 };
 

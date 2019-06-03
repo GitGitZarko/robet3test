@@ -26,6 +26,8 @@ addOddToTicket = (e, oddCode, matchCode) => {
 render() {
         if(!this.props.sportOverview) return null;
         const { Sports } = this.props.sportOverview
+        if(!Sports) return null;
+        
     return (
         <div className="thirteen wide column">  
             <Table fixed>
@@ -72,7 +74,13 @@ render() {
                                                                         borderRight: '1px solid white',
                                                                         cursor: 'pointer'}}
                                                             onClick={(e) => this.addOddToTicket(e, stato.OddId, gego.MatchId )}
-                                                        textAlign='center'>{stato.OddValue == 0 ? <i class="lock icon"></i> : stato.OddValue}</Table.Cell>})}
+                                                        textAlign='center'>{stato.OddValue == 0 ? <i class="lock icon"></i> 
+                                                        :
+                                                        this.props.changeOddValue == 0 ? stato.OddValue 
+                                                        : 
+                                                        (this.props.changeOddValue == 1 ? stato.OddValueAmerican 
+                                                        : stato.OddValueFraction)}
+                                                        </Table.Cell>})}
                                                     </Table.Row>
                                                     </Table>
                                                 </Table.Cell>                        
@@ -101,5 +109,5 @@ render() {
 }
 }
 
-const mapStateToProps = ({ oddList }) => ({ oddList })
+const mapStateToProps = ({ oddList, changeOddValue }) => ({ oddList, changeOddValue })
 export default connect(mapStateToProps, { oddsTicketList })(LiveMatchOverview);

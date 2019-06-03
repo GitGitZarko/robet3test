@@ -68,7 +68,8 @@ class TicketChildItem extends Component {
                                     {a.OddGroupName} : {a.OddTypeName}                                                           
                         </div>
                         <div className="ui right floated content">
-                        {a.OddValue}
+                        {this.props.changeOddValue == 0 ? a.OddValue : (this.props.changeOddValue == 1 ? a.OddValueAmerican : a.OddValueFraction) }
+                        {/* {a.OddValue} */}
                                                                                                                         {/* OVDE TREBA NAPRAVITI SET BANKER FUNKCIJU */}
                         <i className={"window "+ (this.state.isStarActive ? 'star' : 'star outline' )+ " icon"} style={{cursor: 'pointer'}} onClick={(e) => this.pozoviState(e, a.OddId, a.MatchId)}></i>
                         <i className="window close icon" style={{cursor: 'pointer'}} onClick={(e) => this.nestoUradi(e, a.MatchId, a.OddId)}></i>
@@ -84,6 +85,6 @@ class TicketChildItem extends Component {
         )
        }
     }    
-// const mapStateToProps = ({ middleBoxButtons }) => ({ middleBoxButtons })
-export default connect(null, { oddsTicketList })(TicketChildItem);
+const mapStateToProps = ({ changeOddValue }) => ({ changeOddValue })
+export default connect(mapStateToProps, { oddsTicketList })(TicketChildItem);
     

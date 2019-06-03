@@ -14,11 +14,14 @@ class SingleMatchLive extends Component {
     }
 
     componentDidMount(){                   
-        this.props.fetchSingleMatchLive(Math.random(),this.state.matchId !== '' ? this.state.matchId :this.getFirstMatchOfSport())
+        this.props.fetchSingleMatchLive(Math.random(),this.state.matchId !== '' ? this.state.matchId : this.getFirstMatchOfSport())
         this.interval = setInterval(() => this.props.fetchSingleMatchLive(Math.random(), this.state.matchId !== '' ? this.state.matchId :this.getFirstMatchOfSport()), 2000); 
     }
 
     componentWillUnmount() {       
+        this.setState({
+            matchId: ''
+        })
         clearInterval(this.interval);
       }       
 

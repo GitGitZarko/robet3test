@@ -64,7 +64,8 @@ class SingleMatch extends Component{
                             style={{width: '100%', padding: '10px 0px', margin: '0px 0px 5px 0px', border: '1px solid white'}}
                             onClick={(e) => this.addOddToTicket(e, gege.OddId, singleMatch.mcode)}
                             >
-                                {gege.Value}
+                                {this.props.changeOddValue == 0 ? gege.OddValue : (this.props.changeOddValue == 1 ? gege.OddValueAmerican : gege.OddValueFraction) }
+                                {/* {gege.OddValue} */}
                             </button>  
                             </div>       
                           )
@@ -86,5 +87,5 @@ class SingleMatch extends Component{
     }
 }
 
-const mapStateToProps = ({  oddList, singleMatch }) => ({ oddList, singleMatch })
+const mapStateToProps = ({  oddList, singleMatch, changeOddValue }) => ({ oddList, singleMatch, changeOddValue })
 export default connect(mapStateToProps, { updateChampList, oddsTicketList, removeChampFromList, fetchSingleMatch, removeSingleMatch })(SingleMatch);

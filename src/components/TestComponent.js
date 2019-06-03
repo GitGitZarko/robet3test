@@ -21,7 +21,8 @@ class TestComponent extends Component {
          broj: Number,
          reRendered: Boolean,
          updateBox: [],
-         selectedValue: ''
+         selectedValue: '',
+         oddTypeValue: 0
       }
       this.buttonRef = React.createRef();
    }
@@ -137,11 +138,25 @@ class TestComponent extends Component {
       e.preventDefault();
       this.props.fetchSingleMatch(code, date, name);
    }
+
+   componentDidMount() {      
+      const oddTypeValue = JSON.parse(localStorage.OddType);
+      this.setState({ oddTypeValue });
+    }
+    componentDidUpdate(prevProps) {    
+      if (this.props.changeOddValue !== prevProps.changeOddValue) {
+         const oddTypeValue = JSON.parse(localStorage.OddType);
+         this.setState({ oddTypeValue: oddTypeValue });
+      }
+      
+    }
+
    renderTournamentMatchList() {
       const { TournamentMatchList } = this.props.objekat;
       const { Odds } = this.props.oddList
       const { IsAntepost } = this.props.objekat;
       let oddIdList = [];
+      let oddType = JSON.parse(localStorage.OddType);
 
       if (localStorage.getItem("ticket") !== null) {
          let localTicket = JSON.parse(localStorage.getItem('ticket'))
@@ -175,7 +190,10 @@ class TestComponent extends Component {
                         onClick={(e) =>
                            // this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup)}>
                            this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>
-                        {odds.OddValue}
+                              {/* {
+                                 this.state.oddTypeValue == 0 ? odds.OddValue : (this.state.oddTypeValue == 1 ? odds.OddValueAmerican : odds.OddValueFraction) 
+                              } */}
+                        {this.props.changeOddValue == 0 ? odds.OddValue : (this.props.changeOddValue == 1 ? odds.OddValueAmerican : odds.OddValueFraction) }
                      </Table.Cell>
                   ) : val.TournamentMatchOddList.map((odds, o) =>
                      <Button className="moje-dugme"
@@ -186,7 +204,11 @@ class TestComponent extends Component {
                            // this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup)}>
                            this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>
                         {odds.OddType}
-                        <span style={{ float: 'right' }}>{odds.OddValue}</span>
+                        <span style={{ float: 'right' }}>
+                        {this.props.changeOddValue == 0 ? odds.OddValue : (this.props.changeOddValue == 1 ? odds.OddValueAmerican : odds.OddValueFraction) }
+                        {/* {odds.OddValue} */}
+                        
+                        </span>
                      </Button>
                   )
 
@@ -309,5 +331,5 @@ class TestComponent extends Component {
    }
 }
 
-const mapStateToProps = ({ middleBoxButtons, oddList, singleMatch }) => ({ middleBoxButtons, oddList, singleMatch })
+const mapStateToProps = ({ middleBoxButtons, oddList, singleMatch, changeOddValue }) => ({ middleBoxButtons, oddList, singleMatch, changeOddValue })
 export default connect(mapStateToProps, { callFromBox, updateChampList, oddsTicketList, removeChampFromList, fetchSingleMatch })(TestComponent);

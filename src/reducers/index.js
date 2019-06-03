@@ -16,6 +16,8 @@ import fetchLiveBetGames from './LiveBetReducers/fetchLiveBetGames';
 import fetchLiveCalendar from './LiveBetReducers/LiveCalendarReducer';
 import singleMatchLive from './LiveBetReducers/singleMatchLiveReducer';
 
+import changeOddValue from './changeOddValueReducer';
+
 // import buttonsReducer from './buttonsReducer';
 
 export default combineReducers({
@@ -33,6 +35,7 @@ export default combineReducers({
         singleMatch: fetchSingleMatch,
         liveBetGames: fetchLiveBetGames,
         calendar: fetchLiveCalendar,
-        singleMatchLive: singleMatchLive
+        singleMatchLive: singleMatchLive,
+        changeOddValue: changeOddValue
         // buttonId: buttonsReducer 
 })

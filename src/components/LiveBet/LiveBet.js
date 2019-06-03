@@ -29,6 +29,7 @@ class LiveBet extends Component {
 
       klik(e, sport){
         e.preventDefault();
+        
         this.props.fetchLiveBetGames(Math.random(), sport)
         const singleMatchId = this.props.liveBetGames.Sports[0].Tournaments[0].Matchies[0].MatchId     
         this.props.fetchSingleMatchLive(Math.random(), singleMatchId)
@@ -44,9 +45,11 @@ class LiveBet extends Component {
     }
 
     renderSports() {       
-
+        
         if(!this.props.liveBetGames) return null;
         const { SportItems } = this.props.liveBetGames
+        if(!SportItems) return null
+
         const rezultat = SportItems.map(data => <div 
                                                         onClick={(e) => this.klik(e, data.SportId) } 
                                                         style={{display: 'inline-block', textAlign: 'center'}}>

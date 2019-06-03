@@ -71,7 +71,12 @@ class UniqueSingleMatch extends Component {
                                                                         cursor: 'pointer'}}
                                                                         onClick={(e) => this.addOddToTicket(e, ata.OddId, data.MatchId )}
                                                                         >   
-                                                                        {ata.OddValue == 0 ? <i class="lock icon"></i> : ata.OddValue}   
+                                                                        {ata.OddValue == 0 ? <i class="lock icon"></i> 
+                                                                        : 
+                                                                        this.props.changeOddValue == 0 ? ata.OddValue 
+                                                                        : 
+                                                                        (this.props.changeOddValue == 1 ? ata.OddValueAmerican 
+                                                                        : ata.OddValueFraction)}   
                                                                     </Table.Cell>                                                                                                                                                                                          
                                                                 </Table.Row>                 
                                                         </Table>
@@ -92,7 +97,12 @@ class UniqueSingleMatch extends Component {
                                                                    cursor: 'pointer'}}
                                                                    onClick={(e) => this.addOddToTicket(e, ata.OddId, data.MatchId )}
                                                                    >   
-                                                                   {ata.OddValue == 0 ? <i class="lock icon"></i> : ata.OddValue}   
+                                                                   {ata.OddValue == 0 ? <i class="lock icon"></i> 
+                                                                        : 
+                                                                        this.props.changeOddValue == 0 ? ata.OddValue 
+                                                                        : 
+                                                                        (this.props.changeOddValue == 1 ? ata.OddValueAmerican 
+                                                                        : ata.OddValueFraction)}   
                                                                </Table.Cell>      
                                                                 </Table.Row>                                                    
                                                                 </Table>                                                    
@@ -113,5 +123,5 @@ class UniqueSingleMatch extends Component {
     
 }
 
-const mapStateToProps = ({ liveBetGames, singleMatchLive }) => ({ liveBetGames, singleMatchLive })
+const mapStateToProps = ({ liveBetGames, singleMatchLive, changeOddValue }) => ({ liveBetGames, singleMatchLive, changeOddValue })
 export default connect(mapStateToProps,{ fetchLiveBetGames, oddsTicketList })(UniqueSingleMatch);

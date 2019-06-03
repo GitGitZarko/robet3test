@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { DelayInput } from 'react-delay-input';
 import '../public/css/Sports.css';
 import { connect } from 'react-redux';
-import { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction } from '../actions';
+import { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction, changeOddValueType } from '../actions';
 import TicketChildItem from './TicketChildItem';
 import { allOddsTable } from '../json/allOddsTable';
-import { Button, Icon,  Modal,  Dropdown, Checkbox } from 'semantic-ui-react';
+import { Button, Icon,  Modal,  Dropdown, Checkbox, Label } from 'semantic-ui-react';
 
 
 const customStyle = {
@@ -38,6 +38,8 @@ class TicketGenerator extends Component {
 
         this.focusInput = this.focusInput.bind(this);
         this.focusDrop = this.focusDrop.bind(this);
+
+        localStorage.setItem("OddType", JSON.stringify(0));
     }
     focusInput() {
         // Explicitly focus the text input using the raw DOM API
@@ -199,7 +201,7 @@ class TicketGenerator extends Component {
             this.props.oddsTicketList(localTicket)
         }
     }
-
+  
     render() {
         let ticketValues;
         let ticketCols;
@@ -221,6 +223,11 @@ class TicketGenerator extends Component {
         
         return (
             <div>
+                  <Label.Group >
+                    <Label basic as='a' onClick={() => this.props.changeOddValueType(0)}>Decimal</Label>
+                    <Label basic as='a' onClick={() => this.props.changeOddValueType(1)}>Americano</Label>
+                    <Label basic as='a' onClick={() => this.props.changeOddValueType(2)}>Fraccional</Label>                    
+                </Label.Group>    
                 <Checkbox style={{ width: '10%', float: 'left' }} onClick={() => this.setState({ quickChecked: !this.state.quickChecked })} checked={this.state.quickChecked} />
                 <Modal trigger={<h5 onClick={this.handleOpen} style={{ cursor: 'pointer', width: '90%', textAlign: 'left' }}>USA IL QUICK CODE</h5>}
                     open={this.state.modalOpen}
@@ -497,6 +504,6 @@ class TicketGenerator extends Component {
 }
 
 const mapStateToProps = ({ ticket, oddList, getQuickBet }) => ({ ticket, oddList, getQuickBet })
-export default connect(mapStateToProps, { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction })(TicketGenerator);
+export default connect(mapStateToProps, { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction, changeOddValueType })(TicketGenerator);
 
 
