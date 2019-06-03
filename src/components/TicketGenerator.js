@@ -208,6 +208,7 @@ class TicketGenerator extends Component {
         let sumCols;
         let ticketType;
 
+
         if (this.props.ticket) {
             if (localStorage.getItem("ticket") === null) {                
                 localStorage.setItem('ticket', JSON.stringify(this.props.ticket));

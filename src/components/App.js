@@ -8,6 +8,12 @@ import Casino from './Casino';
 import Poker from './Poker';
 import Home from './Home/Home';
 
+
+
+if (localStorage.getItem("OddType") === null)
+localStorage.setItem('OddType', 0);  
+
+
 const App = () => {
     return (
         <div>            
