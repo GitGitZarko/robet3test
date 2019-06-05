@@ -37,7 +37,7 @@ class UniqueSingleMatch extends Component {
             <Container fluid style={{marginBottom: '25px'}}>
             {/* <Transition animation='fade' duration={1000} visible={true}> */}
                 <div style={{textAlign: 'center',color: 'white', backgroundImage: `url(/images/livebet/${this.props.sportId}.png)`,  backgroundRepeat: 'no-repeat', backgroundSize: 'cover', minHeight:'260px', width: '100%'}}>
-                        <h1>{single.TournamentName}</h1>
+                        <h1 style={{color: 'yellow'}}>{single.TournamentName}</h1>
                         <h2>{single.Team1} - {single.Team2}</h2>
                         <h3>{single.Score1}</h3>                        
                 </div>

@@ -350,7 +350,7 @@ class TicketGenerator extends Component {
                     </div>
                 }
                 {
-                    (ticketType === 4 || ticketType === 2 ) ? ticketValues.Bets.map((data, f) => {   
+                    (ticketType === 4 || ticketType === 2 ) && this.state.activeButton === true ? ticketValues.Bets.map((data, f) => {   
                         
                         data.ColAmount = 0
                         return (
@@ -390,7 +390,7 @@ class TicketGenerator extends Component {
 
                             : null
                 }
-                {
+                { this.state.activeButton === true &&
                     <div className="ui middle aligned divided list">
                         <div className="item" style={{ border: "1px solid black" }}>
                             <div className="right floated content">
@@ -410,7 +410,7 @@ class TicketGenerator extends Component {
                     </div>
                 }
                 {
-                    (this.state.activeButton === true && (ticketType === 2 || ticketType === 4 )) && <div className="ui middle aligned divided list">
+                    (this.state.activeButton === false && (ticketType === 2 || ticketType === 4 )) && <div className="ui middle aligned divided list">
                         <div className="item">
                             <div className="right floated content">
                                 <div className="ui input">
@@ -420,7 +420,6 @@ class TicketGenerator extends Component {
                             <div className="content">
                                 MULTIPLA
                             </div>
-
                         </div>
                     </div>
                 }
@@ -432,7 +431,7 @@ class TicketGenerator extends Component {
                         </div>
                         <div className="content">
                             EVENTI
-                </div>
+                        </div>
                     </div>
                     <div className="item">
                         <div className="right floated content">
@@ -496,7 +495,7 @@ class TicketGenerator extends Component {
                         </div>
                         <div className="content">
                             VINCITA TOTALE MIN
-                </div>
+                        </div>
                     </div>
                 </div>
             </div>
