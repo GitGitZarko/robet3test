@@ -10,106 +10,114 @@ import Calendar from './Calendar';
 class LiveBet extends Component {
     constructor(props) {
         super(props)
-        
+
         this.state = {
             sportId: 1,
-            componentView: 0
+            componentView: 0,
+            matchId: ''
         }
-        
+
     }
 
-    componentDidMount(){        
-        this.props.fetchLiveBetGames(Math.random(), this.state.sportId)        
-        this.interval = setInterval(() => this.props.fetchLiveBetGames(Math.random(), this.state.sportId), 2000); 
+    componentDidMount() {
+        this.props.fetchLiveBetGames(Math.random(), this.state.sportId)
+        this.interval = setInterval(() => this.props.fetchLiveBetGames(Math.random(), this.state.sportId), 2000);
     }
 
-    componentWillUnmount() { 
+    componentWillUnmount() {
         clearInterval(this.interval);
-      }
+    }
 
-      klik(e, sport){
+    klik(e, sport) {
         e.preventDefault();
-        
+
         this.props.fetchLiveBetGames(Math.random(), sport)
-        const singleMatchId = this.props.liveBetGames.Sports[0].Tournaments[0].Matchies[0].MatchId     
+        const singleMatchId = this.props.liveBetGames.Sports[0].Tournaments[0].Matchies[0].MatchId
         this.props.fetchSingleMatchLive(Math.random(), singleMatchId)
         this.setState({
             sportId: sport
         })
-      }
-    klickMatch(e){
-        if(!this.props.liveBetGames) return null;
-        const singleMatchId = this.props.liveBetGames.Sports[0].Tournaments[0].Matchies[0].MatchId     
-        this.props.fetchSingleMatchLive(Math.random(), singleMatchId)  
-        
+    }
+    klickMatch(e) {
+        if (!this.props.liveBetGames) return null;
+        const singleMatchId = this.props.liveBetGames.Sports[0].Tournaments[0].Matchies[0].MatchId
+        this.props.fetchSingleMatchLive(Math.random(), singleMatchId)
+
     }
 
-    renderSports() {       
-        
-        if(!this.props.liveBetGames) return null;
-        const { SportItems } = this.props.liveBetGames
-        if(!SportItems) return null
+    renderSports() {
 
-        const rezultat = SportItems.map(data => <div 
-                                                        onClick={(e) => this.klik(e, data.SportId) } 
-                                                        style={{display: 'inline-block', textAlign: 'center'}}>
-                                                <div    style={{margin: '10px'}}>{data.SportName}
-                                                </div>
-                                                <span className="ui red circular label">
-                                                        {data.MatchNumber}
-                                                </span>
-                                                </div> )        
+        if (!this.props.liveBetGames) return null;
+        const { SportItems } = this.props.liveBetGames
+        if (!SportItems) return null
+
+        const rezultat = SportItems.map(data => <div
+            onClick={(e) => this.klik(e, data.SportId)}
+            style={{ display: 'inline-block', textAlign: 'center' }}>
+            <div style={{ margin: '10px' }}>{data.SportName}
+            </div>
+            <span className="ui red circular label">
+                {data.MatchNumber}
+            </span>
+        </div>)
         return rezultat
     }
     renderSportsCalendar() {
 
-        if(!this.props.calendar) return null;
+        if (!this.props.calendar) return null;
         const { SportItems } = this.props.calendar
-        const rezultat = SportItems.map(data => <div 
-                                                        onClick={(e) => this.klik(e, data.SportId) } 
-                                                        style={{display: 'inline-block', textAlign: 'center'}}>
-                                                <div    style={{margin: '10px'}}>{data.SportName}
-                                                </div>
-                                                <span className="ui red circular label">
-                                                        {data.MatchNumber}
-                                                </span>
-                                                </div> )        
+        const rezultat = SportItems.map(data => <div
+            onClick={(e) => this.klik(e, data.SportId)}
+            style={{ display: 'inline-block', textAlign: 'center' }}>
+            <div style={{ margin: '10px' }}>{data.SportName}
+            </div>
+            <span className="ui red circular label">
+                {data.MatchNumber}
+            </span>
+        </div>)
         return rezultat
     }
 
-    calendarRender(e){
-        e.preventDefault()        
-        this.setState({componentView: 3 })
+    handler = (someValue, matchId) => {
+        this.setState({
+            componentView: someValue,
+            matchId: matchId
+        })
+    }
+
+    calendarRender(e) {
+        e.preventDefault()
+        this.setState({ componentView: 3 })
         this.props.fetchLiveCalendar(Math.random(), this.state.sportId);
     }
-    render(){    
+    render() {
 
         return (
-            <div className="ui three grid">        
-            <div className="three column row" style={{marginRight: '20px'}}>                    
-                <div className="thirteen wide column">  
-                <div>{this.state.componentView === 3 ? this.renderSportsCalendar() : this.renderSports()}</div>
-                <div style={{textAlign: "right"}}>
-                <button className="ui purple button" onClick={() => this.setState({componentView: 1 })}>Overview</button>
-                <button className="ui purple button" onClick={() => this.setState({componentView: 2 })}>Match</button>
-                <button className="ui purple button" onClick={(e) => this.calendarRender(e) }>Calendar</button>
+            <div className="ui three grid">
+                <div className="three column row" style={{ marginRight: '20px' }}>
+                    <div className="thirteen wide column">
+                        <div>{this.state.componentView === 3 ? this.renderSportsCalendar() : this.renderSports()}</div>
+                        <div style={{ textAlign: "right" }}>
+                            <button className="ui purple button" onClick={() => this.setState({ componentView: 1 })}>Overview</button>
+                            <button className="ui purple button" onClick={() => this.setState({ componentView: 2 })}>Match</button>
+                            <button className="ui purple button" onClick={(e) => this.calendarRender(e)}>Calendar</button>
+                        </div>
+                        {this.state.componentView === 0 || this.state.componentView === 1 ? <LiveMatchOverview sportOverview={this.props.liveBetGames} handler={this.handler} /> : null}
+                        {this.state.componentView === 2 ? <SingleMatchLive sportOverview={this.props.liveBetGames} sportId={this.state.sportId} match={this.state.matchId} /> : null}
+                        {this.state.componentView === 3 ? <Calendar /> : null}
+                    </div>
+                    <div className="three wide column" style={{ background: 'aliceblue', textAlign: 'center', border: '1px solid blue' }}>
+                        <TicketGenerator />
+                    </div>
                 </div>
-                {this.state.componentView === 0 || this.state.componentView === 1 ? <LiveMatchOverview sportOverview={this.props.liveBetGames}/> : null}
-                {this.state.componentView === 2 ? <SingleMatchLive sportOverview={this.props.liveBetGames} sportId={this.state.sportId} /> : null}
-                {this.state.componentView === 3 ? <Calendar /> : null}
-                </div>                  
-                <div className="three wide column" style={{ background: 'aliceblue', textAlign: 'center', border: '1px solid blue' }}>
-                    <TicketGenerator />     
-                </div>
-                </div>
-            </div>       
-    
-          
-            
+            </div>
+
+
+
         )
     }
-    
+
 }
 
 const mapStateToProps = ({ liveBetGames, calendar, singleMatchLive }) => ({ liveBetGames, calendar, singleMatchLive })
-export default connect(mapStateToProps,{ fetchLiveBetGames, fetchLiveCalendar, fetchSingleMatchLive })(LiveBet);
+export default connect(mapStateToProps, { fetchLiveBetGames, fetchLiveCalendar, fetchSingleMatchLive })(LiveBet);

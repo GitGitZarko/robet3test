@@ -124,12 +124,16 @@ class TicketGenerator extends Component {
 
         localTicket.Bets.map((data, i) => (data.ColAmount = 0, data.IsActive = false))
 
-
+        localTicket.operationType = 4;
+        localTicket.isLive = false;
+        localTicket.oddId = 0;
 
         localStorage.setItem("ticket", JSON.stringify(localTicket));
+        this.props.oddsTicketList(localTicket)
         this.setState({
             multiplaValue: 0
         })
+     
     }
 
     sistemInputChangeMultipla = (e, name, ticketTotalValue, columns, sumColumns) => {
@@ -142,7 +146,7 @@ class TicketGenerator extends Component {
         localTicket.oddId = 0;
         localTicket.Bets[0].ColAmount = e.target.value
 
-        // localStorage.setItem("ticket", JSON.stringify(localTicket));
+        //localStorage.setItem("ticket", JSON.stringify(localTicket)); //@Zare ovo je jos uvek pod znakom pitanja
         this.props.oddsTicketList(localTicket)
 
         this.setState({
