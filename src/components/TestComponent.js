@@ -26,7 +26,7 @@ class TestComponent extends Component {
       }
       this.buttonRef = React.createRef();
    }
-  
+
    ajdeKlikni = (e) => {
       e.preventDefault();
       const { TounamentSpecialMainList, SportCode, TournamentCode } = this.props.objekat;
@@ -64,14 +64,14 @@ class TestComponent extends Component {
       if (!TounamentSpecialMainList) {
          return null;
       }
-      const { TournamentSpecialMatchList } = TounamentSpecialMainList[broj]      
+      const { TournamentSpecialMatchList } = TounamentSpecialMainList[broj]
       const ajdeVise = TournamentSpecialMatchList.map((data, i) => <SecondButtonList imeDugmeta={data.Text} key={i} kljuc={i} special={data} renderThirdButtonList={this.renderThirdButtonList.bind(this)} />)
 
       this.setState({
          secondGroup: ajdeVise,
          thirdGroup: [],
          updateBox: data[0].Value
-      })      
+      })
    }
    renderThirdButtonList(broj, data) {
       if (broj === undefined) return console.log("greska", broj)
@@ -85,7 +85,7 @@ class TestComponent extends Component {
 
       this.setState({
          thirdGroup: ajdeVise
-      })  
+      })
    }
 
    renderTounementMainTitleList() {
@@ -139,17 +139,17 @@ class TestComponent extends Component {
       this.props.fetchSingleMatch(code, date, name);
    }
 
-   componentDidMount() {      
-      const oddTypeValue = JSON.parse(localStorage.OddType);
-      this.setState({ oddTypeValue });
-    }
-    componentDidUpdate(prevProps) {    
+   // componentDidMount() {
+   //    const oddTypeValue = JSON.parse(localStorage.OddType);
+   //    this.setState({ oddTypeValue });
+   // }
+   componentDidUpdate(prevProps) {
       if (this.props.changeOddValue !== prevProps.changeOddValue) {
          const oddTypeValue = JSON.parse(localStorage.OddType);
          this.setState({ oddTypeValue: oddTypeValue });
       }
-      
-    }
+
+   }
 
    renderTournamentMatchList() {
       const { TournamentMatchList } = this.props.objekat;
@@ -162,11 +162,12 @@ class TestComponent extends Component {
          let localTicket = JSON.parse(localStorage.getItem('ticket'))
          oddIdList = localTicket.Odds.map((a) => a.OddId)
       }
+
       if (!TournamentMatchList) {
          return null;
       }
 
-      return TournamentMatchList.map(val => {        
+      return TournamentMatchList.map(val => {
          return (
             <Table.Row>
                <Table.Cell width="three" className="table-cell">
@@ -190,10 +191,10 @@ class TestComponent extends Component {
                         onClick={(e) =>
                            // this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup)}>
                            this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>
-                              {/* {
+                        {/* {
                                  this.state.oddTypeValue == 0 ? odds.OddValue : (this.state.oddTypeValue == 1 ? odds.OddValueAmerican : odds.OddValueFraction) 
                               } */}
-                        {this.props.changeOddValue == 0 ? odds.OddValue : (this.props.changeOddValue == 1 ? odds.OddValueAmerican : odds.OddValueFraction) }
+                        {this.props.changeOddValue == 0 ? odds.OddValue : (this.props.changeOddValue == 1 ? odds.OddValueAmerican : odds.OddValueFraction)}
                      </Table.Cell>
                   ) : val.TournamentMatchOddList.map((odds, o) =>
                      <Button className="moje-dugme"
@@ -205,9 +206,9 @@ class TestComponent extends Component {
                            this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>
                         {odds.OddType}
                         <span style={{ float: 'right' }}>
-                        {this.props.changeOddValue == 0 ? odds.OddValue : (this.props.changeOddValue == 1 ? odds.OddValueAmerican : odds.OddValueFraction) }
-                        {/* {odds.OddValue} */}
-                        
+                           {this.props.changeOddValue == 0 ? odds.OddValue : (this.props.changeOddValue == 1 ? odds.OddValueAmerican : odds.OddValueFraction)}
+                           {/* {odds.OddValue} */}
+
                         </span>
                      </Button>
                   )
@@ -223,7 +224,7 @@ class TestComponent extends Component {
       })
    }
    thirdButtons(e, data) {
-      e.preventDefault();      
+      e.preventDefault();
       this.setState({
          thirdGroup: data.Items
       })
@@ -241,7 +242,7 @@ class TestComponent extends Component {
       return rezultat;
    }
    //MAX IMPORTANT EXTRUDE VALUE FROM SEMANTIC UI DROPDOWN
-   samoProba = (e, { value }) => {      
+   samoProba = (e, { value }) => {
       const { SportCode, TournamentCode } = this.props.objekat
       this.props.updateChampList(TournamentCode, SportCode, value)
       this.setState({
@@ -316,7 +317,7 @@ class TestComponent extends Component {
                   {this.renderTournamentMatchList()}
                </Table.Body>
             </Table>
-            {/* <h1>{`This is the separate tournament box: ${objekat.TournamentCode}`}</h1> */}
+
             <div className="ui center aligned segment">
                <button className="ui yellow basic button">UNICA</button>
                <button className="ui black basic button">SINGLE</button>

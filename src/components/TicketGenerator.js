@@ -5,14 +5,14 @@ import { connect } from 'react-redux';
 import { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction, changeOddValueType } from '../actions';
 import TicketChildItem from './TicketChildItem';
 import { allOddsTable } from '../json/allOddsTable';
-import { Button, Icon,  Modal,  Dropdown, Checkbox, Label } from 'semantic-ui-react';
+import { Button, Icon, Modal, Dropdown, Checkbox, Label } from 'semantic-ui-react';
 
 
 const customStyle = {
     background: 'yellow',
     border: '1px solid black',
     padding: '5px'
-    
+
 }
 
 
@@ -30,7 +30,8 @@ class TicketGenerator extends Component {
             quickChecked: false,
             localTotalAmount: 0,
             colsCalculateValue: 0,
-            focus: false
+            focus: false,
+            multiplaValue: 0
         }
         this.textInput = React.createRef();
         this.dropdownBrat = React.createRef();
@@ -45,17 +46,17 @@ class TicketGenerator extends Component {
         // Explicitly focus the text input using the raw DOM API
         // Note: we're accessing "current" to get the DOM node
         this.textInput.current.focus();
-        
-      }
-      focusDrop() {
+
+    }
+    focusDrop() {
         // Explicitly focus the text input using the raw DOM API
         // Note: we're accessing "current" to get the DOM node     
         this.textInputMain.current.blur();
         //THIS NEED TO BE IMPLEMENTED
         //this.textInputMain.current.value = "";
-        this.setState({ focus: true})
-        
-      }
+        this.setState({ focus: true })
+
+    }
 
     handleOpen = () => this.setState({ modalOpen: true })
     handleClose = () => this.setState({ modalOpen: false })
@@ -69,17 +70,18 @@ class TicketGenerator extends Component {
         this.props.fetchStartJson()
         this.props.removeAllOdds()
         localStorage.clear();
+        localStorage.setItem('OddType', 0);
     }
 
     renderTicketChildren = (ticketValues) => {
-              
+
         const prom = ticketValues.Odds.map((a) => a.MatchId)
         const unique = [...new Set(prom)]
-        
+
         return unique.map((data, i) => <TicketChildItem key={i} matchId={data} data={ticketValues} />)
     }
 
-    checkTheOddsLenght = () => {    
+    checkTheOddsLenght = () => {
         const { Odds } = this.props.oddList
         let oddIdList = [];
         if (!Odds) {
@@ -92,11 +94,12 @@ class TicketGenerator extends Component {
     }
     sistemInputChange = (e, name, ticketTotalValue, columns, sumColumns) => {
         e.preventDefault();
+
         let convertTotalAmount;
         let localCurentInputValue;
         convertTotalAmount = (this.state.localTotalAmount / sumColumns) * columns
-        localCurentInputValue = e.target.value * columns     
-        
+        localCurentInputValue = e.target.value * columns
+
         let localTicket = JSON.parse(localStorage.ticket)
         let colAmount = 0;
         let row = 0;
@@ -107,13 +110,48 @@ class TicketGenerator extends Component {
         localTicket.isLive = false;
         localTicket.oddId = 0;
         localTicket.Bets[row].ColAmount = colAmount
-        
-        localStorage.setItem("ticket", JSON.stringify(localTicket));        
+
+        localStorage.setItem("ticket", JSON.stringify(localTicket));
         this.props.oddsTicketList(localTicket)
         this.setState({
-            localTotalAmount: +this.state.localTotalAmount-convertTotalAmount + localCurentInputValue,            
+            localTotalAmount: +this.state.localTotalAmount - convertTotalAmount + localCurentInputValue,
         })
-        
+
+    }
+    resetLocalTicketOdds() {
+        let localTicket = JSON.parse(localStorage.ticket)
+        console.log('LOCALNI TIKET', localTicket)
+
+        localTicket.Bets.map((data, i) => (data.ColAmount = 0, data.IsActive = false))
+
+
+
+        localStorage.setItem("ticket", JSON.stringify(localTicket));
+        this.setState({
+            multiplaValue: 0
+        })
+    }
+
+    sistemInputChangeMultipla = (e, name, ticketTotalValue, columns, sumColumns) => {
+        e.preventDefault();
+
+        let localTicket = JSON.parse(localStorage.ticket)
+
+        localTicket.operationType = 4;
+        localTicket.isLive = false;
+        localTicket.oddId = 0;
+        localTicket.Bets[0].ColAmount = e.target.value
+
+        // localStorage.setItem("ticket", JSON.stringify(localTicket));
+        this.props.oddsTicketList(localTicket)
+
+        this.setState({
+            multiplaValue: e.target.value
+        })
+        // this.setState({
+        //     localTotalAmount: +this.state.localTotalAmount - convertTotalAmount + localCurentInputValue,
+        // })
+
     }
 
     addTotalAmount = (e, data) => {
@@ -121,46 +159,46 @@ class TicketGenerator extends Component {
 
         this.setState({
             localTotalAmount: e.target.value
-        })       
+        })
     }
 
     checkBoxInput = (e, data, aktivan, cols) => {
-        
+
         const localTicket = JSON.parse(localStorage.ticket)
         let row;
 
-        localTicket.Bets.map((ata, i) => data === ata.GroupDescription ? row = i : null )
-                
-        localTicket.operationType = 4        
-        
-        let pormenaZnaka = !localTicket.Bets[row].IsActive        
+        localTicket.Bets.map((ata, i) => data === ata.GroupDescription ? row = i : null)
+
+        localTicket.operationType = 4
+
+        let pormenaZnaka = !localTicket.Bets[row].IsActive
         localTicket.Bets[row].IsActive = pormenaZnaka
         localTicket.isLive = false;
         localTicket.oddId = 0;
-        
+
         localStorage.setItem("ticket", JSON.stringify(localTicket));
-                
+
         this.setState({
             colsCalculateValue: 100
-        })   
+        })
 
-        if(localTicket.Bets[row].ColAmount != 0)
-                this.props.oddsTicketList(localTicket)   
+        if (localTicket.Bets[row].ColAmount != 0)
+            this.props.oddsTicketList(localTicket)
     }
 
-    quickBet = (e) => {        
-        if (e.charCode === 13) {                  
-            if(this.state.quickChecked)
+    quickBet = (e) => {
+        if (e.charCode === 13) {
+            if (this.state.quickChecked)
                 this.focusInput();
-                else this.focusDrop();
-            this.props.quickBetAction(e.target.value)            
+            else this.focusDrop();
+            this.props.quickBetAction(e.target.value)
         }
     }
 
     getQuickBetsList = () => {
         const { Items } = this.props.getQuickBet
         if (!Items) return null
-        const response = Items.map((data, i) => ({ key: i, text: data.OddType, value: data.OddValue, qCode: data.QuickCode }))        
+        const response = Items.map((data, i) => ({ key: i, text: data.OddType, value: data.OddValue, qCode: data.QuickCode }))
         return response;
     }
 
@@ -176,7 +214,7 @@ class TicketGenerator extends Component {
         localTicket.isLive = false;
         localTicket.matchId = matchCode;
         localTicket.oddId = value;
-        
+
         localStorage.setItem("ticket", JSON.stringify(localTicket));
         this.props.oddsTicketList(localTicket)
     }
@@ -201,7 +239,14 @@ class TicketGenerator extends Component {
             this.props.oddsTicketList(localTicket)
         }
     }
-  
+    multiplaButton() {
+        this.resetLocalTicketOdds()
+        this.setState({ activeButton: false, localTotalAmount: 0 })
+    }
+    sistemaButton() {
+        this.resetLocalTicketOdds()
+        this.setState({ activeButton: true, localTotalAmount: 0 })
+    }
     render() {
         let ticketValues;
         let ticketCols;
@@ -210,7 +255,7 @@ class TicketGenerator extends Component {
 
 
         if (this.props.ticket) {
-            if (localStorage.getItem("ticket") === null) {                
+            if (localStorage.getItem("ticket") === null) {
                 localStorage.setItem('ticket', JSON.stringify(this.props.ticket));
             }
 
@@ -218,17 +263,17 @@ class TicketGenerator extends Component {
             ticketCols = ticketValues.Bets.map((data) => data.IsActive === true ? data.Cols : null)//.filter((e) => e != null)
             ticketType = ticketValues.TicketType;
             if (ticketCols.length > 0) {
-                sumCols = ticketCols.reduce((cols, i) => cols + i)                
-            }            
+                sumCols = ticketCols.reduce((cols, i) => cols + i)
+            }
         }
-        
+
         return (
             <div>
-                  <Label.Group >
+                <Label.Group >
                     <Label basic as='a' onClick={() => this.props.changeOddValueType(0)}>Decimal</Label>
                     <Label basic as='a' onClick={() => this.props.changeOddValueType(1)}>Americano</Label>
-                    <Label basic as='a' onClick={() => this.props.changeOddValueType(2)}>Fraccional</Label>                    
-                </Label.Group>    
+                    <Label basic as='a' onClick={() => this.props.changeOddValueType(2)}>Fraccional</Label>
+                </Label.Group>
                 <Checkbox style={{ width: '10%', float: 'left' }} onClick={() => this.setState({ quickChecked: !this.state.quickChecked })} checked={this.state.quickChecked} />
                 <Modal trigger={<h5 onClick={this.handleOpen} style={{ cursor: 'pointer', width: '90%', textAlign: 'left' }}>USA IL QUICK CODE</h5>}
                     open={this.state.modalOpen}
@@ -284,25 +329,25 @@ class TicketGenerator extends Component {
                     <div className="ui row">
                         <div className="item">
                             <div className="ui input" style={{ width: '50%', float: 'left' }}>
-                                <input type="text" placeholder="QUICK_BET" onKeyPress={(e) => this.quickBet(e)}  ref={this.textInputMain} onClick={() => this.setState({focus: false})} />
+                                <input type="text" placeholder="QUICK_BET" onKeyPress={(e) => this.quickBet(e)} ref={this.textInputMain} onClick={() => this.setState({ focus: false })} />
                             </div>
 
                             {this.state.quickChecked ?
                                 <div className="ui input" style={{ width: '50%', float: 'right' }}>
-                                    <input type="text" placeholder="Quick Code" onKeyPress={(e) => this.selectQuickCode(e, this.props.getQuickBet.MatchId)}  ref={this.textInput} />
+                                    <input type="text" placeholder="Quick Code" onKeyPress={(e) => this.selectQuickCode(e, this.props.getQuickBet.MatchId)} ref={this.textInput} />
                                 </div>
                                 :
                                 <Dropdown
                                     ref={this.dropdownBrat}
                                     placeholder='Select Odd...'
                                     fluid
-                                    selection                                    
-                                    search 
+                                    selection
+                                    search
                                     className={`${this.state.focus}`}
                                     //searchInput={{ autoFocus: this.state.focus}}
                                     style={{ width: '50%', float: 'right' }}
                                     options={this.getQuickBetsList()}
-                                    onChange={(e) => this.selectQuickBetOdd(e, this.props.getQuickBet.MatchId, this.getQuickBetsList())}                                    
+                                    onChange={(e) => this.selectQuickBetOdd(e, this.props.getQuickBet.MatchId, this.getQuickBetsList())}
                                 />
                             }
                             {/* <div className="ui input" style={{width: '50%'}}>
@@ -343,15 +388,15 @@ class TicketGenerator extends Component {
                             } */}
                 </div>
 
-                {ticketType === 2  &&
+                {ticketType === 2 &&
                     <div>
-                        <button className="ui toggle button" onClick={() => this.setState({ activeButton: false, localTotalAmount: 0 })}>MULTIPLA</button>
-                        <button className="ui toggle button" onClick={() => this.setState({ activeButton: true, localTotalAmount: 0 })}>SISTEMA</button>
+                        <button className="ui toggle button" onClick={() => this.multiplaButton()}>MULTIPLA</button>
+                        <button className="ui toggle button" onClick={() => this.sistemaButton()}>SISTEMA</button>
                     </div>
                 }
                 {
-                    (ticketType === 4 || ticketType === 2 ) && this.state.activeButton === true ? ticketValues.Bets.map((data, f) => {   
-                        
+                    (ticketType === 4 || ticketType === 2) && this.state.activeButton === true ? ticketValues.Bets.map((data, f) => {
+
                         data.ColAmount = 0
                         return (
                             <div className="ui middle aligned divided list">
@@ -364,20 +409,20 @@ class TicketGenerator extends Component {
                                                 delayTimeout={500}
                                                 type="text"
                                                 placeholder="0"
-                                                onChange={(e) => this.sistemInputChange(e, data.GroupDescription, ticketValues.TotalAmount,  data.Cols, sumCols)}
+                                                onChange={(e) => this.sistemInputChange(e, data.GroupDescription, ticketValues.TotalAmount, data.Cols, sumCols)}
                                                 value={data.IsActive ? this.state.localTotalAmount / sumCols : data.ColAmount}
-                                                />
+                                            />
                                         </div>
                                     </div>
-                                    
+
                                     <div className="ui left floated content">
                                         <div className="ui checkbox">
                                             <input type="checkbox"
-                                            
+
                                                 checked={data.IsActive}
                                                 name={data.GroupDescription}
-                                                onChange={(e) => this.checkBoxInput(e,data.GroupDescription, data.IsActive,  data.Cols)}
-                                                />
+                                                onChange={(e) => this.checkBoxInput(e, data.GroupDescription, data.IsActive, data.Cols)}
+                                            />
                                             <label> {data.GroupDescription}</label>
                                         </div>
 
@@ -388,9 +433,9 @@ class TicketGenerator extends Component {
                         )
                     })
 
-                            : null
+                        : null
                 }
-                { this.state.activeButton === true &&
+                {this.state.activeButton === true &&
                     <div className="ui middle aligned divided list">
                         <div className="item" style={{ border: "1px solid black" }}>
                             <div className="right floated content">
@@ -410,11 +455,18 @@ class TicketGenerator extends Component {
                     </div>
                 }
                 {
-                    (this.state.activeButton === false && (ticketType === 2 || ticketType === 4 )) && <div className="ui middle aligned divided list">
+                    (this.state.activeButton === false && (ticketType === 2 || ticketType === 4)) && <div className="ui middle aligned divided list">
                         <div className="item">
                             <div className="right floated content">
                                 <div className="ui input">
-                                    <input type="text" placeholder="0" />
+                                    <DelayInput
+                                        minLength={0}
+                                        delayTimeout={500}
+                                        type="text"
+                                        placeholder="0"
+                                        onChange={(e) => this.sistemInputChangeMultipla(e)}
+                                        value={this.state.multiplaValue}
+                                    />
                                 </div>
                             </div>
                             <div className="content">
