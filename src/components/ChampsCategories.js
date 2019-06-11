@@ -10,30 +10,30 @@ class ChampsCategories extends Component {
 
 
     }
-  
+
     uradiNesto(event, i) {
         event.preventDefault();
 
-        if (event.target.dataset.id) {          
+        if (event.target.dataset.id) {
             this.setState({
                 dataId: event.target.dataset.id,
                 showChildren: !this.state.showChildren,
                 displayChild: this.state.showChildren ? 'block' : 'none'
             })
-            
+
         }
     }
 
     render() {
         const { sportId } = this.props
-        const { categorie } = this.props      
+        const { categorie } = this.props
 
         return (
             //  <div onClick={this.pokaziMiAlert}>            
             <div className="headerLeftMenu" data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)} style={{ display: this.props.displayChildren }} >
                 {categorie.CategoryName}
 
-                {categorie.Champs.map((item, i) => <div> {categorie.CategoryId == this.state.dataId ?
+                {categorie.Champs.map((item, i) => <div> {categorie.CategoryId === this.state.dataId ?
                     <ChampName
                         champs={item}
                         key={i}

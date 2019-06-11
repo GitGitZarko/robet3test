@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Header, Table, Button, SegmentInline, Ref, Grid, Dropdown } from 'semantic-ui-react'
+import { Header, Table, Button, Dropdown } from 'semantic-ui-react'
 import MainButtonList from './MainButtonList';
 import SecondButtonList from './SecondButtonList';
 import ThirdButtonList from './ThirdButtonList';
@@ -53,8 +53,6 @@ class TestComponent extends Component {
 
       return TounamentSpecialMainList.map((special, i) => {
          return <MainButtonList key={i} kljuc={i} special={special} scode={SportCode} tcode={TournamentCode} renderSecondButtonList={this.renderSecondButtonList.bind(this)} />
-         const redButtons = special.TournamentSpecialMatchList.map((data) => <div style={{ display: 'inline-block' }} onClick={(e) => this.thirdButtons(e, data)}><SecondButtonList color="red" textValue={data.Text}></SecondButtonList> </div>)
-         const blueButtons = special.TournamentSpecialMatchList.map((data) => data.Items.map((ata) => <SecondButtonList color="blue" textValue={ata.Text}></SecondButtonList>))
       })
    }
    renderSecondButtonList(broj, data) {
@@ -153,10 +151,8 @@ class TestComponent extends Component {
 
    renderTournamentMatchList() {
       const { TournamentMatchList } = this.props.objekat;
-      const { Odds } = this.props.oddList
       const { IsAntepost } = this.props.objekat;
       let oddIdList = [];
-      let oddType = JSON.parse(localStorage.OddType);
 
       if (localStorage.getItem("ticket") !== null) {
          let localTicket = JSON.parse(localStorage.getItem('ticket'))

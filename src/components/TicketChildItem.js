@@ -4,87 +4,76 @@ import { oddsTicketList } from '../actions';
 
 class TicketChildItem extends Component {
     constructor(props) {
-        super(props);  
-        
+        super(props);
+
         this.state = {
             isStarActive: false
         }
-      }
+    }
 
-      renderUniqueOdds = () => {
-        const { MatchName, OddValue, OddTypeName, MatchId, Odds} = this.props.data
-        const currentMatchId = this.props.matchId        
-      }
+    nestoUradi = (e, mId, OddId) => {
+        e.preventDefault();
+        let localTicket = JSON.parse(localStorage.ticket)
 
-      nestoUradi = (e, mId, OddId) => {
-          e.preventDefault();            
-            let localTicket = JSON.parse(localStorage.ticket) 
-             
-            localTicket.isLive = false;
-            localTicket.matchId = mId;
-            localTicket.oddId = OddId;
-            localTicket.operationType = 2;
-           
-            localStorage.setItem("ticket", JSON.stringify(localTicket));      
-            this.props.oddsTicketList(localTicket)
-      }
-      pozoviState =  (e, oddId, matchId) => {
-          e.preventDefault()
-          this.setState({isStarActive: !this.state.isStarActive})
-          let localTicket = JSON.parse(localStorage.ticket) 
-       
-          let setBanker;
-          let row = 0;
-          const noviTiket = localTicket.Odds.map((data, i) => matchId == data.MatchId ? setBanker = !data.Banker : null)
+        localTicket.isLive = false;
+        localTicket.matchId = mId;
+        localTicket.oddId = OddId;
+        localTicket.operationType = 2;
 
-            localTicket.isLive = false;
-            localTicket.matchId = matchId;
-            localTicket.oddId = oddId;            
-            localTicket.operationType = 3;
-            //localTicket.Odds[row].Banker = setBanker
- 
-          localStorage.setItem("ticket", JSON.stringify(localTicket));      
- 
-       this.props.oddsTicketList(localTicket)
-      }
-        render() {          
-            const { MatchName, OddValue, OddTypeName, MatchId, Odds} = this.props.data
-           
-            const prom = Odds.map((elem) => elem.MatchId === this.props.matchId ? elem.MatchName : null)
-           
-            const distinctValue = [...new Set(prom)]
+        localStorage.setItem("ticket", JSON.stringify(localTicket));
+        this.props.oddsTicketList(localTicket)
+    }
+    pozoviState = (e, oddId, matchId) => {
+        e.preventDefault()
+        this.setState({ isStarActive: !this.state.isStarActive })
+        let localTicket = JSON.parse(localStorage.ticket)
+
+        localTicket.isLive = false;
+        localTicket.matchId = matchId;
+        localTicket.oddId = oddId;
+        localTicket.operationType = 3;
+
+        localStorage.setItem("ticket", JSON.stringify(localTicket));
+
+        this.props.oddsTicketList(localTicket)
+    }
+    render() {
+        const { Odds } = this.props.data
+
+        const prom = Odds.map((elem) => elem.MatchId === this.props.matchId ? elem.MatchName : null)
+
+        const distinctValue = [...new Set(prom)]
         return (
-            <div>                
+            <div>
                 <div className="ui middle aligned divided list">
-                <div className="ui item">
-                <div className="ui left floated content">     
-                <h4>{distinctValue}</h4>
-                </div>
-                </div>
-                {Odds.map((a) => {
-                    return a.MatchId === this.props.matchId ? 
                     <div className="ui item">
-                        <div className="ui left floated content">                                
-                                    {a.OddGroupName} : {a.OddTypeName}                                                           
+                        <div className="ui left floated content">
+                            <h4>{distinctValue}</h4>
                         </div>
-                        <div className="ui right floated content">
-                        {this.props.changeOddValue == 0 ? a.OddValue : (this.props.changeOddValue == 1 ? a.OddValueAmerican : a.OddValueFraction) }
-                        {/* {a.OddValue} */}
-                                                                                                                        {/* OVDE TREBA NAPRAVITI SET BANKER FUNKCIJU */}
-                        <i className={"window "+ (this.state.isStarActive ? 'star' : 'star outline' )+ " icon"} style={{cursor: 'pointer'}} onClick={(e) => this.pozoviState(e, a.OddId, a.MatchId)}></i>
-                        <i className="window close icon" style={{cursor: 'pointer'}} onClick={(e) => this.nestoUradi(e, a.MatchId, a.OddId)}></i>
-                            
-                        </div>
-                     </div>
-                     : null 
+                    </div>
+                    {Odds.map((a) => {
+                        return a.MatchId === this.props.matchId ?
+                            <div className="ui item">
+                                <div className="ui left floated content">
+                                    {a.OddGroupName} : {a.OddTypeName}
+                                </div>
+                                <div className="ui right floated content">
+                                    {this.props.changeOddValue == 0 ? a.OddValue : (this.props.changeOddValue == 1 ? a.OddValueAmerican : a.OddValueFraction)}
+                                    {/* {a.OddValue} */}
+                                    {/* OVDE TREBA NAPRAVITI SET BANKER FUNKCIJU */}
+                                    <i className={"window " + (this.state.isStarActive ? 'star' : 'star outline') + " icon"} style={{ cursor: 'pointer' }} onClick={(e) => this.pozoviState(e, a.OddId, a.MatchId)}></i>
+                                    <i className="window close icon" style={{ cursor: 'pointer' }} onClick={(e) => this.nestoUradi(e, a.MatchId, a.OddId)}></i>
 
-                   
-                })}
+                                </div>
+                            </div>
+                            : null
+
+
+                    })}
                 </div>
             </div>
         )
-       }
-    }    
+    }
+}
 const mapStateToProps = ({ changeOddValue }) => ({ changeOddValue })
 export default connect(mapStateToProps, { oddsTicketList })(TicketChildItem);
-    

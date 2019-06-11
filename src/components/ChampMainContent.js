@@ -1,100 +1,99 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchChamps, fetchChampList } from '../actions';
-import { Header, Table, Button} from 'semantic-ui-react'
+import { Header, Table } from 'semantic-ui-react'
 
 
-class ChampMainContent extends Component {    
+class ChampMainContent extends Component {
 
-    renderTounementMainTitleList(){
+   renderTounementMainTitleList() {
       const { TounementMainTitleList } = this.props.champsContent;
-      
+
       if (!TounementMainTitleList) {
          return null;
       }
       return TounementMainTitleList.map(name => {
-            return (
-               <Table.HeaderCell>{name.nome}</Table.HeaderCell>
-            )
-       })
-    }
+         return (
+            <Table.HeaderCell>{name.nome}</Table.HeaderCell>
+         )
+      })
+   }
 
-    renderTitleList(){
+   renderTitleList() {
       const { TounementTitleList } = this.props.champsContent;
-      
+
       if (!TounementTitleList) {
          return null;
       }
       return (
          <div>
-         <Table.HeaderCell>Match</Table.HeaderCell>
-         {TounementTitleList.map(name =>  <Table.HeaderCell>{name.nome}</Table.HeaderCell>  )}
+            <Table.HeaderCell>Match</Table.HeaderCell>
+            {TounementTitleList.map(name => <Table.HeaderCell>{name.nome}</Table.HeaderCell>)}
          </div>
       );
-      
+
       // return TounementTitleList.map(name => {
       //       return (
       //          <Table.HeaderCell>{name.nome}</Table.HeaderCell>
       //       )
       //  })
-    }
-    click = () =>{
-       console.log("Kliknuto!")
-    }
-    renderTournamentMatchList(){
+   }
+   click = () => {
+      console.log("Kliknuto!")
+   }
+   renderTournamentMatchList() {
       const { TournamentMatchList } = this.props.champsContent;
-            
+
       if (!TournamentMatchList) {
          return null;
       }
-      
-      return TournamentMatchList.map(val => {      
-            return (
-               
-               <Table.Row>  
+
+      return TournamentMatchList.map(val => {
+         return (
+
+            <Table.Row>
                <Table.Cell selectable>
                   <Header>
                      {val.QuickMatchCode}
                      {val.MatchDate}
-                 </Header>
+                  </Header>
                   <Header.Content>
                      {val.MatchName}
-                  </Header.Content>              
+                  </Header.Content>
                </Table.Cell>
-               {                
-                  val.TournamentMatchOddList.map(odds => 
-                  <Table.Cell > {odds.OddValue}    </Table.Cell>
+               {
+                  val.TournamentMatchOddList.map(odds =>
+                     <Table.Cell > {odds.OddValue}    </Table.Cell>
                   )
                }
                <Table.Cell>
-                  
+
                </Table.Cell>
-               </Table.Row>  
-            )
-       })
-    }
-
-    render() {         
-     return (    
-        <div>
-            <Table celled>
-            <Table.Header>                   
-                        {this.renderTounementMainTitleList()}        
-                        {this.renderTitleList()}        
-                     
-            </Table.Header>
-
-            <Table.Body>
-               
-               {this.renderTournamentMatchList()}
-           
-        
-            </Table.Body>
-         </Table>
-  </div>  
+            </Table.Row>
          )
+      })
    }
- }
- 
- const mapStateToProps = ({ champsContent }) => ({ champsContent })
- export default connect(mapStateToProps)(ChampMainContent);
+
+   render() {
+      return (
+         <div>
+            <Table celled>
+               <Table.Header>
+                  {this.renderTounementMainTitleList()}
+                  {this.renderTitleList()}
+
+               </Table.Header>
+
+               <Table.Body>
+
+                  {this.renderTournamentMatchList()}
+
+
+               </Table.Body>
+            </Table>
+         </div>
+      )
+   }
+}
+
+const mapStateToProps = ({ champsContent }) => ({ champsContent })
+export default connect(mapStateToProps)(ChampMainContent);

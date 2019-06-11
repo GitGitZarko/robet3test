@@ -1,5 +1,6 @@
 import betvipApi from '../apis/betvipApi';
 import liveBetApi from '../apis/liveBetApi';
+import profileApi from '../apis/profileApi';
 
 export const FETCH_CHAMPS = 'FETCH_CHAMPS';
 export const FETCH_CHAMP_LIST = 'FETCH_CHAMP_LIST';
@@ -28,27 +29,55 @@ export const FETCH_SINGLE_MATCH_LIVE = 'FETCH_SINGLE_MATCH_LIVE';
 
 // LIVE SPORT PAGE CONSTANTS - END
 
+// PROFILE API - START 
+export const PROFILE_LOGIN = 'PROFILE_LOGIN';
+export const FETCH_USER_AGENCY = 'FETCH_USER_AGENCY';
+
+// PROFILE API - END
+
+// PROFILE ACTIONS - START 
+export const profileLogin = (user, pass) => async dispatch => {
+  await profileApi.post("/ProfileLoginService", {
+    username: user, password: pass,
+    'Access-Control-Allow-Headers': ' Authorization header',
+    'Access-Control-Allow-Origin': 'http://betvip.fun'
+  })
+    .then(
+      response => dispatch({ type: PROFILE_LOGIN, payload: response }),
+      error => console.log("ODGOVOR SERVERA", error),
+    );
+}
+
+export const fetchUserAgency = () => async dispatch => {
+  const response = await profileApi.get(`/UsersAgency`, {
+
+
+  });
+  dispatch({ type: FETCH_USER_AGENCY, payload: response.data });
+}
+// PROFILE ACTIONS - END 
+
 // LIVE SPORT PAGE ACTIONS - START 
 export const fetchLiveBetGames = (rand, sportId) => async dispatch => {
-      const response = await liveBetApi.get(`/Overview?r=${rand}&sportId=${sportId}`);
-      dispatch({ type: FETCH_LIVE_BET_GAMES, payload: response.data});
+  const response = await liveBetApi.get(`/Overview?r=${rand}&sportId=${sportId}`);
+  dispatch({ type: FETCH_LIVE_BET_GAMES, payload: response.data });
 }
 export const fetchLiveCalendar = (rand, sportId) => async dispatch => {
   const response = await liveBetApi.get(`/Calendar?r=${rand}&id=${sportId}`);
-  dispatch({ type: FETCH_LIVE_CALENDAR, payload: response.data});
+  dispatch({ type: FETCH_LIVE_CALENDAR, payload: response.data });
 }
 export const fetchSingleMatchLive = (rand, sportId) => async dispatch => {
   const response = await liveBetApi.get(`/single?id=${sportId}&r=${rand}`);
-  dispatch({ type: FETCH_SINGLE_MATCH_LIVE, payload: response.data});
+  dispatch({ type: FETCH_SINGLE_MATCH_LIVE, payload: response.data });
 }
 // LIVE SPORT PAGE ACTIONS - END 
 
 export const fetchSingleMatch = (singleMatchCode = null, date = null, name = null) => async dispatch => {
   const response = await betvipApi.get(`/Match?id=${singleMatchCode}`);
-  dispatch({ type: FETCH_SINGLE_MATCH, payload: { data: response.data, date: date, name: name, mcode: singleMatchCode }});
+  dispatch({ type: FETCH_SINGLE_MATCH, payload: { data: response.data, date: date, name: name, mcode: singleMatchCode } });
 }
 
-export const removeSingleMatch = (s) => async dispatch => {  
+export const removeSingleMatch = (s) => async dispatch => {
   dispatch({ type: REMOVE_SINGLE_MATCH });
 }
 
@@ -67,7 +96,7 @@ export const changeOddValueType = (value) => {
 };
 
 export const quickBetAction = (matchCode) => async dispatch => {
-  const response = await betvipApi.get(`/Quick?id=${matchCode}`);  
+  const response = await betvipApi.get(`/Quick?id=${matchCode}`);
   dispatch({ type: GET_QUICK_BET, payload: response.data });
 }
 
@@ -77,7 +106,7 @@ export const removeAllOdds = () => {
   }
 };
 
-export const oddsTicketList = (oddObject) => async dispatch => {  
+export const oddsTicketList = (oddObject) => async dispatch => {
   await betvipApi.post("/Update", JSON.stringify(oddObject))
     .then(
       response => dispatch({ type: ODDS_TICKET_LIST, payload: response.data }),
@@ -142,7 +171,7 @@ export const removeChampFromList = (champId = null, sportId = null) => {
 //   };
 
 export const callFromBox = (champId = null, sportId = null, button = null) => async dispatch => {
-  const response = await betvipApi.get(`/tournament?c=${champId}&s=${sportId}&g=${button}`);  
+  const response = await betvipApi.get(`/tournament?c=${champId}&s=${sportId}&g=${button}`);
   dispatch({ type: CALL_FROM_BOX, payload: response.data });
 }
 

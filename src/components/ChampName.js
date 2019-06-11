@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../public/css/Sports.css';
-import { fetchChamps, fetchChampList, addChampToList, removeChampFromList, sportViewChamps, removeSingleMatch } from '../actions';
+import { fetchChampList, addChampToList, removeChampFromList, sportViewChamps, removeSingleMatch } from '../actions';
 
 
 class ChampName extends Component {
@@ -18,7 +18,6 @@ class ChampName extends Component {
     }
 
     onFocus = () => {
-        const { champs } = this.props
         let listaTournamentCode = this.props.champsMiddleBoxList.map((objekat) => objekat.TournamentCode)
         return listaTournamentCode
     }
@@ -35,22 +34,22 @@ class ChampName extends Component {
 
         const champIdChangable = isFavorite ? champs.TournamentSourceID : champs.ChampId;
 
-        if (this.onFocus().some(a => a == champIdChangable)) {            
+        if (this.onFocus().some(a => a == champIdChangable)) {
             this.props.removeChampFromList(champIdChangable, sportId)
             this.setState({ isOpen: false })
-        } else {            
+        } else {
             this.props.addChampToList(champIdChangable, sportId, antepost, players)
             this.setState({ isOpen: true })
         }
 
 
-        if(this.props.singleMatch) this.props.removeSingleMatch()
-        
+        if (this.props.singleMatch) this.props.removeSingleMatch()
+
     }
     removeBox = (e) => {
         e.preventDefault();
         const { champs } = this.props
-        const { sportId } = this.props       
+        const { sportId } = this.props
     }
 
     render() {

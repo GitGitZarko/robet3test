@@ -1,24 +1,8 @@
 import React, { Component } from 'react';
-import { Header, Table, Button, SegmentInline, Ref } from 'semantic-ui-react'
 import { connect } from 'react-redux';
 import { callFromBox, updateChampList } from '../actions';
-import SecondButtonList from './SecondButtonList';
-
-
-// const buttonStyle = {
-//     background: 'red',
-//     color: 'white'
-// }
-
-// () => console.log(this.buttonRef.current.innerText, this.props.sportId + "probica" + this.props.tourId)
-
 
 class MainButtonList extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-
 
   ajdeKlikni = (e) => {
     e.preventDefault();
@@ -27,7 +11,7 @@ class MainButtonList extends Component {
       return null
     }
     const value = special.TournamentSpecialMatchList
-    // this.props.callFromBox(this.props.tourId, this.props.sportId, [1])
+
     if (!this.props.middleBoxButtons) {
       return null
     }
@@ -49,9 +33,9 @@ class MainButtonList extends Component {
 
     return (
       <button
-        style={{margin: 0, width: '25%', borderRadius: 0,border: '1px solid white', textTransform: 'uppercase'}}
+        style={{ margin: 0, width: '25%', borderRadius: 0, border: '1px solid white', textTransform: 'uppercase' }}
         className="ui orange button"
-        ref={this.buttonRef}
+
         onClick={(e) => this.renderSecondButtonList(e, kljuc, TournamentSpecialMatchList)}>
         {Text}
       </button>

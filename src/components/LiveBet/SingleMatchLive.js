@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import UniqueSingleMatch from './UniqueSingleMatch';
-import { Header, Table, Button, Container, Transition } from 'semantic-ui-react';
+import { Header, Table } from 'semantic-ui-react';
 //import '../public/css/Sports.css';
 import { fetchLiveBetGames, fetchSingleMatchLive } from '../../actions';
 
@@ -13,7 +13,7 @@ class SingleMatchLive extends Component {
         }
     }
 
-    componentDidMount() {        
+    componentDidMount() {
         this.props.fetchSingleMatchLive(Math.random(), this.state.matchId !== '' ? this.state.matchId : this.getFirstMatchOfSport())
         this.interval = setInterval(() => this.props.fetchSingleMatchLive(Math.random(), this.state.matchId !== '' ? this.state.matchId : this.getFirstMatchOfSport()), 2000);
     }
@@ -25,14 +25,14 @@ class SingleMatchLive extends Component {
         clearInterval(this.interval);
     }
 
-    getFirstMatchOfSport() {        
-            let singleMatchId;
-            if (!this.props.match)
-                singleMatchId = this.props.sportOverview.Sports[0].Tournaments[0].Matchies[0].MatchId
-            else
-                singleMatchId = this.props.match
-    
-            return singleMatchId
+    getFirstMatchOfSport() {
+        let singleMatchId;
+        if (!this.props.match)
+            singleMatchId = this.props.sportOverview.Sports[0].Tournaments[0].Matchies[0].MatchId
+        else
+            singleMatchId = this.props.match
+
+        return singleMatchId
     }
     novaFunkcijua(e, mid) {
         e.preventDefault();
@@ -43,9 +43,8 @@ class SingleMatchLive extends Component {
     }
     render() {
         if (!this.props.singleMatchLive) return null;
-        const { Bets } = this.props.singleMatchLive
+
         const { Sports } = this.props.liveBetGames
-        const single = this.props.singleMatchLive
 
         return (
             <div className="ui two grid">

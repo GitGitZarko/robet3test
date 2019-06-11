@@ -75,3 +75,25 @@ td.active:hover, tr.active:hover{
 .live-bet-odds:hover{
     background: green !important;
 }
+.ui.segment.home{
+    cursor: pointer;
+    border: 2px black solid;
+}
+.ui.segment.home:hover{
+    background: #777a41;
+}
+.slick-next::before, .slick-prev::before{
+    font-size: 35px;
+}
+.homepage-item img{
+    background:  no-repeat center / fill;  
+    width: 100%;    
+    position: relative;
+}
+
+.ui.inverted.segment{
+    position:fixed;
+        left:0;
+        bottom:0;
+        right:0;
+}

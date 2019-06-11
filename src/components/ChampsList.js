@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import '../public/css/Sports.css';
-import { fetchChamps, fetchInEvidence, fetchStructureOutright, sportViewChamps, fetchStructurePlayer,removeSingleMatch } from '../actions';
+import { fetchChamps, fetchInEvidence, fetchStructureOutright, sportViewChamps, fetchStructurePlayer, removeSingleMatch } from '../actions';
 import ChampsCategories from './ChampsCategories'
 import ChampName from './ChampName';
 
@@ -30,9 +30,9 @@ class ChampsList extends Component {
             valueTriger: !this.state.valueTriger,
             displayChildren: this.state.valueTriger ? 'block' : 'none',
             target: i
-        })        
+        })
         this.props.sportViewChamps(i)
-        if(this.props.singleMatch) this.props.removeSingleMatch()
+        if (this.props.singleMatch) this.props.removeSingleMatch()
     }
     uradiNestoAnte(event, i) {
         event.preventDefault();
@@ -41,7 +41,7 @@ class ChampsList extends Component {
             anteDisplay: this.state.valueAnte ? 'block' : 'none',
             targetAnte: i
         })
-        if(this.props.singleMatch) this.props.removeSingleMatch()
+        if (this.props.singleMatch) this.props.removeSingleMatch()
     }
     uradiNestoPlayer(event, i) {
         event.preventDefault();
@@ -50,7 +50,7 @@ class ChampsList extends Component {
             displayPlayer: this.state.valuePlayer ? 'block' : 'none',
             targetPlayer: i
         })
-        if(this.props.singleMatch) this.props.removeSingleMatch()
+        if (this.props.singleMatch) this.props.removeSingleMatch()
     }
 
     renderPlayersList() {
@@ -61,7 +61,7 @@ class ChampsList extends Component {
                     <div className="item">
                         <div className="content">
                             <div className="headerLeftMenu" onClick={(e) => this.uradiNestoPlayer(e, sport.SportId, sport)} ><i className="serbia flag"></i>  {sport.SportName}</div>
-                            {sport.Categories.map((cat, k) => <div> {sport.SportId == this.state.targetPlayer ?
+                            {sport.Categories.map((cat, k) => <div> {sport.SportId === this.state.targetPlayer ?
                                 <ChampsCategories
                                     categorie={cat}
                                     key={k}
@@ -88,7 +88,7 @@ class ChampsList extends Component {
                     <div className="item">
                         <div className="content">
                             <div className="headerLeftMenu" onClick={(e) => this.uradiNesto(e, sport.SportId, sport)} ><i className="italy flag"></i>  {sport.SportName}</div>
-                            {sport.Categories.map((cat, k) => <div> {sport.SportId == this.state.target ?
+                            {sport.Categories.map((cat, k) => <div> {sport.SportId === this.state.target ?
                                 <ChampsCategories
                                     categorie={cat}
                                     key={k}
@@ -140,7 +140,7 @@ class ChampsList extends Component {
                     <div className="item">
                         <div className="content">
                             <div className="header" onClick={(e) => this.uradiNestoAnte(e, sport.SportId)} ><i className="italy flag"></i>  {sport.SportName}</div>
-                            {sport.Categories.map((cat, k) => <div> {sport.SportId == this.state.targetAnte ?
+                            {sport.Categories.map((cat, k) => <div> {sport.SportId === this.state.targetAnte ?
                                 <ChampsCategories
                                     categorie={cat}
                                     key={k}
@@ -158,7 +158,7 @@ class ChampsList extends Component {
         })
     }
 
-    render() {        
+    render() {
         return (
             <div>
                 <div className="ui relaxed divided list">

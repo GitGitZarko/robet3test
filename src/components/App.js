@@ -3,6 +3,8 @@ import React from 'react';
 
 import { BrowserRouter, Route } from 'react-router-dom';
 import Header from './Header';
+import Footer from './Footer';
+import LoginHeader from './Login/LoginHeader';
 import Sport from './Sport';
 import LiveBet from './LiveBet/LiveBet';
 import Casino from './Casino';
@@ -12,25 +14,27 @@ import Home from './Home/Home';
 
 
 if (localStorage.getItem("OddType") === null)
-localStorage.setItem('OddType', 0);  
+    localStorage.setItem('OddType', 0);
 
 
 const App = () => {
     return (
-        <div>            
+        <div>
             <BrowserRouter>
-            <div>
-                <Header/>
-                <Route path="/" exact component={Home}></Route>
-                <Route path="/Sport" exact component={Sport}></Route>
-                <Route path="/LiveBet" exact component={LiveBet}></Route>
-                <Route path="/Casino" exact component={Casino}></Route>
-                <Route path="/Poker" exact component={Poker}></Route>
-            </div>
+                <div>
+                    <LoginHeader />
+                    <Header />
+                    <Route path="/" exact component={Home}></Route>
+                    <Route path="/Sport" exact component={Sport}></Route>
+                    <Route path="/LiveBet" exact component={LiveBet}></Route>
+                    <Route path="/Casino" exact component={Casino}></Route>
+                    <Route path="/Poker" exact component={Poker}></Route>
+                    <Footer />
+                </div>
             </BrowserRouter>
         </div>
-      
-        
+
+
     )
 }
 

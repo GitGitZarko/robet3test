@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 //import '../../public/Sports.css';
-import SingleMatchLive from './SingleMatchLive';
-import { Header, Table, Button } from 'semantic-ui-react';
+import { Header, Table } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { oddsTicketList, fetchSingleMatchLive } from '../../actions';
-import UniqueSingleMatch from './UniqueSingleMatch';
 
 class LiveMatchOverview extends Component {
 
@@ -34,7 +32,14 @@ class LiveMatchOverview extends Component {
     render() {
         if (!this.props.sportOverview) return null;
         const { Sports } = this.props.sportOverview
+        let oddIdList = [];
+
         if (!Sports) return null;
+
+        if (localStorage.getItem("ticket") !== null) {
+            let localTicket = JSON.parse(localStorage.getItem('ticket'))
+            oddIdList = localTicket.Odds.map((a) => a.OddId)
+        }
 
         return (
             <div className="thirteen wide column">
@@ -79,7 +84,8 @@ class LiveMatchOverview extends Component {
                                                                             {fufu.Odds.map((stato) => {
                                                                                 return <Table.Cell className="live-bet-odds"
                                                                                     style={{
-                                                                                        background: '#424242', color: 'white', fontWeight: 600,
+                                                                                        background: `${oddIdList.includes(stato.OddId) ? 'green' : '#424242'}`,
+                                                                                        color: 'white', fontWeight: 600,
                                                                                         borderBottom: `3px solid ${stato.Trend === 1 ? '#04f872' : 'black' || stato.Trend === -1 ? 'red' : 'black'}`,
                                                                                         borderRight: '1px solid white',
                                                                                         cursor: 'pointer'
@@ -121,5 +127,5 @@ class LiveMatchOverview extends Component {
     }
 }
 
-const mapStateToProps = ({ oddList, changeOddValue }) => ({ oddList, changeOddValue })
+const mapStateToProps = ({ oddList, changeOddValue, oddIdList }) => ({ oddList, changeOddValue, oddIdList })
 export default connect(mapStateToProps, { oddsTicketList, fetchSingleMatchLive })(LiveMatchOverview);
