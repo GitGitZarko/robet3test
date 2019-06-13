@@ -38,9 +38,7 @@ export const FETCH_USER_AGENCY = 'FETCH_USER_AGENCY';
 // PROFILE ACTIONS - START 
 export const profileLogin = (user, pass) => async dispatch => {
   await profileApi.post("/ProfileLoginService", {
-    username: user, password: pass,
-    'Access-Control-Allow-Headers': ' Authorization header',
-    'Access-Control-Allow-Origin': 'http://betvip.fun'
+    username: user, password: pass,    
   })
     .then(
       response => dispatch({ type: PROFILE_LOGIN, payload: response }),

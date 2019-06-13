@@ -7,7 +7,7 @@ import Footer from './Footer';
 import LoginHeader from './Login/LoginHeader';
 import Sport from './Sport';
 import LiveBet from './LiveBet/LiveBet';
-import Casino from './Casino';
+import Casino from './Casino/Casino';
 import Poker from './Poker';
 import Home from './Home/Home';
 
