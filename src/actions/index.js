@@ -1,6 +1,7 @@
 import betvipApi from '../apis/betvipApi';
 import liveBetApi from '../apis/liveBetApi';
 import profileApi from '../apis/profileApi';
+import casinoApi from '../apis/casinoApi';
 
 export const FETCH_CHAMPS = 'FETCH_CHAMPS';
 export const FETCH_CHAMP_LIST = 'FETCH_CHAMP_LIST';
@@ -23,11 +24,14 @@ export const REMOVE_SINGLE_MATCH = 'REMOVE_SINGLE_MATCH';
 export const CHANGE_ODD_VALUE = 'CHANGE_ODD_VALUE';
 
 // LIVE SPORT PAGE CONSTANTS - START 
+
 export const FETCH_LIVE_BET_GAMES = 'FETCH_LIVE_BET_GAMES';
 export const FETCH_LIVE_CALENDAR = 'FETCH_LIVE_CALENDAR';
 export const FETCH_SINGLE_MATCH_LIVE = 'FETCH_SINGLE_MATCH_LIVE';
 
 // LIVE SPORT PAGE CONSTANTS - END
+
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 
 // PROFILE API - START 
 export const PROFILE_LOGIN = 'PROFILE_LOGIN';
@@ -35,10 +39,29 @@ export const FETCH_USER_AGENCY = 'FETCH_USER_AGENCY';
 
 // PROFILE API - END
 
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
+
+// CASINO API - START 
+export const FETCH_CASINO_GAMES = 'FETCH_CASINO_GAMES';
+
+// CASINO API - END
+
+// |||||---------~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~------ ||||| //
+
+// CASINO ACTIONS - START 
+
+export const fetchCasinoGames = (id) => async dispatch => {
+  const response = await casinoApi.get(`/Games?${id}`);
+  dispatch({ type: FETCH_CASINO_GAMES, payload: response.data });
+}
+
+// CASINO ACTIONS - END 
+
 // PROFILE ACTIONS - START 
+
 export const profileLogin = (user, pass) => async dispatch => {
   await profileApi.post("/ProfileLoginService", {
-    username: user, password: pass,    
+    username: user, password: pass,
   })
     .then(
       response => dispatch({ type: PROFILE_LOGIN, payload: response }),
@@ -55,6 +78,8 @@ export const fetchUserAgency = () => async dispatch => {
 }
 // PROFILE ACTIONS - END 
 
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
+
 // LIVE SPORT PAGE ACTIONS - START 
 export const fetchLiveBetGames = (rand, sportId) => async dispatch => {
   const response = await liveBetApi.get(`/Overview?r=${rand}&sportId=${sportId}`);
@@ -69,6 +94,9 @@ export const fetchSingleMatchLive = (rand, sportId) => async dispatch => {
   dispatch({ type: FETCH_SINGLE_MATCH_LIVE, payload: response.data });
 }
 // LIVE SPORT PAGE ACTIONS - END 
+
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
+
 
 export const fetchSingleMatch = (singleMatchCode = null, date = null, name = null) => async dispatch => {
   const response = await betvipApi.get(`/Match?id=${singleMatchCode}`);

@@ -20,6 +20,9 @@ import changeOddValue from './changeOddValueReducer';
 import profileLogin from './ProfileReducers/profileLoginReducer';
 import userAgency from './ProfileReducers/userAgencyReducer';
 
+
+import casinoGames from './CasinoReducers/fetchCasinoGamesReducer';
+
 // import buttonsReducer from './buttonsReducer';
 
 export default combineReducers({
@@ -40,6 +43,7 @@ export default combineReducers({
         singleMatchLive: singleMatchLive,
         changeOddValue: changeOddValue,
         profileLoginData: profileLogin,
-        userAgency: userAgency
+        userAgency: userAgency,
+        casinoGames: casinoGames
         // buttonId: buttonsReducer 
 })

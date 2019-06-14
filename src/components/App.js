@@ -17,6 +17,8 @@ if (localStorage.getItem("OddType") === null)
     localStorage.setItem('OddType', 0);
 
 
+
+
 const App = () => {
     return (
         <div>
