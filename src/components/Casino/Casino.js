@@ -35,7 +35,7 @@ class Casino extends Component {
             <div className="ui two grid" style={{ marginRight: '20px' }}>
                 <div className="row">
 
-                    <div className="two wide column" style={{ background: 'lightblue' }}>
+                    <div className="sixteen wide mobile two wide computer column" style={{ background: 'lightblue' }}>
                         <Menu fluid vertical tabular>
                             <Menu.Item name='Novita' id='st=1' active={activeItem === 'Novita'} onClick={this.handleItemClick} />
                             <Menu.Item name='Mobile' id='m=0' active={activeItem === 'Mobile'} onClick={this.handleItemClick} />
@@ -77,7 +77,7 @@ class Casino extends Component {
                         </Menu>
                     </div>
 
-                    <div className=" fourteen wide column" style={{ background: 'lightblue' }}>
+                    <div className=" fourteen wide computer column" style={{ background: 'lightblue' }}>
                         <div className="ui grid" style={{ background: 'lightgreen' }}>
                             {this.renderCasinoGames()}
                         </div>

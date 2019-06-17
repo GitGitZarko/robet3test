@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
-    <div className="ui secondary  pointing menu" >
+    <div className="ui secondary  pointing menu stackable" >
       <Link to="/" className="left item" >
         <div class="ui logo image">
           <img src={logo} />
