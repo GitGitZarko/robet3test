@@ -13,10 +13,9 @@ class Casino extends Component {
         this.setState({ activeItem: name })
         this.props.fetchCasinoGames(id)
     }
-
+    
     componentDidMount() {
         this.props.fetchCasinoGames();
-
     }
 
     renderCasinoGames = () => {

@@ -1,0 +1,23 @@
+
+/*******************************
+           Segment Overrides
+*******************************/
+
+.ui.main.clearing.segment {
+    text-align: center;
+    background: @themeColor1;
+    border-radius: 0;
+    color: #fff;
+    
+}
+.ui.center.aligned.segment{
+    background: @themeColor1;
+    border-radius: 0;
+}
+.ui.segment{
+    box-shadow: none;
+    border: none;
+    border-bottom: 1px solid #1FE8AF;
+    border-radius: 0;
+    
+}

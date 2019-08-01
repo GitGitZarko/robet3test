@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button } from 'semantic-ui-react'
 import {  updateChampList } from '../actions';
 
 class ThirdButtonList extends Component {
@@ -17,12 +18,10 @@ class ThirdButtonList extends Component {
   render() {
     const { value } = this.props
     return (
-      <button
-        style={{margin: 0, width: '25%', borderRadius: 0,border: '1px solid white'}}
-        className="ui purple button"
+      <Button  inverted color="teal" className="third-button-list"
         onClick={(e) => this.callUpdateTable(e, value)}>
         {this.props.imeDugmeta}
-      </button>
+      </Button>
     )
   }
 

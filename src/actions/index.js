@@ -60,22 +60,56 @@ export const fetchCasinoGames = (id) => async dispatch => {
 // PROFILE ACTIONS - START 
 
 export const profileLogin = (user, pass) => async dispatch => {
+  let data;
   await profileApi.post("/ProfileLoginService", {
-    username: user, password: pass,
+    username: user, password: pass    
   })
     .then(
-      response => dispatch({ type: PROFILE_LOGIN, payload: response }),
+      response => 
+        { 
+          dispatch({ type: PROFILE_LOGIN, payload: response });
+          data = response.data
+        },
+      
       error => console.log("ODGOVOR SERVERA", error),
-    );
+    )
+    if(data.Token !== null)
+      {dispatch(fetchUserAgency(data.Token))}
 }
 
-export const fetchUserAgency = () => async dispatch => {
-  const response = await profileApi.get(`/UsersAgency`, {
-
-
-  });
+export const fetchUserAgency = (data) => async dispatch => {
+  console.log(data.Token)
+  const response = await profileApi.post(`/PlayerByAgency`, { token: data });
   dispatch({ type: FETCH_USER_AGENCY, payload: response.data });
 }
+// export const profileLogin = (user, pass) => async dispatch => {
+//   await profileApi.post("/ProfileLoginService", {
+//     username: user, password: pass,
+//   })
+//     .then(      
+        
+//           response => 
+//         { 
+//           dispatch({ type: PROFILE_LOGIN, payload: response.data });
+          
+//           fetchUserAgency();       
+//         }
+       
+//     ).catch(
+//       error => console.log("ODGOVOR SERVERA", error)
+//   );
+      
+// }
+
+// export const fetchUserAgency = () => async dispatch => {  
+//   const data = await profileApi.post(`/PlayerByAgency?token=`, '3f4d5f11a2644e18a97de97149954c16')
+//   .then(      
+//     response => 
+//     dispatch({ type: FETCH_USER_AGENCY, payload: response.data }),    
+//     error => console.log("ODGOVOR SERVERA", error)
+//     )    
+  
+// }
 // PROFILE ACTIONS - END 
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //

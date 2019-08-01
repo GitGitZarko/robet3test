@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {  updateChampList } from '../actions';
-import { Header, Table, Button, SegmentInline, Ref } from 'semantic-ui-react'
+import { Button } from 'semantic-ui-react'
 
 class SecondButtonList extends Component {
   constructor(props) {
@@ -15,7 +15,7 @@ class SecondButtonList extends Component {
       return null
     }
     const value = special.TournamentSpecialMatchList
-    // this.props.callFromBox(this.props.tourId, this.props.sportId, [1])
+    
     if (!this.props.middleBoxButtons) {
       return null
     }
@@ -34,13 +34,10 @@ class SecondButtonList extends Component {
     const { kljuc } = this.props
     return (
 
-      <button
-        style={{margin: 0, width: '25%', borderRadius: 0, border: '1px solid white'}}
-        className="ui teal button"
-        onClick={(e) => this.renderThirdButtonList(e, kljuc, this.props.special)}
-      >
+      <Button inverted color="olive" className="second-button-list"
+        onClick={(e) => this.renderThirdButtonList(e, kljuc, this.props.special)}      >
         {this.props.imeDugmeta}
-      </button>
+      </Button>
     )
   }
 

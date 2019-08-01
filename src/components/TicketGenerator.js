@@ -1,27 +1,17 @@
 import React, { Component } from 'react';
 import { DelayInput } from 'react-delay-input';
-import '../public/css/Sports.css';
 import { connect } from 'react-redux';
-import { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction, changeOddValueType } from '../actions';
+import { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction, changeOddValueType, fetchUserAgency} from '../actions';
 import TicketChildItem from './TicketChildItem';
 import { allOddsTable } from '../json/allOddsTable';
 import { Button, Icon, Modal, Dropdown, Checkbox, Label } from 'semantic-ui-react';
 
 
-const customStyle = {
-    background: 'yellow',
-    border: '1px solid black',
-    padding: '5px'
-
-}
-
-
-//OVO JE JEDNOSTAVNI BUTTON COMPONENT koji prima samo color prop i textValue zasto
 class TicketGenerator extends Component {
     constructor(props) {
         super(props);
         this.timeout = 0;
-        this.props.fetchStartJson()
+        this.props.fetchStartJson()        
         this.state = {
             storageIsClear: false,
             activeButton: false,
@@ -35,12 +25,22 @@ class TicketGenerator extends Component {
         }
         this.textInput = React.createRef();
         this.dropdownBrat = React.createRef();
+        this.dropdownAgenzia = React.createRef();
         this.textInputMain = React.createRef();
 
         this.focusInput = this.focusInput.bind(this);
         this.focusDrop = this.focusDrop.bind(this);
-
+        
         localStorage.setItem("OddType", JSON.stringify(0));
+        this.localstorageExparation()       
+    }
+    localstorageExparation = () =>{
+        let token;
+        if (!localStorage.getItem("userToken"))
+            {
+                token = JSON.parse(localStorage.getItem('userToken'))
+                this.props.fetchUserAgency(token)
+            }
     }
     focusInput() {
         // Explicitly focus the text input using the raw DOM API
@@ -73,12 +73,12 @@ class TicketGenerator extends Component {
         localStorage.setItem('OddType', 0);
     }
 
-    renderTicketChildren = (ticketValues) => {
+    renderTicketChildren = (ticketValues, ticketType) => {
 
         const prom = ticketValues.Odds.map((a) => a.MatchId)
         const unique = [...new Set(prom)]
 
-        return unique.map((data, i) => <TicketChildItem key={i} matchId={data} data={ticketValues} />)
+        return unique.map((data, i) => <TicketChildItem key={i} matchId={data} data={ticketValues} ticketType={ticketType} />)
     }
 
     checkTheOddsLenght = () => {
@@ -206,6 +206,14 @@ class TicketGenerator extends Component {
         return response;
     }
 
+    getUserAgencyInfo = () => {
+        if(!this.props.userAgency) return null;
+        const { Items } = this.props.userAgency
+        if (Items === null) return null
+        const response = Items.map((data, i) => ({ key: i, text: data.Text, value: data.Value, id: data.Id }))
+        return response;
+    }
+
     selectQuickBetOdd = (e, matchCode, oddValue) => {
 
         let oddsObject = oddValue.find(o => o.text === e.target.textContent)
@@ -274,19 +282,19 @@ class TicketGenerator extends Component {
         return (
             <div>
                 <Label.Group >
-                    <Label basic as='a' onClick={() => this.props.changeOddValueType(0)}>Decimal</Label>
-                    <Label basic as='a' onClick={() => this.props.changeOddValueType(1)}>Americano</Label>
-                    <Label basic as='a' onClick={() => this.props.changeOddValueType(2)}>Fraccional</Label>
+                    <Label basic as='a' className="customized" onClick={() => this.props.changeOddValueType(0)}>Decimal</Label>
+                    <Label basic as='a' className="customized"  onClick={() => this.props.changeOddValueType(1)}>Americano</Label>
+                    <Label basic as='a' className="customized" onClick={() => this.props.changeOddValueType(2)}>Fraccional</Label>
                 </Label.Group>
-                <Checkbox style={{ width: '10%', float: 'left' }} onClick={() => this.setState({ quickChecked: !this.state.quickChecked })} checked={this.state.quickChecked} />
-                <Modal trigger={<h5 onClick={this.handleOpen} style={{ cursor: 'pointer', width: '90%', textAlign: 'left' }}>USA IL QUICK CODE</h5>}
+                <Checkbox className="ticket-checkbox-quick" onClick={() => this.setState({ quickChecked: !this.state.quickChecked })} checked={this.state.quickChecked} />
+                <Modal 
+                    trigger={<h5 onClick={this.handleOpen} className="ticket-modal-quick-h2">USA IL QUICK CODE</h5>}
                     open={this.state.modalOpen}
                     onClose={this.handleClose}
                     size='fullscreen'
                 >
-                    {/* <Modal.Header>Profile Picture</Modal.Header> */}
-                    <Modal.Content scrolling >
-                        <table id="tabelica" style={{ width: '100%', backgroundColor: '#2e3338', borderSpacing: 0, color: 'white', borderCollapse: 'collapse' }}>
+                <Modal.Content scrolling >
+                        <table id="tabelica">
                             <tbody>
                                 <tr>
                                     <th>Sport</th>
@@ -311,17 +319,7 @@ class TicketGenerator extends Component {
                                     </tr>
                                 )}
                             </tbody>
-                        </table>
-                        {/* <Embed
-                    active={true}
-                    url='http://www.betvip.fun/sport/oddstype'
-                    
-                /> */}
-                        {/* <Modal.Description>
-                <Header>Modal Header</Header>
-                <p>This is an example of expanded content that will cause the modal's dimmer to scroll</p>
-
-            </Modal.Description>*/}
+                        </table>                        
                     </Modal.Content>
                     <Modal.Actions>
                         <Button color='green' onClick={this.handleClose} inverted>
@@ -332,12 +330,12 @@ class TicketGenerator extends Component {
                 <div className="ui container">
                     <div className="ui row">
                         <div className="item">
-                            <div className="ui input" style={{ width: '50%', float: 'left' }}>
+                            <div className="ui input input-left" >
                                 <input type="text" placeholder="QUICK_BET" onKeyPress={(e) => this.quickBet(e)} ref={this.textInputMain} onClick={() => this.setState({ focus: false })} />
                             </div>
 
                             {this.state.quickChecked ?
-                                <div className="ui input" style={{ width: '50%', float: 'right' }}>
+                                <div className="ui input input-right" >
                                     <input type="text" placeholder="Quick Code" onKeyPress={(e) => this.selectQuickCode(e, this.props.getQuickBet.MatchId)} ref={this.textInput} />
                                 </div>
                                 :
@@ -348,15 +346,10 @@ class TicketGenerator extends Component {
                                     selection
                                     search
                                     className={`${this.state.focus}`}
-                                    //searchInput={{ autoFocus: this.state.focus}}
-                                    style={{ width: '50%', float: 'right' }}
                                     options={this.getQuickBetsList()}
                                     onChange={(e) => this.selectQuickBetOdd(e, this.props.getQuickBet.MatchId, this.getQuickBetsList())}
                                 />
-                            }
-                            {/* <div className="ui input" style={{width: '50%'}}>
-                        <input type="text" placeholder="0" />
-                                </div> */}
+                            }                            
                         </div>
                         {this.props.getQuickBet.ErrorMessage ?
                             <div className="ui label">
@@ -370,26 +363,22 @@ class TicketGenerator extends Component {
                         }
                     </div>
                 </div>
-
-                <div className="ui item">
+                <div className="ui divided items">
+                <div className="item">
                     <div className="ui left floated content">
-                        <div className="ui header">
-                            Remove all odds
-                        </div>
+                        
+                            TICKET
+                        
                     </div>
-                    <div className="ui right floated content">
-                        <div className="ui icon button" onClick={this.removeAllOdds}>
-                            <i className="close icon"></i>
-                        </div>
+                    <div className="ui right floated content" >
+                        
+                            <i className="trash icon"  onClick={this.removeAllOdds}></i>
+                        
                     </div>
                 </div>
-                <div className="ui items" style={customStyle}>
-                    {ticketValues && this.renderTicketChildren(ticketValues)}
-                    {/* {ticketValues && ticketValues.Odds.map((data, i) => <TicketChildItem key={i} data={data}/>)} */}
-                    {/* {ticketValues &&  [...(new Set(ticketValues.Odds.map(({ MatchId }) => <button>{MatchId}</button>)))]} */}
-                    {/* {ticketValues && Array.from(new Set(ticketValues.Odds.map(s => s.MatchId)))
-                            .map(MatchId => <button>{MatchId}</button>)
-                            } */}
+                </div>
+                <div className="ui items customized">
+                    {ticketValues && this.renderTicketChildren(ticketValues, ticketType)}             
                 </div>
 
                 {ticketType === 2 &&
@@ -422,7 +411,6 @@ class TicketGenerator extends Component {
                                     <div className="ui left floated content">
                                         <div className="ui checkbox">
                                             <input type="checkbox"
-
                                                 checked={data.IsActive}
                                                 name={data.GroupDescription}
                                                 onChange={(e) => this.checkBoxInput(e, data.GroupDescription, data.IsActive, data.Cols)}
@@ -441,7 +429,7 @@ class TicketGenerator extends Component {
                 }
                 {this.state.activeButton === true &&
                     <div className="ui middle aligned divided list">
-                        <div className="item" style={{ border: "1px solid black" }}>
+                        <div className="item">
                             <div className="right floated content">
                                 <div className="ui input">
                                     <DelayInput type="text" placeholder="0" value={this.state.localTotalAmount}
@@ -480,7 +468,7 @@ class TicketGenerator extends Component {
                     </div>
                 }
 
-                <div className="ui middle aligned divided list">
+                <div className="ui middle aligned divided list" >
                     <div className="item">
                         <div className="right floated content">
                             <div className="ui purple label">{ticketValues && ticketValues.OddsNumber}</div>
@@ -554,12 +542,27 @@ class TicketGenerator extends Component {
                         </div>
                     </div>
                 </div>
+                <Dropdown
+                                    ref={this.dropdownAgenzia}
+                                    placeholder='Select Odd...'
+                                    fluid
+                                    selection
+                                    search      
+                                    className="dropdown-users-agency"                                       
+                                    options={this.getUserAgencyInfo()}
+                                    // onChange={(e) => this.selectQuickBetOdd(e, this.props.getQuickBet.MatchId, this.getQuickBetsList())}
+                                />
+                <Checkbox className="checkbox-importo" label='TRASFERIMENTO IMPORTO'  />
+                <Checkbox className="checkbox-accetta" label='ACCETTA CAMBIO DI QUOTA'  />
+                <Checkbox className="checkbox-stampa" label='STAMPA TICKET'  />
+                <Button positive style={{width: '100%', marginBottom: '10px' }}>SCOMMETTi</Button>
+                <Button negative style={{width: '100%', marginBottom: '50px' }}>ANNULLA</Button>
             </div>
         )
     }
 }
 
-const mapStateToProps = ({ ticket, oddList, getQuickBet }) => ({ ticket, oddList, getQuickBet })
-export default connect(mapStateToProps, { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction, changeOddValueType })(TicketGenerator);
+const mapStateToProps = ({ ticket, oddList, getQuickBet, userAgency }) => ({ ticket, oddList, getQuickBet, userAgency })
+export default connect(mapStateToProps, { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction, changeOddValueType, fetchUserAgency })(TicketGenerator);
 
 

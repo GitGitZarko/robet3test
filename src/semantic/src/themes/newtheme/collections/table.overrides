@@ -1,0 +1,23 @@
+
+/*******************************
+           Table Overrides
+*******************************/
+
+table.ui.celled.table.striped{
+    border-left: none;
+    border-right: none;
+}
+
+table.ui.celled.table.striped tr:nth-child(odd) > td {
+    background: @themeColor4;
+}
+table.ui.celled.table.striped tr:nth-child(even) > td {
+    background: @themeColor3;
+}
+table.ui.celled.table.striped thead tr td:first-child, .ui.table thead th {	
+	background: @themeColor1;
+    color: @fontColor1;
+}
+.ui.celled.table tr th, .ui.celled.table tr td {
+	padding: 5px 0px;
+}

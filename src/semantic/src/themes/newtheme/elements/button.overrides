@@ -1,0 +1,37 @@
+/*******************************
+           Overrides
+*******************************/
+
+.ui.right.floated.icon.button{
+    background: @themeColor5;
+    color: #fff;
+    border: 1px solid @secondaryColor;
+}
+
+.ui.button.main-button-list{
+    margin: 0;
+    width: 25%;
+    border-radius: 0;
+    background: @themeColor5;
+    border: 3px solid @pageBackground;
+    text-transform: uppercase;
+}
+.ui.button.main-button-list:hover, .ui.button.main-button-list:focus{    
+    background: @secondaryColor;    
+}
+
+.ui.button.second-button-list{
+    margin: 0;
+    width: 25%;
+    border-radius: 0;
+    background: @secondaryColor;
+    border: 3px solid @pageBackground;
+    text-transform: uppercase;
+}
+.ui.button.third-button-list{
+    margin: 0;
+    width: 25%;
+    border-radius: 0;
+    border: 3px solid @pageBackground;
+    text-transform: uppercase;
+}

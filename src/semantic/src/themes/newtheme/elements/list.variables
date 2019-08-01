@@ -1,0 +1,23 @@
+
+/* List Variables */
+
+.ui.relaxed.divided.list{ 
+    background: @themeColor1; 
+    color: #DFDFE7;
+    position: relative;
+}
+
+/*
+.ui.relaxed.divided.list:before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    border-top: 20px solid @pageBackground;
+    border-right: 20px solid transparent;
+    width: 0;
+}
+*/
+
+
+
+  

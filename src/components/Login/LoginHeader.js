@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 //import { Menu, Search, Icon, Button, Form } from 'semantic-ui-react'
 import { Link } from 'react-router-dom';
-import { profileLogin, fetchUserAgency } from '../../actions';
+import { profileLogin } from '../../actions';
+import { useCookies } from 'react-cookie';
+import { Cookies } from 'react-cookie';
 
+const cookies = new Cookies();
 
 class LoginHeader extends Component {
+ 
   constructor(props) {
     super(props);
     this.state = {
@@ -31,11 +35,11 @@ class LoginHeader extends Component {
   sendLoginForm(e) {
     e.preventDefault()
     this.props.profileLogin(this.state.username, this.state.password)
-
-
+    if(this.props.profileLoginData)
+    cookies.set('userToken', this.props.profileLoginData, { path: '/' });
   }
   users() {
-    this.props.fetchUserAgency()
+    // this.props.fetchUserAgency()
   }
 
   render() {
@@ -76,4 +80,4 @@ class LoginHeader extends Component {
 }
 
 const mapStateToProps = ({ profileLoginData }) => ({ profileLoginData })
-export default connect(mapStateToProps, { profileLogin, fetchUserAgency })(LoginHeader);
+export default connect(mapStateToProps, { profileLogin })(LoginHeader);

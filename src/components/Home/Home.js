@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import '../../public/css/Sports.css';
 import Slider from "react-slick";
 
 function SamplePrevArrow(props) {

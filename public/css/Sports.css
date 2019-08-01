@@ -1,0 +1,99 @@
+.headerLeftMenu {
+    cursor: pointer;  
+    
+} 
+.headerLeftMenu:hover {    
+    background: #c38004;
+    -webkit-transition: background-color 1000ms linear;
+    -ms-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;
+} 
+
+.ui.table td.active, .ui.table tr.active, .ui.active.button.moje-dugme{
+   background: lightgreen !important;        
+}
+td.active:hover, tr.active:hover{
+    background: lightgreen !important; 
+}
+.ui.button.moje-dugme{
+    background: white;
+}
+.ui.button.moje-dugme:hover{
+    background: rgba(34, 36, 38, 0.1);
+}
+.ui.active.button.moje-dugme:hover{
+    background: lightgreen; 
+}
+.buttons{
+  border: none;
+  color: white;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;  
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.komponenta{
+    background-color: red;       
+}
+.betvip-subheader:hover{
+    background-color: yellow;
+    cursor: pointer;
+}
+#tabelica > thead > tr > th{    
+	padding: 2px;
+	line-height: 1.42857143 !important;
+	vertical-align: top;
+	
+}
+#tabelica > thead > tr > th:hover{    
+    background-color: #777a41 !important;
+}
+#tabelica tr:hover{    
+    background-color: #777a41 !important;
+}
+#tabelica > tbody > tr:nth-child(2n+1) {
+    background-color: #353a41;
+    border-top: 1px solid #1c1e22;
+    border-bottom: 1px solid #1c1e22;
+}
+.table-cell{
+    padding: 5px 0 !important;
+    text-transform: uppercase;
+}
+.ui.fluid.search.selection.dropdown.true{
+    border: 1px solid rgba(131, 181, 214, 0.914);
+}
+.ui.fluid.search.selection.dropdown, .ui.fluid.search.selection.dropdown.false{
+    border: 1px solid rgba(34, 36, 38, 0.15);
+}
+.live-bet-odds:hover{
+    background: green !important;
+}
+.ui.segment.home{
+    cursor: pointer;
+    border: 2px black solid;
+}
+.ui.segment.home:hover{
+    background: #777a41;
+}
+.slick-next::before, .slick-prev::before{
+    font-size: 35px;
+}
+.homepage-item img{
+    background:  no-repeat center / fill;  
+    width: 100%;    
+    position: relative;
+}
+
+.ui.inverted.segment{
+    position:fixed;
+        left:0;
+        bottom:0;
+        right:0;
+}

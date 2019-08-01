@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-//import '../public/css/Sports.css';
 import { fetchLiveBetGames, fetchLiveCalendar, fetchSingleMatchLive } from '../../actions';
 import LiveMatchOverview from './LiveMatchOverview';
 import TicketGenerator from '../TicketGenerator';
@@ -53,8 +52,9 @@ class LiveBet extends Component {
 
         const rezultat = SportItems.map(data => <div
             onClick={(e) => this.klik(e, data.SportId)}
-            style={{ display: 'inline-block', textAlign: 'center' }}>
-            <div style={{ margin: '10px' }}>{data.SportName}
+            className="livebet-menu-row"
+            >
+            <div className="livebet-menu-title" >{data.SportName}
             </div>
             <span className="ui red circular label">
                 {data.MatchNumber}
@@ -68,8 +68,8 @@ class LiveBet extends Component {
         const { SportItems } = this.props.calendar
         const rezultat = SportItems.map(data => <div
             onClick={(e) => this.klik(e, data.SportId)}
-            style={{ display: 'inline-block', textAlign: 'center' }}>
-            <div style={{ margin: '10px' }}>{data.SportName}
+            className="livebet-menu-row">
+            <div className="livebet-menu-title">{data.SportName}
             </div>
             <span className="ui red circular label">
                 {data.MatchNumber}
@@ -94,10 +94,10 @@ class LiveBet extends Component {
 
         return (
             <div className="ui three grid">
-                <div className="three column row" style={{ marginRight: '20px' }}>
+                <div className="three column row livebet" >
                     <div className="thirteen wide column">
                         <div>{this.state.componentView === 3 ? this.renderSportsCalendar() : this.renderSports()}</div>
-                        <div style={{ textAlign: "right" }}>
+                        <div className="livebet-menu-right">
                             <button className="ui purple button" onClick={() => this.setState({ componentView: 1 })}>Overview</button>
                             <button className="ui purple button" onClick={() => this.setState({ componentView: 2 })}>Match</button>
                             <button className="ui purple button" onClick={(e) => this.calendarRender(e)}>Calendar</button>
@@ -106,7 +106,7 @@ class LiveBet extends Component {
                         {this.state.componentView === 2 ? <SingleMatchLive sportOverview={this.props.liveBetGames} sportId={this.state.sportId} match={this.state.matchId} /> : null}
                         {this.state.componentView === 3 ? <Calendar /> : null}
                     </div>
-                    <div className="three wide column" style={{ background: 'aliceblue', textAlign: 'center', border: '1px solid blue' }}>
+                    <div className="three wide column sport-component" >
                         <TicketGenerator />
                     </div>
                 </div>

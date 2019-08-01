@@ -42,7 +42,7 @@ class SingleMatch extends Component {
         }
         return (
             <div>
-                <div className="ui main  clearing segment" style={{ textAlign: 'center', background: 'aliceblue' }}>
+                <div className="ui main clearing segment">
                     <button className="ui right floated icon button" onClick={() => this.props.removeSingleMatch()}>
                         <i className="close icon"></i>
                     </button>
@@ -50,23 +50,21 @@ class SingleMatch extends Component {
                     <h4>{singleMatch.date}</h4>
                 </div>
                 <Grid celled='internally'>
-
                     {singleMatch.data.Items.map((data, i) =>
                         <Grid.Row key={i}>
                             <Grid.Column width={3}>{data.GroupName}</Grid.Column>
 
                             <Grid.Column width={13}>
                                 {data.OddItems.map((gege, i) =>
-                                    <div style={{ width: '25%', float: 'left', textAlign: 'center' }}>
-                                        <div style={{ border: '1px solid orange' }}>{gege.Name}</div>
-                                        <button
-                                            className={`ui ${oddIdList.includes(gege.OddId) ? 'red' : 'blue'} button`}
-                                            style={{ width: '100%', padding: '10px 0px', margin: '0px 0px 5px 0px', border: '1px solid white' }}
+                                    <div className="single-match-row">
+                                        <div className="single-match-column-header">{gege.Name}</div>
+                                        <Button color={oddIdList.includes(gege.OddId) ? 'red' : 'blue'}   
+                                            className="single-match-button"                                             
                                             onClick={(e) => this.addOddToTicket(e, gege.OddId, singleMatch.mcode)}
                                         >
                                             {this.props.changeOddValue == 0 ? gege.OddValue : (this.props.changeOddValue == 1 ? gege.OddValueAmerican : gege.OddValueFraction)}
                                             {/* {gege.OddValue} */}
-                                        </button>
+                                        </Button>
                                     </div>
                                 )
 

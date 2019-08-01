@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { Header, Table, Button, Dropdown } from 'semantic-ui-react'
+import { Header, Table, Button, Dropdown, Label } from 'semantic-ui-react'
 import MainButtonList from './MainButtonList';
 import SecondButtonList from './SecondButtonList';
-import ThirdButtonList from './ThirdButtonList';
-import '../public/css/Sports.css';
+import ThirdButtonList from './ThirdButtonList'; 
 import { connect } from 'react-redux';
 import { callFromBox, updateChampList, oddsTicketList, removeChampFromList, fetchSingleMatch } from '../actions';
 
@@ -137,10 +136,6 @@ class TestComponent extends Component {
       this.props.fetchSingleMatch(code, date, name);
    }
 
-   // componentDidMount() {
-   //    const oddTypeValue = JSON.parse(localStorage.OddType);
-   //    this.setState({ oddTypeValue });
-   // }
    componentDidUpdate(prevProps) {
       if (this.props.changeOddValue !== prevProps.changeOddValue) {
          const oddTypeValue = JSON.parse(localStorage.OddType);
@@ -166,7 +161,7 @@ class TestComponent extends Component {
       return TournamentMatchList.map(val => {
          return (
             <Table.Row>
-               <Table.Cell width="three" className="table-cell">
+               <Table.Cell width="four" className="table-cell">
                   <Header.Content>
                      {!IsAntepost ? val.QuickMatchCode + " " + val.MatchDate : null}
                      <Header.Subheader className="betvip-subheader" onClick={(e) => this.singleMatchView(e, val.MatchCode, val.MatchDate, val.MatchName)}>
@@ -177,45 +172,36 @@ class TestComponent extends Component {
                </Table.Cell>
                {!this.props.objekat.IsSpecial ?
                   val.TournamentMatchOddList.map((odds, o) =>
-                     <Table.Cell
+                     <Table.Cell                        
                         key={o}
                         textAlign="center"
                         width="one"
-                        selectable
-                        active={oddIdList.includes(odds.OddCode) ? true : false}
+                        // selectable
+                        // active={oddIdList.includes(odds.OddCode) ? true : false}
                         style={{ cursor: 'pointer' }}
-                        onClick={(e) =>
-                           // this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup)}>
-                           this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>
-                        {/* {
-                                 this.state.oddTypeValue == 0 ? odds.OddValue : (this.state.oddTypeValue == 1 ? odds.OddValueAmerican : odds.OddValueFraction) 
-                              } */}
+                        onClick={(e) =>                          
+                           this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>                        
+                        <Label basic className={oddIdList.includes(odds.OddCode) ? 'active-odds-label' : 'odds-label'}>
                         {this.props.changeOddValue == 0 ? odds.OddValue : (this.props.changeOddValue == 1 ? odds.OddValueAmerican : odds.OddValueFraction)}
+                        </Label>
                      </Table.Cell>
                   ) : val.TournamentMatchOddList.map((odds, o) =>
                      <Button className="moje-dugme"
-                        key={o}
-                        style={{ textAlign: 'left', margin: 0, width: '25%', borderRadius: 0 }}
-                        active={oddIdList.includes(odds.OddCode) ? true : false}
-                        onClick={(e) =>
-                           // this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup)}>
+                        key={o}                        
+                        active={oddIdList.includes(odds.OddCode) ? true : false}                        
+                        onClick={(e) =>                           
                            this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>
                         {odds.OddType}
                         <span style={{ float: 'right' }}>
                            {this.props.changeOddValue == 0 ? odds.OddValue : (this.props.changeOddValue == 1 ? odds.OddValueAmerican : odds.OddValueFraction)}
                            {/* {odds.OddValue} */}
-
                         </span>
                      </Button>
                   )
 
                }
 
-            </Table.Row>
-            // <Table.Table.Cell>{val.MatchCode}</Table.Table.Cell>
-            // <Table.Table.Cell>{val.MatchCode}</Table.Table.Cell>
-            // <Table.Table.Cell>{val.MatchCode}</Table.Table.Cell>
-            // <Table.Table.Cell>{val.MatchCode}</Table.Table.Cell>
+            </Table.Row>            
          )
       })
    }
@@ -250,42 +236,25 @@ class TestComponent extends Component {
       const { TounamentGroupList } = this.props.objekat
 
       return (
-         <div style={{ border: '2px green solid', marginBottom: '20px' }} >
-            <div className="ui main  clearing segment" style={{ background: 'yellow' }}>
+         <div className="middle-box-container">
+            <div className="ui main clearing segment">
                <button className="ui right floated icon button" onClick={this.removeChampFromList}>
                   <i className="close icon"></i>
                </button>
                <button className="ui right floated icon button" onClick={this.ajdeKlikni}>
                   <i className="sync icon"></i>
                </button>
-               {TounamentGroupList ? <div className="ui right floated icon button" style={{ background: 'transparent', padding: 0, width: '30%' }}>
+               {TounamentGroupList ? <div className="ui right floated icon button size-three" >
                   <Dropdown
                      placeholder='Select Odd Group...'
                      fluid
                      selection
-                     options={this.getAllOddsGroups()}
-                     //value={this.state.selectedValue}
-                     // selectionn
-                     // search                                   
-                     // options={this.getQuickBetsList()}
-                     onChange={this.samoProba}
-                  //TREBA SREDITI !!!!!!!!!!!!!!!!!!
-                  //this.props.updateChampList(tcode, scode, TournamentSpecialMatchList[0].Value)
+                     options={this.getAllOddsGroups()}                     
+                     onChange={this.samoProba}                  
                   />
                </div>
                   : null
-               }
-               {/* <div className="ui selection dropdown">
-               <input type="hidden" name="gender"/>
-               <i className="dropdown icon"></i>
-               <div className="default text">Odds</div>
-         <div className="menu">
-               <div className="item" data-value="0">1</div>
-               <div className="item" data-value="1">X</div>
-               <div className="item" data-value="2">2</div>
-                        
-         </div>
-         </div> */}
+               }            
                <div className="left floated content">
                   <h5 >{objekat.TournamentName}</h5>
                </div>
@@ -293,13 +262,13 @@ class TestComponent extends Component {
             <div>
                {this.renderTounamentSpecialMainList()}
             </div>
-            <div style={{ display: 'inline-block', width: '100%' }}>
+            <div className="box-middle-buttons-fullwidth">
                {this.state.secondGroup}
             </div>
-            <div style={{ display: 'inline-block', width: '100%' }}>
+            <div className="box-middle-buttons-fullwidth">
                {this.state.thirdGroup}
             </div>
-            <Table celled>
+            <Table celled striped>
                <Table.Header>
                   <Table.Row>
                   </Table.Row>
@@ -316,7 +285,7 @@ class TestComponent extends Component {
 
             <div className="ui center aligned segment">
                <button className="ui yellow basic button">UNICA</button>
-               <button className="ui black basic button">SINGLE</button>
+               <button className="ui olive basic button">SINGLE</button>
                <button className="ui green basic button">TRIPLA</button>
                <button className="ui blue basic button">4UPLA</button>
                <button className="ui red basic button">SUPLA</button>

@@ -1,0 +1,22 @@
+/*******************************
+           Label Overrides
+*******************************/
+
+.ui.basic.label{
+    background: #fff;
+    border: 3px solid #fff;
+    color: #000;
+    box-shadow: none;
+    width: 74px;
+    padding: 10px;
+}
+
+.ui.basic.label.active-odds-label{
+    background: @themeColor5;
+    border: 3px solid @secondaryColor;
+    color: #fff;
+    box-shadow: none;
+}
+.ui.basic.label.customized{
+    width: 90px;
+}

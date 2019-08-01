@@ -44,7 +44,7 @@ class TicketChildItem extends Component {
 
         const distinctValue = [...new Set(prom)]
         return (
-            <div>
+            <div className="ticket-child-main-single-match">
                 <div className="ui middle aligned divided list">
                     <div className="ui item">
                         <div className="ui left floated content">
@@ -55,13 +55,17 @@ class TicketChildItem extends Component {
                         return a.MatchId === this.props.matchId ?
                             <div className="ui item">
                                 <div className="ui left floated content">
-                                    {a.OddGroupName} : {a.OddTypeName}
+                                    {a.OddGroupName} | 
+                                    {a.OddTypeName}
                                 </div>
                                 <div className="ui right floated content">
-                                    {this.props.changeOddValue == 0 ? a.OddValue : (this.props.changeOddValue == 1 ? a.OddValueAmerican : a.OddValueFraction)}
+                                    <span>{this.props.changeOddValue == 0 ? a.OddValue : (this.props.changeOddValue == 1 ? a.OddValueAmerican : a.OddValueFraction)}</span>
                                     {/* {a.OddValue} */}
                                     {/* OVDE TREBA NAPRAVITI SET BANKER FUNKCIJU */}
-                                    <i className={"window " + (this.state.isStarActive ? 'star' : 'star outline') + " icon"} style={{ cursor: 'pointer' }} onClick={(e) => this.pozoviState(e, a.OddId, a.MatchId)}></i>
+                                    {this.props.ticketType === 2 &&
+                                                    <i className={"window " + (this.state.isStarActive ? 'star' : 'star outline') + " icon"} style={{ cursor: 'pointer' }} onClick={(e) => this.pozoviState(e, a.OddId, a.MatchId)}></i>
+                                    }
+                                    
                                     <i className="window close icon" style={{ cursor: 'pointer' }} onClick={(e) => this.nestoUradi(e, a.MatchId, a.OddId)}></i>
 
                                 </div>

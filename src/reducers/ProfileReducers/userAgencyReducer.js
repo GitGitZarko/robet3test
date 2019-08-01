@@ -7,8 +7,6 @@ export default (state = null, action) => {
             return action.payload
         default:
             return state
-
     }
-
 }
 

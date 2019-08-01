@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-//import '../../public/Sports.css';
 import { Header, Table } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { oddsTicketList, fetchSingleMatchLive } from '../../actions';
@@ -49,7 +48,7 @@ class LiveMatchOverview extends Component {
                             return <Table.Cell selectable>
                                 {data.Tournaments.map((ata, f) =>
                                     <div>
-                                        <Header style={{ background: '#424242', color: 'white', fontWeight: '600', padding: '10px', margin: 0, border: '1px dotted white' }}>
+                                        <Header className="livebet-content-header" >
                                             {ata.TournamentName}
                                         </Header>
                                         {ata.Matchies.map((gego, b) => {

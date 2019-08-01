@@ -1,0 +1,13 @@
+
+/*******************************
+           Grid Overrides
+*******************************/
+
+.ten.wide.column{
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+.three.wide.column{
+    padding: 0px !important;
+}
+
