@@ -16,6 +16,7 @@ async componentDidMount(){
     const response = await fetch(url);
     const data = await response.json();
     const script = document.createElement("script");
+    script.innerHTML = data.Scripts;
     this.setState({html: data.HtmlContent, script: data.Scripts})
     // console.log(data, this.props.match.params.CmsPage);
     // const script = document.getElementById(match.params.customer).innerHTML;
@@ -24,12 +25,15 @@ async componentDidMount(){
 
 render(){ 
     return (
-    <div>
-            <Helmet>
-            <script type="text/javascript">{this.state.script}</script>
+    <div>     
+                <Helmet>
+                <script>{this.state.script}</script>
+                
             </Helmet>
- 
-            <div className="content" dangerouslySetInnerHTML={{ __html: this.state.html }}></div>                    
+            
+            <div className="content" dangerouslySetInnerHTML={{ __html: this.state.html }}></div>      
+            
+         
     </div>
     )
 }

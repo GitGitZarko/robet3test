@@ -1,3 +1,31 @@
+.main.menu {
+    margin-top: 4em;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    transition:
+    box-shadow 0.5s ease,
+    padding 0.5s ease
+    ;
+}
+
+.secondary.menu {
+    display: none !important ;
+}
+
+@media only screen and (max-width: 700px) {
+  .ui.main.menu {
+    display: none !important;
+  }
+  .main.menu .item,
+  .main.menu .menu {
+    display: none;
+  }
+  .secondary.menu {
+    display: block!important;
+  }
+}
+
 /* LiveBet Page */
 .livebet-menu-row{
     display: inline-block; 
@@ -199,18 +227,39 @@
     color: red;
 }
 
-.ui.secondary.pointing.menu.stackable a{
-    color: #DFDFE7;
+.ui.secondary.pointing.menu{
+    border: none;
+    
+}
+
+#content {
+    min-height: 100px;
+    }
+.ui.grid{
+    padding: 0 !important;
+    }
+.pushable.segment{
+    margin: 0 !important;
+    }
+
+
+
+
+.ui.secondary.inverted.pointing.menu a{
+    color: #DFDFE7 !important;
     text-transform: uppercase;
     font-weight: 400;
     font-size: 18px;
 }
-.ui.secondary.pointing.menu.stackable a:hover{
-    color: #1FE8AF;
-    
+.ui.secondary.inverted.pointing.menu a:hover{
+    color: #1FE8AF !important;    
 }
-
-
+i.sidebar.icon {
+    font-size: 18px;
+}
+[class*="three wide"].column > ul:first-child{
+    margin: 0px;
+}
 
 
 
