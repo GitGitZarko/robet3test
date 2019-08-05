@@ -10,14 +10,21 @@
 @themeColor3: #0B1822;
 @themeColor4: #0E1E2B;
 @themeColor5: #10393C;
-
 @fontColor1: #566C79;
-
 @borderColor: #1FE8AF;
+
+/*-------------------
+        Page
+--------------------*/
+
+
+@textColor: @primaryColor;
+
 
 /*-------------------
      Fonts
 --------------------*/
+
 
 @headerFont        : 'Barlow Condensed', sans-serif;
 @pageFont          : 'Barlow Condensed', sans-serif;
