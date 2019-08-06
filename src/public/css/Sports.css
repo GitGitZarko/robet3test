@@ -151,6 +151,13 @@
 .three.wide.column.sport-component{
     text-align: center;     
 }
+.ui.labeled.icon.menu {
+    text-align: center;
+    background: transparent;
+    border-bottom: 1px solid #1FE8AF;
+    border-radius: 0;
+}
+
 /* Sport Page - Sport Component - END */
 
 /* Sport Page - Middle Box Container */
