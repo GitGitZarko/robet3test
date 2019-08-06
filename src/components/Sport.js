@@ -6,21 +6,20 @@ import TicketGenerator from './TicketGenerator';
 
 const Sport = () => {
     return (
-        <div className="ui fluid container">
-            <div className="ui three grid sport-component" >
-                <div className="three column row">
-                    <div className="three wide column">
-                        <ul>
-                            <ChampsList />
-                        </ul>
+        <div className="ui fluid container">     
+            <div className="ui stackable three grid sport-component" >              
+                <div className="three column row">                
+                    <div className="three wide column">                        
+                            <ChampsList />                        
                     </div>
-                    <div className="ten wide column">
+               
+                    <div className="ui stackable ten wide column">
                         <ChampMainContentContainer />
                     </div>
-                    <div className="three wide column sport-component" >
+                    <div className="ui stackable three wide column sport-component" >
                         <TicketGenerator />
                     </div>
-                </div>
+                </div>                
             </div>
         </div>
 

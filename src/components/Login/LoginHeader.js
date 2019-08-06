@@ -44,7 +44,7 @@ class LoginHeader extends Component {
 
   render() {
     return (
-      <div className="ui secondary  pointing menu" >
+      <div className="ui secondary pointing menu login-header" >
         <Link to="/" className="left item" >
           {this.state.date}
         </Link>

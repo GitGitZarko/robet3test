@@ -22,11 +22,12 @@ if (!localStorage.getItem("userToken"))
 const App = () => {
     const [cookies, setCookie] = useCookies(['userToken']);
     setCookie('userToken', null , { path: '/' });
+    
     return (
         <div>
             <BrowserRouter>
                 <div>
-                    <LoginHeader />
+                    {/* <LoginHeader /> */}
                     <Header />
                     <Route path="/" exact component={Home}></Route>
                     <Route path="/Sport" exact component={Sport}></Route>

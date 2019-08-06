@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import MediaQuery from 'react-responsive';
+import Slider from "react-slick";
 import { fetchChamps, fetchInEvidence, fetchStructureOutright, sportViewChamps, fetchStructurePlayer, removeSingleMatch } from '../actions';
 import ChampsCategories from './ChampsCategories'
 import ChampName from './ChampName';
@@ -54,9 +56,12 @@ class ChampsList extends Component {
 
     renderPlayersList() {
         const { players } = this.props
+  
+
         return players.map((sport, i) => {
             return (
-                <li >
+                
+                <li>
                     <div className="item">
                         <div className="content">
                             <div className={this.state.displayPlayer} onClick={(e) => this.uradiNestoPlayer(e, sport.SportId, sport)} ><i className="serbia flag"></i>  {sport.SportName}</div>
@@ -76,14 +81,30 @@ class ChampsList extends Component {
                         </div>
                     </div>
                 </li>
+                       
             )
         })
+     
+
+    }
+    renderSportListMobile() {
+        const { champs } = this.props;
+
+        return champs.map((sport, i) => {
+            return (
+                                <a class="item">
+                                    <img class="ui mini image" src={`/images/sporticons/${sport.SportId}.png`}/>
+                                   
+                                </a>                               
+                        
+            )
+        })     
     }
     renderSportList() {
         const { champs } = this.props
         return champs.map((sport, i) => {
             return (
-                <li >
+                <li>                        
                     <div className="item">
                         <div className="content">
                             <div className="headerLeftMenu" onClick={(e) => this.uradiNesto(e, sport.SportId, sport)} ><i className="italy flag"></i>  {sport.SportName}</div>
@@ -99,7 +120,7 @@ class ChampsList extends Component {
                             </div>
                             )}
                         </div>
-                    </div>
+                    </div>                    
                 </li>
             )
         })
@@ -158,32 +179,50 @@ class ChampsList extends Component {
     }
 
     render() {
+
+        
+
+
         return (
             <div>
+                <MediaQuery minDeviceWidth={1224}>
                 <div className="ui relaxed divided list">
                     <div className="ui middle aligned selection list left-sidebar-border" >
                         <h5>CAMPIONATI PREFERITI </h5>
                         {this.renderEvidenceList()}
                     </div>
                 </div>
+           
                 <div className="ui relaxed divided list">
                     <div className="ui middle aligned selection list left-sidebar-border" >
                         <h5>MARCATORI</h5>
                         {this.renderPlayersList()}
                     </div>
                 </div>
+                </MediaQuery>
+                <MediaQuery maxWidth={414}> 
+                <div class="ui labeled icon menu scroll inverted">
+                   {this.renderSportListMobile()}
+                </div>
+                </MediaQuery>
+                <MediaQuery minDeviceWidth={1224}>  
+                    
                 <div className="ui relaxed divided list">
                     <div className="ui middle aligned selection list left-sidebar-border" >
                         <h5>SPORT DISPONIBILI</h5>
                         {this.renderSportList()}
                     </div>
                 </div>
+                
+                </MediaQuery>
+                <MediaQuery minDeviceWidth={1224}>
                 <div className="ui relaxed divided list">
                     <div className="ui middle aligned selection list left-sidebar-border" >
                         <h5>ANTEPOST</h5>
                         {this.renderAntepostList()}
                     </div>
                 </div>
+                </MediaQuery>
             </div>
         )
     }

@@ -28,8 +28,7 @@ render(){
     <div>     
                 <Helmet>
                 <script>{this.state.script}</script>
-                
-            </Helmet>
+                </Helmet>
             
             <div className="content" dangerouslySetInnerHTML={{ __html: this.state.html }}></div>      
             

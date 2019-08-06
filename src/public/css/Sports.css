@@ -1,16 +1,48 @@
+/* Scrollbar */
+.scroll {
+    white-space: nowrap; /* [1] */
+    overflow-x: auto; /* [2] */
+    -webkit-overflow-scrolling: touch; /* [3] */
+    scrollbar-width: none;
+    -ms-overflow-style: -ms-autohiding-scrollbar; /* [4] */
+ }
+
+ .scroll::-webkit-scrollbar {
+    display: none; }
+  
+/* Scrollbar - END */
+
+.ui.fixed.menu, .ui[class*="top fixed"].menu {    
+    right: 0;    
+    
+    position: relative;
+    border-bottom: #1FE8AF 1px solid;
+}
+/* Menu  */
 .main.menu {
     margin-top: 4em;
     border-radius: 0;
     border: none;
-    box-shadow: none;
+    box-shadow: none;    
     transition:
     box-shadow 0.5s ease,
-    padding 0.5s ease
-    ;
+    padding 0.5s ease;
+    background: none;
+}
+.ui.menu:not(.vertical) .item{
+    text-transform: uppercase;
+    color:  #DFDFE7;
+}
+.ui.menu:not(.vertical) .item:hover{
+    color:  #1FE8AF;
+
 }
 
 .secondary.menu {
     display: none !important ;
+}
+.secondary.menu.login-header{
+    display: inline-block !important ;
 }
 
 @media only screen and (max-width: 700px) {
@@ -24,7 +56,12 @@
   .secondary.menu {
     display: block!important;
   }
+  .secondary.menu.login-header{
+    display: none !important ;
 }
+}
+
+/* Menu - End */
 
 /* LiveBet Page */
 .livebet-menu-row{

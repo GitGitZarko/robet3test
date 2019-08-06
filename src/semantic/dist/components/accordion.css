@@ -33,7 +33,7 @@
   padding: 0.5em 0em;
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 1em;
-  color: #1FE8AF;
+  color: #DFDFE7;
 }
 
 /* Content */
@@ -162,12 +162,12 @@
 .ui.styled.accordion .accordion .title:hover,
 .ui.styled.accordion .accordion .active.title {
   background: transparent;
-  color: #1FE8AF;
+  color: #DFDFE7;
 }
 .ui.styled.accordion .accordion .title:hover,
 .ui.styled.accordion .accordion .active.title {
   background: transparent;
-  color: #1FE8AF;
+  color: #DFDFE7;
 }
 
 /* Active */

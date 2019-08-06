@@ -25,7 +25,7 @@
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
-  color: #1FE8AF;
+  color: #DFDFE7;
 }
 .ui.input > input {
   margin: 0em;
@@ -41,7 +41,7 @@
   padding: 0.67857143em 1em;
   background: #FFFFFF;
   border: 1px solid #1FE8AF;
-  color: #1FE8AF;
+  color: #DFDFE7;
   border-radius: 0.28571429rem;
   -webkit-transition: border-color 0.1s ease, -webkit-box-shadow 0.1s ease;
   transition: border-color 0.1s ease, -webkit-box-shadow 0.1s ease;
@@ -94,7 +94,7 @@
 .ui.input.down input {
   border-color: rgba(0, 0, 0, 0.3);
   background: #FAFAFA;
-  color: #1FE8AF;
+  color: #DFDFE7;
   -webkit-box-shadow: none;
           box-shadow: none;
 }
@@ -148,15 +148,15 @@
 }
 .ui.input.focus > input::-webkit-input-placeholder,
 .ui.input > input:focus::-webkit-input-placeholder {
-  color: #effdf9;
+  color: #ffffff;
 }
 .ui.input.focus > input::-moz-placeholder,
 .ui.input > input:focus::-moz-placeholder {
-  color: #effdf9;
+  color: #ffffff;
 }
 .ui.input.focus > input:-ms-input-placeholder,
 .ui.input > input:focus:-ms-input-placeholder {
-  color: #effdf9;
+  color: #ffffff;
 }
 
 /*--------------------

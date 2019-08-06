@@ -18,7 +18,7 @@
 --------------------*/
 
 
-@textColor: @primaryColor;
+@textColor: @themeColor2;
 
 
 /*-------------------
