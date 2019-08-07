@@ -225,6 +225,10 @@
     width: 30%;
     padding: 0;
 }
+.ui.icon.button.size-three{
+    width: 50%;
+    padding: 0;
+}
 .box-middle-buttons-fullwidth{
     display: inline-block; 
     width: 100%;

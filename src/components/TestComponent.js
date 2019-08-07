@@ -291,6 +291,29 @@ class TestComponent extends Component {
       return (
          <div className="middle-box-container">
             <div className="ui main clearing segment">
+            <MediaQuery maxWidth={414}>
+               <button className="ui icon button" onClick={this.removeChampFromList}>
+                  <i className="close icon"></i>
+               </button>
+               <button className="ui icon button" onClick={this.ajdeKlikni}>
+                  <i className="sync icon"></i>
+               </button>              
+               <div className="ui content">
+                  <h5 >{objekat.TournamentName}</h5>
+               </div>
+               {TounamentGroupList ? <div className="" >
+                  <Dropdown
+                     placeholder='Select Odd Group...'
+                     fluid
+                     selection
+                     options={this.getAllOddsGroups()}                     
+                     onChange={this.samoProba}                  
+                  />
+               </div>
+                  : null
+               }            
+               </MediaQuery>
+               <MediaQuery minDeviceWidth={414}>  
                <button className="ui right floated icon button" onClick={this.removeChampFromList}>
                   <i className="close icon"></i>
                </button>
@@ -311,6 +334,7 @@ class TestComponent extends Component {
                <div className="left floated content">
                   <h5 >{objekat.TournamentName}</h5>
                </div>
+               </MediaQuery>
             </div>
             <div>
                {this.renderTounamentSpecialMainList()}
