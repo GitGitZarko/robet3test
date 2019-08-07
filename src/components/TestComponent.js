@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Header, Table, Button, Dropdown, Label } from 'semantic-ui-react'
+import { Header, Table, Button, Dropdown, Label } from 'semantic-ui-react';
+import MediaQuery from 'react-responsive';
 import MainButtonList from './MainButtonList';
 import SecondButtonList from './SecondButtonList';
 import ThirdButtonList from './ThirdButtonList'; 
@@ -94,7 +95,9 @@ class TestComponent extends Component {
 
       return TounementMainTitleList.map((name, a) => {
          return (
+            <MediaQuery minDeviceWidth={1224}>  
             <Table.HeaderCell key={a} textAlign="center" colSpan={name.numeroScommesse}>{name.nome}</Table.HeaderCell>
+            </MediaQuery>
          )
       })
    }
@@ -107,7 +110,12 @@ class TestComponent extends Component {
       return (
          <Table.Row>
             <Table.HeaderCell >Match</Table.HeaderCell>
+            <MediaQuery minDeviceWidth={1224}>  
             {TounementTitleList.map((name, f) => <Table.HeaderCell key={f} textAlign="center" >{name.nome}</Table.HeaderCell>)}
+            </MediaQuery>
+            <MediaQuery maxWidth={414}> 
+            {TounementTitleList.slice(0, 3).map((name, f) => <Table.HeaderCell key={f} textAlign="center" >{name.nome}</Table.HeaderCell>)}
+            </MediaQuery>
          </Table.Row>
       );
    }
@@ -159,8 +167,51 @@ class TestComponent extends Component {
       }
 
       return TournamentMatchList.map(val => {
-         return (
+     
+         return (   
             <Table.Row>
+                    <MediaQuery maxWidth={414}> 
+                    <Table.Cell width="four" className="table-cell">
+                    <Header.Content>
+                     {!IsAntepost ? val.QuickMatchCode + " " + val.MatchDate : null}
+                     <Header.Subheader className="betvip-subheader" onClick={(e) => this.singleMatchView(e, val.MatchCode, val.MatchDate, val.MatchName)}>
+                        {val.MatchName}
+                     </Header.Subheader>
+
+                  </Header.Content>
+                  </Table.Cell>
+                  {!this.props.objekat.IsSpecial ?
+                  val.TournamentMatchOddList.slice(0, 3).map((odds, o) =>
+                     <Table.Cell                        
+                        key={o}
+                        textAlign="center"
+                        width="one"
+                        // selectable
+                        // active={oddIdList.includes(odds.OddCode) ? true : false}
+                        style={{ cursor: 'pointer' }}
+                        onClick={(e) =>                          
+                           this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>                        
+                        <Label basic className={oddIdList.includes(odds.OddCode) ? 'active-odds-label' : 'odds-label'}>
+                        {this.props.changeOddValue == 0 ? odds.OddValue : (this.props.changeOddValue == 1 ? odds.OddValueAmerican : odds.OddValueFraction)}
+                        </Label>
+                     </Table.Cell>
+                  ) : val.TournamentMatchOddList.map((odds, o) =>
+                     <Button className="moje-dugme"
+                        key={o}                        
+                        active={oddIdList.includes(odds.OddCode) ? true : false}                        
+                        onClick={(e) =>                           
+                           this.addOddToTicket(e, this.props.objekat.SportCode, this.props.objekat.TournamentCode, odds.OddType, odds.OddValue, val.MatchName, odds.OddGroup, odds.OddCode, val.MatchCode)}>
+                        {odds.OddType}
+                        <span style={{ float: 'right' }}>
+                           {this.props.changeOddValue == 0 ? odds.OddValue : (this.props.changeOddValue == 1 ? odds.OddValueAmerican : odds.OddValueFraction)}
+                           {/* {odds.OddValue} */}
+                        </span>
+                     </Button>
+                  )
+
+               }
+            </MediaQuery>  
+            <MediaQuery minDeviceWidth={414}>  
                <Table.Cell width="four" className="table-cell">
                   <Header.Content>
                      {!IsAntepost ? val.QuickMatchCode + " " + val.MatchDate : null}
@@ -200,8 +251,10 @@ class TestComponent extends Component {
                   )
 
                }
-
-            </Table.Row>            
+            </MediaQuery>
+            </Table.Row>     
+         
+            
          )
       })
    }
@@ -268,7 +321,7 @@ class TestComponent extends Component {
             <div className="box-middle-buttons-fullwidth">
                {this.state.thirdGroup}
             </div>
-            <Table celled striped>
+            <Table celled striped unstackable>
                <Table.Header>
                   <Table.Row>
                   </Table.Row>

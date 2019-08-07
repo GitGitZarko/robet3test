@@ -92,7 +92,7 @@ class ChampsList extends Component {
 
         return champs.map((sport, i) => {
             return (
-                                <a class="item">
+                                <a class="item" onClick={(e) => this.uradiNesto(e, sport.SportId, sport)}>
                                     <img class="ui mini image" src={`/images/sporticons/${sport.SportId}.png`}/>
                                    
                                 </a>                               

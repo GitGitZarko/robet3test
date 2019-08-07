@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import MediaQuery from 'react-responsive';
 import { fetchChampList, addChampToList, removeChampFromList, sportViewChamps} from '../actions';
 import TestComponent from './TestComponent';
 import SingleMatch from './SingleMatch';
@@ -11,7 +12,7 @@ class ChampMainContentContainer extends Component {
 
         this.testKontejner = React.createRef();
     }
-
+    
     onFocus = () => {
       const { champs } = this.props
       let listaTournamentCode = this.props.champsMiddleBoxList.map((objekat) => objekat.TournamentCode)
@@ -29,6 +30,20 @@ class ChampMainContentContainer extends Component {
       }
     }
 
+    
+
+    mainContainerAddRemoveDirect = (champId, sportId) => {      
+      if(this.onFocus().some(a => a == champId)){             
+          this.props.removeChampFromList(champId, sportId)
+          this.setState({isOpen: false})              
+      }else{                                     
+          this.props.addChampToList(champId, sportId, null)
+          this.setState({isOpen: true})         
+          this.props.sportViewChamps(0)       
+      }
+    }
+
+
     includesInMiddleBox(value){
       const result = this.props.champsMiddleBoxList.some(name => name.TournamentCode == value)      
       return result;
@@ -43,6 +58,8 @@ class ChampMainContentContainer extends Component {
             )
         }).reverse();
     }
+
+    //   <MediaQuery minDeviceWidth={1224}> @
     renderujSportChamps(){        
           const { champs } = this.props
           const champsSport = champs.filter(item => item.SportId === this.props.sportView )
@@ -67,7 +84,7 @@ class ChampMainContentContainer extends Component {
                       
                            <Table.Body className="table-body-main-container" >
                               <Table.Row  className="table-row-main-container-inner">
-                      {item.Champs.map((val) => <button  className="button-main-container" ><Checkbox checked={this.includesInMiddleBox(val.ChampId) ? true : false} onChange={() => this.mainContainerAddRemove(val.ChampId, sport.SportId)}/>{val.ChampName}</button>)}
+                      {item.Champs.map((val) => <button  className="button-main-container" ><Checkbox checked={this.includesInMiddleBox(val.ChampId) ? true : false} onChange={() => this.mainContainerAddRemove(val.ChampId, sport.SportId)}/><span onClick={() => this.mainContainerAddRemoveDirect(val.ChampId, sport.SportId)}>{val.ChampName}</span></button>)}
                              {/* { item.Champs.map((val) =>  <Table.Row><Table.Cell></Table.Cell>{val}</Table.Row> )}                               */}
                               </Table.Row>
                             </Table.Body>
