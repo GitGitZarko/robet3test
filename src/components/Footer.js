@@ -8,7 +8,7 @@ const Footer = () => {
 
     <div className="ui inverted footer segment">
       <div className="ui center aligned container">
-        <h4 className="ui inverted header">&copy; Copyright 2019 | All rights reserved | www.betvip.fun</h4>
+        <h4 className="ui inverted header">&copy; Copyright 2019 | All rights reserved | www.robet.io</h4>
       </div>
 
     </div>

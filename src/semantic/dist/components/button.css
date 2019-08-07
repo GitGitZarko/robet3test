@@ -3830,7 +3830,8 @@
            Overrides
 *******************************/
 
-.ui.right.floated.icon.button {
+.ui.right.floated.icon.button,
+.ui.icon.button.mobile {
   background: #10393C;
   color: #fff;
   border: 1px solid #1FE8AF;

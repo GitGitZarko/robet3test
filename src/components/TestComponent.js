@@ -292,10 +292,10 @@ class TestComponent extends Component {
          <div className="middle-box-container">
             <div className="ui main clearing segment">
             <MediaQuery maxWidth={414}>
-               <button className="ui icon button" onClick={this.removeChampFromList}>
+               <button className="ui icon button mobile" onClick={this.removeChampFromList}>
                   <i className="close icon"></i>
                </button>
-               <button className="ui icon button" onClick={this.ajdeKlikni}>
+               <button className="ui icon button mobile" onClick={this.ajdeKlikni}>
                   <i className="sync icon"></i>
                </button>              
                <div className="ui content">

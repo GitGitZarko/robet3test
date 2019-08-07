@@ -2,7 +2,7 @@
            Overrides
 *******************************/
 
-.ui.right.floated.icon.button{
+.ui.right.floated.icon.button, .ui.icon.button.mobile{
     background: @themeColor5;
     color: #fff;
     border: 1px solid @secondaryColor;
