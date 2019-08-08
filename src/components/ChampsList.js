@@ -87,6 +87,39 @@ class ChampsList extends Component {
      
 
     }
+    renderPlayersListMobile(){
+        const { players } = this.props
+        return players.map((sport, i) => {
+            return (
+                
+                <li>
+                    <div className="item">
+                        <div className="content">
+                            <div className="headerLeftMenu" onClick={(e) => this.uradiNestoPlayer(e, sport.SportId, sport)} > MARCATORI</div>
+                            {sport.Categories.map((cat, k) => <div> {sport.SportId === this.state.targetPlayer ?
+                                <ChampsCategories
+                                    categorie={cat}
+                                    key={k}
+                                    antepost={false}
+                                    isFavorite={false}
+                                    players={true}
+                                    sportId={sport.SportId}
+                                    displayChildren={this.state.displayPlayer} />
+                                : null
+                            }
+                            </div>
+                            )}
+                        </div>
+                    </div>
+                </li>
+                       
+            )
+        })
+     
+
+    }
+    
+
     renderSportListMobile() {
         const { champs } = this.props;
 
@@ -185,6 +218,19 @@ class ChampsList extends Component {
 
         return (
             <div>
+                <MediaQuery maxWidth={414}> 
+                <div className="ui labeled icon menu scroll inverted" style={{listStyle: 'none'}}>                      
+                        {this.renderEvidenceList()}
+                   
+                </div>
+                <div class="ui labeled icon menu scroll inverted">
+                   {this.renderSportListMobile()}
+                </div>      
+                <div  className="ui relaxed divided list">                      
+
+                        {this.renderPlayersListMobile()}                    
+                </div>  
+                </MediaQuery>
                 <MediaQuery minDeviceWidth={1224}>
                 <div className="ui relaxed divided list">
                     <div className="ui middle aligned selection list left-sidebar-border" >
@@ -198,14 +244,9 @@ class ChampsList extends Component {
                         <h5>MARCATORI</h5>
                         {this.renderPlayersList()}
                     </div>
-                </div>
-                </MediaQuery>
-                <MediaQuery maxWidth={414}> 
-                <div class="ui labeled icon menu scroll inverted">
-                   {this.renderSportListMobile()}
-                </div>
-                </MediaQuery>
-                <MediaQuery minDeviceWidth={1224}>  
+                </div>                
+                
+                
                     
                 <div className="ui relaxed divided list">
                     <div className="ui middle aligned selection list left-sidebar-border" >
@@ -213,9 +254,7 @@ class ChampsList extends Component {
                         {this.renderSportList()}
                     </div>
                 </div>
-                
-                </MediaQuery>
-                <MediaQuery minDeviceWidth={1224}>
+               
                 <div className="ui relaxed divided list">
                     <div className="ui middle aligned selection list left-sidebar-border" >
                         <h5>ANTEPOST</h5>

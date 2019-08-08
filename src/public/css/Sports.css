@@ -213,9 +213,12 @@
 }
 .ui.labeled.icon.menu {
     text-align: center;
+    font-size: 12px;
     background: transparent;
     border-bottom: 1px solid #1FE8AF;
     border-radius: 0;
+    margin: 0 !important;
+    
 }
 
 /* Sport Page - Sport Component - END */

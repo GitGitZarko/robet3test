@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ChampName from './ChampName';
-
+import MediaQuery from 'react-responsive';
 
 class ChampsCategories extends Component {
     state = {
@@ -28,7 +28,11 @@ class ChampsCategories extends Component {
 
         return (
             //  <div onClick={this.pokaziMiAlert}>    
-                        <div className={this.props.displayChildren} data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)}  >
+            <div>
+            <MediaQuery maxWidth={414}> 
+                        <div className={this.props.displayChildren} data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)}  ></div>
+            </MediaQuery>
+                <div className={this.props.displayChildren} data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)}  >
                 {categorie.CategoryName}
 
                 {categorie.Champs.map((item, i) => <div> {categorie.CategoryId === this.state.dataId ?
@@ -46,6 +50,7 @@ class ChampsCategories extends Component {
                 </div>
                 )}
 
+            </div>
             </div>
         )
     }
