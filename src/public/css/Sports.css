@@ -1,3 +1,8 @@
+#champsPopupId{
+    background: #0E1E2B;
+    padding: 5px 0px;
+    border-bottom: 0.1px solid white;
+}
 /* Scrollbar */
 .scroll {
     white-space: nowrap; /* [1] */

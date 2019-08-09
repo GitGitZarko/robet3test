@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ChampName from '../ChampName';
+import ChampNameMobile from './ChampNameMobile';
 import { Modal } from 'semantic-ui-react';
 import MediaQuery from 'react-responsive';
 
@@ -44,7 +44,7 @@ class ChampsCategoriesMobile extends Component {
                      <Modal.Header>{categorie.CategoryName}</Modal.Header>
                 {categorie.Champs.map((item, i) => <div onClick={e => this.handleModalOpenButton(e)} > {categorie.CategoryId === this.state.dataId ?     
                     <Modal.Content>
-                    <ChampName                       
+                    <ChampNameMobile                       
                         champs={item}
                         key={i}
                         antepost={this.props.antepost}
