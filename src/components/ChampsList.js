@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
+import { Modal } from 'semantic-ui-react';
 import Slider from "react-slick";
 import { fetchChamps, fetchInEvidence, fetchStructureOutright, sportViewChamps, fetchStructurePlayer, removeSingleMatch } from '../actions';
-import ChampsCategories from './ChampsCategories'
+import ChampsCategories from './ChampsCategories';
 import ChampName from './ChampName';
+import ChampsCategoriesMobile from './Mobile/ChampsCategoriesMobile';
 
 class ChampsList extends Component {
     state = {
@@ -16,7 +18,8 @@ class ChampsList extends Component {
         valueAnte: Boolean,
         targetAnte: null,
         valuePlayer: Boolean,
-        targetPlayer: null
+        targetPlayer: null,
+        showModal: false
     }
     componentDidMount() {
         this.props.fetchChamps();
@@ -24,7 +27,13 @@ class ChampsList extends Component {
         this.props.fetchStructureOutright();
         this.props.fetchStructurePlayer();
     }
-
+    closeModal = () => {
+        this.setState({ showModal: false })
+      }
+    handleModalOpenButton(evt) {
+        evt.preventDefault()
+        this.closeModal();
+      }
     uradiNesto(event, i, sport) {
         event.preventDefault();
         this.setState({
@@ -49,9 +58,12 @@ class ChampsList extends Component {
         this.setState({
             valuePlayer: !this.state.valuePlayer,
             displayPlayer: this.state.valuePlayer ? 'headerLeftMenu' : 'headerLeftMenu-hidden',
-            targetPlayer: i
+            targetPlayer: i,
+            showModal: true         
         })
+        
         if (this.props.singleMatch) this.props.removeSingleMatch()
+       
     }
 
     renderPlayersList() {
@@ -64,7 +76,7 @@ class ChampsList extends Component {
                 <li>
                     <div className="item">
                         <div className="content">
-                            <div className={this.state.displayPlayer} onClick={(e) => this.uradiNestoPlayer(e, sport.SportId, sport)} ><i className="serbia flag"></i>  {sport.SportName}</div>
+                            <div className="headerLeftMenu" onClick={(e) => this.uradiNestoPlayer(e, sport.SportId, sport)} ><i className="serbia flag"></i>  {sport.SportName}</div>
                             {sport.Categories.map((cat, k) => <div> {sport.SportId === this.state.targetPlayer ?
                                 <ChampsCategories
                                     categorie={cat}
@@ -90,14 +102,13 @@ class ChampsList extends Component {
     renderPlayersListMobile(){
         const { players } = this.props
         return players.map((sport, i) => {
-            return (
-                
-                <li>
-                    <div className="item">
-                        <div className="content">
-                            <div className="headerLeftMenu" onClick={(e) => this.uradiNestoPlayer(e, sport.SportId, sport)} > MARCATORI</div>
-                            {sport.Categories.map((cat, k) => <div> {sport.SportId === this.state.targetPlayer ?
-                                <ChampsCategories
+            return (                
+                <Modal closeIcon onClose={this.closeModal} open={this.state.showModal} trigger={<button onClick={(e) => this.uradiNestoPlayer(e, sport.SportId, sport)} className="ui button">MARCATORI</button>}>
+                     <Modal.Header>Select a Competition</Modal.Header>
+                     <Modal.Content >
+                            {sport.Categories.map((cat, k) =>  <button className="ui orange button main-button-list" > {sport.SportId === this.state.targetPlayer ?
+                                <ChampsCategoriesMobile     
+                                    showModal={this.closeModal}
                                     categorie={cat}
                                     key={k}
                                     antepost={false}
@@ -107,12 +118,12 @@ class ChampsList extends Component {
                                     displayChildren={this.state.displayPlayer} />
                                 : null
                             }
-                            </div>
+                            </button>
+                            
                             )}
-                        </div>
-                    </div>
-                </li>
-                       
+                    </Modal.Content>
+                   </Modal>   
+                   
             )
         })
      
@@ -226,7 +237,7 @@ class ChampsList extends Component {
                 <div class="ui labeled icon menu scroll inverted">
                    {this.renderSportListMobile()}
                 </div>      
-                <div  className="ui relaxed divided list">                      
+                <div  className="ui horizontal list">                      
 
                         {this.renderPlayersListMobile()}                    
                 </div>  

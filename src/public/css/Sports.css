@@ -312,6 +312,13 @@
     padding: 10px 10px;
     
 }
+.ui.horizontal.list{
+    background: #293744;
+    color: #DFDFE7;
+    margin: 2px 0px;
+    width: 100%;
+    text-align: center;
+}
 
 .ui.divided.list > .item:first-child .ui.left.floated.content{
     color: #DFDFE7;
