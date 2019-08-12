@@ -55,11 +55,12 @@ class ChampNameMobile extends Component {
     render() {
         const { champs } = this.props
         const { isFavorite } = this.props
+
         
         return (
             <div className={this.props.displayChild}>
             <div id="champsPopupId" onClick={this.azurirajContent} className={isFavorite ? '' : 'ui middle aligned selection list'} style={{ color: this.onFocus().some(a => a == (isFavorite ? champs.TournamentSourceID : champs.ChampId)) ? '#1FE8AF' : '', cursor: 'pointer' }}>
-                {isFavorite && <i className=""></i>}{isFavorite ? champs.TrounamentDescription : champs.ChampName}aaa
+            {isFavorite &&  '' }{isFavorite ? champs.TrounamentDescription : champs.ChampName}
             </div>
             </div>
         )

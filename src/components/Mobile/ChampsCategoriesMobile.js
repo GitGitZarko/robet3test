@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ChampNameMobile from './ChampNameMobile';
-import { Modal } from 'semantic-ui-react';
+import {  Button, Header, Icon, Modal } from 'semantic-ui-react';
 import MediaQuery from 'react-responsive';
 
 class ChampsCategoriesMobile extends Component {
@@ -40,7 +40,7 @@ class ChampsCategoriesMobile extends Component {
 
         return (
             //  <div onClick={this.pokaziMiAlert}>  
-            <Modal closeIcon onClose={this.props.showModal}  trigger={<div className={this.props.displayChild} data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)}  >  {categorie.CategoryName}</div>}>
+            <Modal dimmer={'blurring'} trigger={<div className={this.props.displayChild} data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)}  >  {categorie.CategoryName}</div>}>
                      <Modal.Header>{categorie.CategoryName}</Modal.Header>
                 {categorie.Champs.map((item, i) => <div onClick={e => this.handleModalOpenButton(e)} > {categorie.CategoryId === this.state.dataId ?     
                     <Modal.Content>
@@ -52,12 +52,17 @@ class ChampsCategoriesMobile extends Component {
                         sportId={sportId}
                         displayChild={this.state.displayChild}
                     />
-                    </Modal.Content>           
+                    </Modal.Content>                            
                     :
                     null
                 }
                 </div>
-                )}            
+                )}      
+                   <Modal.Actions>
+                     <Button color='green' inverted onClick={this.props.showModal}>
+                       <Icon name='checkmark' /> Finish
+                     </Button>
+                   </Modal.Actions>       
             </Modal>  
             
         )

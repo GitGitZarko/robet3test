@@ -5,6 +5,7 @@ import { Modal } from 'semantic-ui-react';
 import Slider from "react-slick";
 import { fetchChamps, fetchInEvidence, fetchStructureOutright, sportViewChamps, fetchStructurePlayer, removeSingleMatch } from '../actions';
 import ChampsCategories from './ChampsCategories';
+import ChampNameMobile from './Mobile/ChampNameMobile';
 import ChampName from './ChampName';
 import ChampsCategoriesMobile from './Mobile/ChampsCategoriesMobile';
 
@@ -76,7 +77,7 @@ class ChampsList extends Component {
                 <li>
                     <div className="item">
                         <div className="content">
-                            <div className="headerLeftMenu" onClick={(e) => this.uradiNestoPlayer(e, sport.SportId, sport)} ><i className="serbia flag"></i>  {sport.SportName}</div>
+                            <div className="headerLeftMenu" onClick={(e) => this.uradiNestoPlayer(e, sport.SportId, sport)} ><img className="ui middle aligned mini image" style={{margin: '0px 10px 5px 0px'}} src={`/images/sporticons/${sport.SportId}.png`}/>  {sport.SportName}</div>
                             {sport.Categories.map((cat, k) => <div> {sport.SportId === this.state.targetPlayer ?
                                 <ChampsCategories
                                     categorie={cat}
@@ -151,7 +152,7 @@ class ChampsList extends Component {
                 <li>                        
                     <div className="item">
                         <div className="content">
-                            <div className="headerLeftMenu" onClick={(e) => this.uradiNesto(e, sport.SportId, sport)} ><i className="italy flag"></i>  {sport.SportName}</div>
+                            <div className="headerLeftMenu" onClick={(e) => this.uradiNesto(e, sport.SportId, sport)} ><img className="ui middle aligned mini image" style={{margin: '0px 10px 5px 0px'}} src={`/images/sporticons/${sport.SportId}.png`}/>  {sport.SportName}</div>
                             {sport.Categories.map((cat, k) => <div> {sport.SportId === this.state.target ?
                                 <ChampsCategories
                                     categorie={cat}
@@ -176,10 +177,41 @@ class ChampsList extends Component {
                 <li>
                     <div className="item" style={{ display: 'block' }}>
                         <div className="content" >
-                            <div className="header" style={{ cursor: 'pointer' }}>
-
+                        
+                            <div className="header" style={{ cursor: 'pointer' }}> 
+                                  
                                 {
                                     <ChampName
+                                        inEvidenceIdCountry={sport.TournamentCategoryID}
+                                        champs={sport}
+                                        key={i}
+                                        antepost={false}
+                                        isFavorite={true}
+                                        sportId={1}
+                                        displayChild={this.state.displayChild}
+                                    />
+                                }
+                            </div>
+                        </div>
+                    </div>
+
+                </li>
+            )
+        })
+    }
+    renderEvidenceListMobile() {
+        const { inEvidence } = this.props
+        return inEvidence.map((sport, i) => {
+            return (
+                <li>
+                    <div className="item" style={{ display: 'block' }}>
+                        <div className="content" >
+                        
+                            <div className="header" style={{ cursor: 'pointer' }}> 
+                                  
+                                {
+                                    <ChampNameMobile
+                                        inEvidenceIdCountry={sport.TournamentCategoryID}
                                         champs={sport}
                                         key={i}
                                         antepost={false}
@@ -203,7 +235,7 @@ class ChampsList extends Component {
                 <li >
                     <div className="item">
                         <div className="content">
-                            <div className="header" onClick={(e) => this.uradiNestoAnte(e, sport.SportId)} ><i className="italy flag"></i>  {sport.SportName}</div>
+                            <div className="header" onClick={(e) => this.uradiNestoAnte(e, sport.SportId)} ><img className="ui middle aligned mini image" style={{margin: '0px 10px 5px 0px'}} src={`/images/sporticons/${sport.SportId}.png`}/>   {sport.SportName}</div>
                             {sport.Categories.map((cat, k) => <div> {sport.SportId === this.state.targetAnte ?
                                 <ChampsCategories
                                     categorie={cat}
@@ -231,7 +263,7 @@ class ChampsList extends Component {
             <div>
                 <MediaQuery maxWidth={414}> 
                 <div className="ui labeled icon menu scroll inverted" style={{listStyle: 'none'}}>                      
-                        {this.renderEvidenceList()}
+                        {this.renderEvidenceListMobile()}
                    
                 </div>
                 <div class="ui labeled icon menu scroll inverted">

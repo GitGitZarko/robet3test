@@ -33,7 +33,11 @@ class ChampsCategories extends Component {
                         <div className={this.props.displayChildren} data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)}  ></div>
             </MediaQuery>
                 <div className={this.props.displayChildren} data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)}  >
-                {categorie.CategoryName}
+                
+                    <img className="ui middle aligned mini image" style={{marginRight: '10px'}} src={`/images/codedFlags/${categorie.CategoryId}.png`}/>
+                    {categorie.CategoryName}
+                
+                
 
                 {categorie.Champs.map((item, i) => <div> {categorie.CategoryId === this.state.dataId ?
                     <ChampName

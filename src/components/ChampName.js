@@ -55,11 +55,12 @@ class ChampName extends Component {
     render() {
         const { champs } = this.props
         const { isFavorite } = this.props
+        const { inEvidenceIdCountry } = this.props
         
         return (
             <div className={this.props.displayChild}>
             <div onClick={this.azurirajContent} className={isFavorite ? '' : 'ui middle aligned selection list'} style={{ color: this.onFocus().some(a => a == (isFavorite ? champs.TournamentSourceID : champs.ChampId)) ? '#1FE8AF' : '', cursor: 'pointer' }}>
-                {isFavorite && <i className=""></i>}{isFavorite ? champs.TrounamentDescription : champs.ChampName}
+                {isFavorite && <img  style={{margin: '0px 10px 0px 0px'}} className="ui middle aligned mini image"  src={`/images/codedFlags/${inEvidenceIdCountry}.png`}/>}{isFavorite ? champs.TrounamentDescription : champs.ChampName}
             </div>
             </div>
         )
