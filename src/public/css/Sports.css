@@ -1,3 +1,10 @@
+#modal-header-marcatori, .ui.orange.button.main-button-list{
+    background-repeat: no-repeat;
+    background-position: right;    
+    background-size: contain;
+    text-align: left;
+}
+
 #champsPopupId{
     background: #0E1E2B;
        

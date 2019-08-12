@@ -40,8 +40,8 @@ class ChampsCategoriesMobile extends Component {
 
         return (
             //  <div onClick={this.pokaziMiAlert}>  
-            <Modal dimmer={'blurring'} trigger={<div className={this.props.displayChild} data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)}  >  {categorie.CategoryName}</div>}>
-                     <Modal.Header>{categorie.CategoryName}</Modal.Header>
+            <Modal dimmer={'blurring'}  trigger={<div className={this.props.displayChild} data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)}  >  {categorie.CategoryName}</div>}>
+                     <Modal.Header id="modal-header-marcatori" style={{backgroundImage: `url(/images/codedFlags/${categorie.CategoryId}.png)`}} >{categorie.CategoryName}</Modal.Header>
                 {categorie.Champs.map((item, i) => <div onClick={e => this.handleModalOpenButton(e)} > {categorie.CategoryId === this.state.dataId ?     
                     <Modal.Content>
                     <ChampNameMobile                       

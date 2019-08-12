@@ -107,7 +107,7 @@ class ChampsList extends Component {
                 <Modal closeIcon onClose={this.closeModal} open={this.state.showModal} trigger={<button onClick={(e) => this.uradiNestoPlayer(e, sport.SportId, sport)} className="ui button">MARCATORI</button>}>
                      <Modal.Header>Select a Competition</Modal.Header>
                      <Modal.Content >
-                            {sport.Categories.map((cat, k) =>  <button className="ui orange button main-button-list" > {sport.SportId === this.state.targetPlayer ?
+                            {sport.Categories.map((cat, k) =>  <button style={{backgroundImage: `url(/images/codedFlags/${cat.CategoryId}.png)`}} className="ui orange button main-button-list" > {sport.SportId === this.state.targetPlayer ?
                                 <ChampsCategoriesMobile     
                                     showModal={this.closeModal}
                                     categorie={cat}
