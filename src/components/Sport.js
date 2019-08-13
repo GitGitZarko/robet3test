@@ -1,8 +1,10 @@
 import React from 'react';
 //import '../public/css/Sports.css';
+import MediaQuery from 'react-responsive';
 import ChampsList from './ChampsList';
 import ChampMainContentContainer from './ChampMainContentContainer';
 import TicketGenerator from './TicketGenerator';
+import TicketGeneratorMobile from './Mobile/TIcketGeneratorMobile';
 
 const Sport = () => {
     return (
@@ -16,9 +18,14 @@ const Sport = () => {
                     <div className="ui stackable ten wide column">
                         <ChampMainContentContainer />
                     </div>
+                    <MediaQuery maxWidth={414}>                     
+                        <TicketGeneratorMobile />                                            
+                    </MediaQuery>       
+                    <MediaQuery minDeviceWidth={1224}>
                     <div className="ui stackable three wide column sport-component" >
                         <TicketGenerator />
                     </div>
+                    </MediaQuery>             
                 </div>                
             </div>
         </div>

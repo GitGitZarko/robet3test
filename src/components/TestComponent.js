@@ -108,13 +108,15 @@ class TestComponent extends Component {
          return null;
       }
       return (
-         <Table.Row>
-            <Table.HeaderCell >Match</Table.HeaderCell>
+         <Table.Row >
+            
             <MediaQuery minDeviceWidth={1224}>  
+            <Table.HeaderCell >Match</Table.HeaderCell>
             {TounementTitleList.map((name, f) => <Table.HeaderCell key={f} textAlign="center" >{name.nome}</Table.HeaderCell>)}
             </MediaQuery>
             <MediaQuery maxWidth={768}> 
-            {TounementTitleList.slice(0, 3).map((name, f) => <Table.HeaderCell key={f} textAlign="center" >{name.nome}</Table.HeaderCell>)}
+            <Table.HeaderCell style={{fontSize: '10px'}}>Match</Table.HeaderCell>
+            {TounementTitleList.slice(0, 3).map((name, f) => <Table.HeaderCell style={{fontSize: '10px'}}key={f} textAlign="center" >{name.nome}</Table.HeaderCell>)}
             </MediaQuery>
          </Table.Row>
       );
@@ -169,10 +171,10 @@ class TestComponent extends Component {
       return TournamentMatchList.map(val => {
      
          return (   
-            <Table.Row>
+            <Table.Row >
                     <MediaQuery maxWidth={768}> 
-                    <Table.Cell width="four" className="table-cell">
-                    <Header.Content>
+                    <Table.Cell  style={{fontSize: '10px'}} width="four" className="table-cell">
+                    <Header.Content >
                      {!IsAntepost ? val.QuickMatchCode + " " + val.MatchDate : null}
                      <Header.Subheader className="betvip-subheader" onClick={(e) => this.singleMatchView(e, val.MatchCode, val.MatchDate, val.MatchName)}>
                         {val.MatchName}
@@ -182,7 +184,8 @@ class TestComponent extends Component {
                   </Table.Cell>
                   {!this.props.objekat.IsSpecial ?
                   val.TournamentMatchOddList.slice(0, 3).map((odds, o) =>
-                     <Table.Cell                        
+                     <Table.Cell          
+                     style={{fontSize: '10px'}}              
                         key={o}
                         textAlign="center"
                         width="one"

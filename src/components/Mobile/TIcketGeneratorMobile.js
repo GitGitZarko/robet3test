@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { DelayInput } from 'react-delay-input';
 import { connect } from 'react-redux';
-import { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction, changeOddValueType, fetchUserAgency} from '../actions';
-import TicketChildItem from './TicketChildItem';
-import { allOddsTable } from '../json/allOddsTable';
-import { Button, Icon, Modal, Dropdown, Checkbox, Label } from 'semantic-ui-react';
+import { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction, changeOddValueType, fetchUserAgency} from '../../actions';
+import TicketChildItem from '../TicketChildItem';
+import { allOddsTable } from '../../json/allOddsTable';
+import { Button, Icon, Modal, Dropdown, Checkbox, Segment, Sidebar } from 'semantic-ui-react';
 
 
-class TicketGenerator extends Component {
+class TicketGeneratorMobile extends Component {
     constructor(props) {
         super(props);
         this.timeout = 0;
@@ -21,7 +21,11 @@ class TicketGenerator extends Component {
             localTotalAmount: 0,
             colsCalculateValue: 0,
             focus: false,
-            multiplaValue: 0
+            multiplaValue: 0,
+            animation: 'overlay',
+            direction: 'left',
+            dimmed: false,
+            visible: false,
         }
         this.textInput = React.createRef();
         this.dropdownBrat = React.createRef();
@@ -34,6 +38,9 @@ class TicketGenerator extends Component {
         localStorage.setItem("OddType", JSON.stringify(0));
         this.localstorageExparation()       
     }
+
+    handleDimmer = () => this.setState({ dimmerActive: !this.dimmerActive })
+    
     localstorageExparation = () =>{
         let token;
         if (!localStorage.getItem("userToken"))
@@ -259,12 +266,23 @@ class TicketGenerator extends Component {
         this.resetLocalTicketOdds()
         this.setState({ activeButton: true, localTotalAmount: 0 })
     }
+
+    handleAnimationChange = animation => () =>
+    this.setState(prevState => ({ animation, visible: !prevState.visible }))
+
+    handleCloseTicket= close => () =>{
+        this.setState({ visible: false })
+    }
+
     render() {
         let ticketValues;
         let ticketCols;
         let sumCols;
         let ticketType;
 
+        const { active } = this.state
+        const { animation, dimmed, direction, visible } = this.state
+        const vertical = direction === 'bottom' || direction === 'top'
 
         if (this.props.ticket) {
             if (localStorage.getItem("ticket") === null) {
@@ -281,101 +299,24 @@ class TicketGenerator extends Component {
 
         return (
             <div>
-                
-                <Label.Group >
-                    <Label basic as='a' className="customized" onClick={() => this.props.changeOddValueType(0)}>Decimal</Label>
-                    <Label basic as='a' className="customized"  onClick={() => this.props.changeOddValueType(1)}>Americano</Label>
-                    <Label basic as='a' className="customized" onClick={() => this.props.changeOddValueType(2)}>Fraccional</Label>
-                </Label.Group>
-                <Checkbox className="ticket-checkbox-quick" onClick={() => this.setState({ quickChecked: !this.state.quickChecked })} checked={this.state.quickChecked} />
-                <Modal 
-                    trigger={<h5 onClick={this.handleOpen} className="ticket-modal-quick-h2">USA IL QUICK CODE</h5>}
-                    open={this.state.modalOpen}
-                    onClose={this.handleClose}
-                    size='fullscreen'
-                >
-                <Modal.Content scrolling >
-                        <table id="tabelica">
-                            <tbody>
-                                <tr>
-                                    <th>Sport</th>
-                                    <th>Gruppo</th>
-                                    <th>Tipo</th>
-                                    <th>Codice</th>
-                                </tr>
-                                {allOddsTable.map((data, i) =>
-                                    <tr key={i}>
-                                        <td>
-                                            {data.Sport}
-                                        </td>
-                                        <td>
-                                            {data.Gruppo}
-                                        </td>
-                                        <td>
-                                            {data.Tipo}
-                                        </td>
-                                        <td>
-                                            {data.Codice}
-                                        </td>
-                                    </tr>
-                                )}
-                            </tbody>
-                        </table>                        
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <Button color='green' onClick={this.handleClose} inverted>
-                            <Icon name='checkmark' /> Close
-            </Button>
-                    </Modal.Actions>
-                </Modal>
-                <div className="ui container">
-                    <div className="ui row">
-                        <div className="item">
-                            <div className="ui input input-left" >
-                                <input type="text" placeholder="QUICK_BET" onKeyPress={(e) => this.quickBet(e)} ref={this.textInputMain} onClick={() => this.setState({ focus: false })} />
-                            </div>
-
-                            {this.state.quickChecked ?
-                                <div className="ui input input-right" >
-                                    <input type="text" placeholder="Quick Code" onKeyPress={(e) => this.selectQuickCode(e, this.props.getQuickBet.MatchId)} ref={this.textInput} />
-                                </div>
-                                :
-                                <Dropdown
-                                    ref={this.dropdownBrat}
-                                    placeholder='Select Odd...'
-                                    fluid
-                                    selection
-                                    search
-                                    className={`${this.state.focus}`}
-                                    options={this.getQuickBetsList()}
-                                    onChange={(e) => this.selectQuickBetOdd(e, this.props.getQuickBet.MatchId, this.getQuickBetsList())}
-                                />
-                            }                            
-                        </div>
-                        {this.props.getQuickBet.ErrorMessage ?
-                            <div className="ui label">
-                                <i className="ui info circle icon"></i>
-                                {this.props.getQuickBet.ErrorMessage}
-                            </div>
-                            :
-                            <div className="ui text">
-                                <h5>{this.props.getQuickBet.MatchName}</h5>
-                            </div>
-                        }
-                    </div>
-                </div>
+                {this.state.visible &&
+                <button className="ui right floated icon button" onClick={this.handleCloseTicket()}>
+                  <i className="caret square down outline large icon"></i>
+               </button>
+                }
+            <Sidebar as={Segment}  animation={animation} direction={'bottom'} visible={visible}> 
+                <button className="ui right floated icon button" onClick={this.handleCloseTicket()}>
+                  <i className="caret square down outline large icon"></i>
+               </button>
                 <div className="ui divided items">
                 <div className="item">
-                    <div className="ui left floated content">
-                        
-                            TICKET
-                        
+                    <div className="ui left floated content">                        
+                            TICKET                        
                     </div>
-                    <div className="ui right floated content" >
-                        
-                            <i className="trash icon"  onClick={this.removeAllOdds}></i>
-                        
+                    <div className="ui right floated content" >                        
+                            <i className="trash icon"  onClick={this.removeAllOdds}></i>                        
                     </div>
+                    
                 </div>
                 </div>
                 <div className="ui items customized">
@@ -558,12 +499,16 @@ class TicketGenerator extends Component {
                 <Checkbox className="checkbox-stampa" label='STAMPA TICKET'  />
                 <Button positive style={{width: '100%', marginBottom: '10px' }}>SCOMMETTi</Button>
                 <Button negative style={{width: '100%', marginBottom: '50px' }}>ANNULLA</Button>
+            </Sidebar>
+                          
+            <Button id="push-dugme" onClick={this.handleAnimationChange('push')}>Push</Button>
+            
             </div>
         )
     }
 }
 
 const mapStateToProps = ({ ticket, oddList, getQuickBet, userAgency }) => ({ ticket, oddList, getQuickBet, userAgency })
-export default connect(mapStateToProps, { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction, changeOddValueType, fetchUserAgency })(TicketGenerator);
+export default connect(mapStateToProps, { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction, changeOddValueType, fetchUserAgency })(TicketGeneratorMobile);
 
 
