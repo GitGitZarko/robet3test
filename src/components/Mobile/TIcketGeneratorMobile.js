@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction, changeOddValueType, fetchUserAgency} from '../../actions';
 import TicketChildItem from '../TicketChildItem';
 import { allOddsTable } from '../../json/allOddsTable';
-import { Button, Modal, Icon, Label , Dropdown, Checkbox, Segment, Sidebar } from 'semantic-ui-react';
+import { Button, Modal, Icon, Label , Dropdown, Checkbox, Table } from 'semantic-ui-react';
 
 
 class TicketGeneratorMobile extends Component {
@@ -306,16 +306,21 @@ class TicketGeneratorMobile extends Component {
              {ticketValues && ticketValues.OddsNumber}
              </Label></Button>}>
              <Modal.Header>
-             
-             
-             
-                            TICKET                        
-                            <i className="trash icon"  onClick={this.removeAllOdds}></i> 
+                 TICKET                        
+                <i className="trash icon"  onClick={this.removeAllOdds}></i> 
                 {ticketType === 2 &&
-                    <div>
-                        <button className="ui toggle button" onClick={() => this.multiplaButton()}>MULTIPLA</button>
-                        <button className="ui toggle button" onClick={() => this.sistemaButton()}>SISTEMA</button>
-                    </div>
+                    <Table  unstackable  celled>
+                        <Table.Body>
+                            <Table.Row>
+                                <Table.Cell onClick={() => this.multiplaButton()}>
+                                        MULTIPLA
+                                </Table.Cell>
+                                <Table.Cell onClick={() => this.sistemaButton()}>
+                                        SISTEMA
+                                </Table.Cell>
+                            </Table.Row>
+                        </Table.Body>                      
+                    </Table>
                 }                       
              
                     
@@ -502,6 +507,11 @@ class TicketGeneratorMobile extends Component {
                 <Button positive style={{width: '100%', marginBottom: '10px' }}>SCOMMETTi</Button>
                 <Button negative style={{width: '100%', marginBottom: '50px' }}>ANNULLA</Button>            
                 </Modal.Content>
+                <Modal.Actions>
+                        <Button>
+                            SCOMMETTI
+                        </Button>
+                </Modal.Actions>
          
             </Modal>
                           

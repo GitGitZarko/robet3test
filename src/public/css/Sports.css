@@ -29,9 +29,17 @@
     padding: 0 !important;
 }
 .ui.modal .scrolling.content {    
-    overflow: auto;
-    min-height: calc(100vh - 37px);
+    overflow: overlay;
+    max-height: calc(100vh - 10em);
 }
+
+.ui.modal > .actions, #modal-header-marcatori {    
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+
 
 /* .ui.top.visible.sidebar, .ui.bottom.visible.sidebar{
     box-shadow: none;
