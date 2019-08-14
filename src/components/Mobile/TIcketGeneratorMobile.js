@@ -309,7 +309,7 @@ class TicketGeneratorMobile extends Component {
                  TICKET                        
                 <i className="trash icon"  onClick={this.removeAllOdds}></i> 
                 {ticketType === 2 &&
-                    <Table  unstackable  celled>
+                    <Table  unstackable celled className="ticket-modal-table">
                         <Table.Body>
                             <Table.Row>
                                 <Table.Cell onClick={() => this.multiplaButton()}>
@@ -395,7 +395,7 @@ class TicketGeneratorMobile extends Component {
                     </div>
                 }
                 {
-                    (this.state.activeButton === false && (ticketType === 2 || ticketType === 4)) && <div className="ui middle aligned divided list">
+                    (this.state.activeButton === false && (ticketType === 2 || ticketType === 4)) && <div className="ui middle aligned divided list  multipla-modal-ticket">
                         <div className="item">
                             <div className="right floated content">
                                 <div className="ui input">
@@ -507,7 +507,7 @@ class TicketGeneratorMobile extends Component {
                 <Button positive style={{width: '100%', marginBottom: '10px' }}>SCOMMETTi</Button>
                 <Button negative style={{width: '100%', marginBottom: '50px' }}>ANNULLA</Button>            
                 </Modal.Content>
-                <Modal.Actions>
+                <Modal.Actions className="ticket-modal">
                         <Button>
                             SCOMMETTI
                         </Button>
