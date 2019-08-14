@@ -303,7 +303,7 @@ class TicketGeneratorMobile extends Component {
              <Modal closeIcon onClose={this.closeModal} open={this.state.showModal} className="fullscreen"  
              trigger={<Button onClick={() => this.setState({showModal: true})} id="push-dugme" > <Icon name='list ol' size={'big'} /> 
              <Label circular key={'red'}>
-               22
+             {ticketValues && ticketValues.OddsNumber}
              </Label></Button>}>
              <Modal.Header>
              
@@ -311,7 +311,7 @@ class TicketGeneratorMobile extends Component {
              
                             TICKET                        
                             <i className="trash icon"  onClick={this.removeAllOdds}></i> 
-                            {ticketType === 2 &&
+                {ticketType === 2 &&
                     <div>
                         <button className="ui toggle button" onClick={() => this.multiplaButton()}>MULTIPLA</button>
                         <button className="ui toggle button" onClick={() => this.sistemaButton()}>SISTEMA</button>
@@ -500,13 +500,9 @@ class TicketGeneratorMobile extends Component {
                 <Checkbox className="checkbox-accetta" label='ACCETTA CAMBIO DI QUOTA'  />
                 <Checkbox className="checkbox-stampa" label='STAMPA TICKET'  />
                 <Button positive style={{width: '100%', marginBottom: '10px' }}>SCOMMETTi</Button>
-                <Button negative style={{width: '100%', marginBottom: '50px' }}>ANNULLA</Button>
-                                </Modal.Content>
-          
-                <Modal.Actions>         
-                    <Button positive >SCOMMETTi</Button>
-                    <Button negative>ANNULLA</Button>         
-                </Modal.Actions>
+                <Button negative style={{width: '100%', marginBottom: '50px' }}>ANNULLA</Button>            
+                </Modal.Content>
+         
             </Modal>
                           
             

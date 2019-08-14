@@ -1,7 +1,7 @@
 #push-dugme{
     position: fixed;
     bottom: 0;
-    left: 35%;    
+    left: 34%;    
     padding: 10px 30px;
     background: #0E1E2B;
     border: 2px solid #1FE8AF;
@@ -16,19 +16,21 @@
     background-color: #DFDFE7;
 }
 
+.ui.fullscreen.modal > .header {    
+    min-height: 85px;
+}
 
 .ui.fullscreen.modal {
     width: 100% !important;
     margin: 0px;
-    
+    height: 100% !important;
     top: 0;
     bottom: 0;
     padding: 0 !important;
 }
-.ui.modal .scrolling.content {
-    /* max-height: calc(80vh - 10em); */
+.ui.modal .scrolling.content {    
     overflow: auto;
-    max-height: 77vh;
+    min-height: calc(100vh - 37px);
 }
 
 /* .ui.top.visible.sidebar, .ui.bottom.visible.sidebar{
