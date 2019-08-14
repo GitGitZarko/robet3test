@@ -307,16 +307,17 @@ class TicketGeneratorMobile extends Component {
              </Label></Button>}>
              <Modal.Header>
                  TICKET                        
-                <i className="trash icon"  onClick={this.removeAllOdds}></i> 
+                <i className="trash small icon"  onClick={this.removeAllOdds}></i> 
                 {ticketType === 2 &&
                     <Table  unstackable celled className="ticket-modal-table">
                         <Table.Body>
                             <Table.Row>
+                               
                                 <Table.Cell onClick={() => this.multiplaButton()}>
-                                        MULTIPLA
+                                <Button className="modal-ticket-header-button">MULTIPLA</Button>
                                 </Table.Cell>
                                 <Table.Cell onClick={() => this.sistemaButton()}>
-                                        SISTEMA
+                                <Button className="modal-ticket-header-button">SISTEMA</Button>
                                 </Table.Cell>
                             </Table.Row>
                         </Table.Body>                      

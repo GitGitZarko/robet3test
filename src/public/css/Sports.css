@@ -1,15 +1,29 @@
+.ui.button.modal-ticket-header-button{
+    width: 100%;
+    height: 100%;
+    border: none;
+    border-radius: 0;
+    background-color: #0E1E2B;
+    color: #DFDFE7;
+}
+.ui.button.modal-ticket-header-button:focus{
+    background: #1FE8AF ;
+    color: #0E1E2B;
+}
+
+
 .ui.middle.aligned.divided.list.multipla-modal-ticket{
     margin-top: 20px !important;
 }
 .ui.celled.unstackable.table.ticket-modal-table{
     text-align: center;
-    border: none;
-    border-top: 1px solid #0E1E2B;    
-    border-radius: 0;    
+    border: none;     
+    border-radius: 0;        
 }
-.ticket-modal-table td:active{
-    background: #1FE8AF;
+.ui.celled.unstackable.table.ticket-modal-table td{
+    padding: 0px;
 }
+
 
 #push-dugme{
     position: fixed;
@@ -32,6 +46,9 @@
 .ui.fullscreen.modal > .header {    
     min-height: 85px;
     padding: 0px !important;
+    background: #0E1E2B;
+    color: #DFDFE7;
+    font-size: 25px;
 }
 
 .ui.fullscreen.modal {
@@ -448,6 +465,8 @@
 }
 .trash.icon{
     cursor: pointer;
+    padding-left: 15px;
+    font-size: 25px !important
 }
 .trash.icon:hover{
     color: red;
