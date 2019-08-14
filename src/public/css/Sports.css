@@ -3,6 +3,21 @@
     bottom: 0;
     left: 0;
 }
+
+.ui.fullscreen.modal {
+    width: 100% !important;
+    margin: 0px;
+    
+    top: 0;
+    bottom: 0;
+    padding: 0 !important;
+}
+.ui.modal .scrolling.content {
+    /* max-height: calc(80vh - 10em); */
+    overflow: auto;
+    max-height: 77vh;
+}
+
 /* .ui.top.visible.sidebar, .ui.bottom.visible.sidebar{
     box-shadow: none;
 }

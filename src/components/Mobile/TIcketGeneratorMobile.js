@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction, changeOddValueType, fetchUserAgency} from '../../actions';
 import TicketChildItem from '../TicketChildItem';
 import { allOddsTable } from '../../json/allOddsTable';
-import { Button, Icon, Modal, Dropdown, Checkbox, Segment, Sidebar } from 'semantic-ui-react';
+import { Button, Modal, Container , Dropdown, Checkbox, Segment, Sidebar } from 'semantic-ui-react';
 
 
 class TicketGeneratorMobile extends Component {
@@ -22,10 +22,7 @@ class TicketGeneratorMobile extends Component {
             colsCalculateValue: 0,
             focus: false,
             multiplaValue: 0,
-            animation: 'overlay',
-            direction: 'left',
-            dimmed: false,
-            visible: false,
+            showModal: false
         }
         this.textInput = React.createRef();
         this.dropdownBrat = React.createRef();
@@ -39,6 +36,9 @@ class TicketGeneratorMobile extends Component {
         this.localstorageExparation()       
     }
 
+    closeModal = () => {
+        this.setState({ showModal: false })
+      }
     handleDimmer = () => this.setState({ dimmerActive: !this.dimmerActive })
     
     localstorageExparation = () =>{
@@ -299,36 +299,33 @@ class TicketGeneratorMobile extends Component {
 
         return (
             <div>
-                {this.state.visible &&
-                <button className="ui right floated icon button" onClick={this.handleCloseTicket()}>
-                  <i className="caret square down outline large icon"></i>
-               </button>
-                }
-            <Sidebar as={Segment}  animation={animation} direction={'bottom'} visible={visible}> 
-                <button className="ui right floated icon button" onClick={this.handleCloseTicket()}>
-                  <i className="caret square down outline large icon"></i>
-               </button>
-                <div className="ui divided items">
-                <div className="item">
-                    <div className="ui left floated content">                        
+             
+             <Modal closeIcon onClose={this.closeModal} open={this.state.showModal} className="fullscreen"  trigger={<Button onClick={() => this.setState({showModal: true})} id="push-dugme" >Show Modal</Button>}>
+             <Modal.Header>
+             
+             
+             
                             TICKET                        
-                    </div>
-                    <div className="ui right floated content" >                        
-                            <i className="trash icon"  onClick={this.removeAllOdds}></i>                        
-                    </div>
-                    
-                </div>
-                </div>
-                <div className="ui items customized">
-                    {ticketValues && this.renderTicketChildren(ticketValues, ticketType)}             
-                </div>
-
-                {ticketType === 2 &&
+                            <i className="trash icon"  onClick={this.removeAllOdds}></i> 
+                            {ticketType === 2 &&
                     <div>
                         <button className="ui toggle button" onClick={() => this.multiplaButton()}>MULTIPLA</button>
                         <button className="ui toggle button" onClick={() => this.sistemaButton()}>SISTEMA</button>
                     </div>
-                }
+                }                       
+             
+                    
+             
+            </Modal.Header>
+        
+            <Modal.Content scrolling>
+    
+              
+                <div className="ui items customized">
+                    {ticketValues && this.renderTicketChildren(ticketValues, ticketType)}             
+                </div>
+
+            
                 {
                     (ticketType === 4 || ticketType === 2) && this.state.activeButton === true ? ticketValues.Bets.map((data, f) => {
 
@@ -494,14 +491,21 @@ class TicketGeneratorMobile extends Component {
                                     options={this.getUserAgencyInfo()}
                                     // onChange={(e) => this.selectQuickBetOdd(e, this.props.getQuickBet.MatchId, this.getQuickBetsList())}
                                 />
-                <Checkbox className="checkbox-importo" label='TRASFERIMENTO IMPORTO'  />
+              
+              <Checkbox className="checkbox-importo" label='TRASFERIMENTO IMPORTO'  />
                 <Checkbox className="checkbox-accetta" label='ACCETTA CAMBIO DI QUOTA'  />
                 <Checkbox className="checkbox-stampa" label='STAMPA TICKET'  />
                 <Button positive style={{width: '100%', marginBottom: '10px' }}>SCOMMETTi</Button>
                 <Button negative style={{width: '100%', marginBottom: '50px' }}>ANNULLA</Button>
-            </Sidebar>
+                                </Modal.Content>
+          
+                <Modal.Actions>         
+                    <Button positive >SCOMMETTi</Button>
+                    <Button negative>ANNULLA</Button>         
+                </Modal.Actions>
+            </Modal>
                           
-            <Button id="push-dugme" onClick={this.handleAnimationChange('push')}>Push</Button>
+            
             
             </div>
         )
