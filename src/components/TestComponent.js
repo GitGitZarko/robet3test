@@ -114,7 +114,7 @@ class TestComponent extends Component {
             <Table.HeaderCell >Match</Table.HeaderCell>
             {TounementTitleList.map((name, f) => <Table.HeaderCell key={f} textAlign="center" >{name.nome}</Table.HeaderCell>)}
             </MediaQuery>
-            <MediaQuery maxWidth={768}> 
+            <MediaQuery maxWidth={1024}> 
             <Table.HeaderCell style={{fontSize: '10px'}}>Match</Table.HeaderCell>
             {TounementTitleList.slice(0, 3).map((name, f) => <Table.HeaderCell style={{fontSize: '10px'}}key={f} textAlign="center" >{name.nome}</Table.HeaderCell>)}
             </MediaQuery>
@@ -172,7 +172,7 @@ class TestComponent extends Component {
      
          return (   
             <Table.Row >
-                    <MediaQuery maxWidth={768}> 
+                    <MediaQuery maxWidth={1024}> 
                     <Table.Cell  style={{fontSize: '10px'}} width="four" className="table-cell">
                     <Header.Content >
                      {!IsAntepost ? val.QuickMatchCode + " " + val.MatchDate : null}
@@ -214,7 +214,7 @@ class TestComponent extends Component {
 
                }
             </MediaQuery>  
-            <MediaQuery minDeviceWidth={768}>  
+            <MediaQuery minDeviceWidth={1224}>  
                <Table.Cell width="four" className="table-cell">
                   <Header.Content>
                      {!IsAntepost ? val.QuickMatchCode + " " + val.MatchDate : null}
@@ -294,7 +294,7 @@ class TestComponent extends Component {
       return (
          <div className="middle-box-container">
             <div className="ui main clearing segment">
-            <MediaQuery maxWidth={768}>
+            <MediaQuery maxWidth={1024}>
                <button className="ui icon button mobile" onClick={this.removeChampFromList}>
                   <i className="close icon"></i>
                </button>
@@ -316,7 +316,7 @@ class TestComponent extends Component {
                   : null
                }            
                </MediaQuery>
-               <MediaQuery minDeviceWidth={768}>  
+               <MediaQuery minDeviceWidth={1224}>  
                <button className="ui right floated icon button" onClick={this.removeChampFromList}>
                   <i className="close icon"></i>
                </button>

@@ -195,7 +195,11 @@ button.ui.button.single-active-odds-label {
     display: inline-block !important ;
 }
 
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 1024px) {
+    .ui.three.grid.sport-component{
+        margin-right: 0px !important;
+        
+    }
   .ui.main.menu {
     display: none !important;
   }

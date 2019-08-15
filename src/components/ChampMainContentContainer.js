@@ -109,7 +109,7 @@ class ChampMainContentContainer extends Component {
                     <MediaQuery minDeviceWidth={1224}>  
                     <SingleMatch  singleMatch={this.props.singleMatch}/>
                     </MediaQuery>
-                    <MediaQuery maxWidth={968}>  
+                    <MediaQuery maxWidth={1224}>  
                     <SingleMatchMobile  singleMatch={this.props.singleMatch}/>
                     </MediaQuery>
                     {/* <div style={{textAlign: 'center'}}>

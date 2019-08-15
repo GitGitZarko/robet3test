@@ -14,7 +14,7 @@ const Sport = () => {
                             <ChampsList />
                         </ul>
                     </div>
-                    <div className="ten wide column">
+                    <div className="sixteen wide column">
                         <ChampMainContentContainer />
                     </div>
                     <div className="three wide column sport-component" >

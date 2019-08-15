@@ -261,7 +261,7 @@ class ChampsList extends Component {
 
         return (
             <div>
-                <MediaQuery maxWidth={414}> 
+                <MediaQuery maxWidth={1024}> 
                 <div className="ui labeled icon menu scroll inverted" style={{listStyle: 'none'}}>                      
                         {this.renderEvidenceListMobile()}
                    
