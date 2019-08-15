@@ -299,7 +299,8 @@ class TicketGeneratorMobile extends Component {
 
         return (
             <div>
-             <TransitionablePortal transition={{ animation: 'slide up', duration: 500 }} open={this.state.showModal}
+             <TransitionablePortal transition={{ animation: 'slide up', duration: 300 }} 
+             open={this.state.showModal}
              trigger={<Button onClick={() => this.setState({showModal: true})} id="push-dugme" > <Icon name='list ol' size={'big'} /> 
              <Label circular key={'red'}>
              {ticketValues && ticketValues.OddsNumber}
