@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction, changeOddValueType, fetchUserAgency} from '../../actions';
 import TicketChildItem from '../TicketChildItem';
 import { allOddsTable } from '../../json/allOddsTable';
-import { Button, Modal, Icon, Label , Dropdown, Checkbox, Table } from 'semantic-ui-react';
+import { Button, Modal, Icon, Label , Dropdown, Checkbox, Table, TransitionablePortal } from 'semantic-ui-react';
 
 
 class TicketGeneratorMobile extends Component {
@@ -299,12 +299,13 @@ class TicketGeneratorMobile extends Component {
 
         return (
             <div>
-             
-             <Modal closeIcon onClose={this.closeModal} open={this.state.showModal} className="fullscreen"  
+             <TransitionablePortal transition={{ animation: 'slide up', duration: 500 }} open={this.state.showModal}
              trigger={<Button onClick={() => this.setState({showModal: true})} id="push-dugme" > <Icon name='list ol' size={'big'} /> 
              <Label circular key={'red'}>
              {ticketValues && ticketValues.OddsNumber}
              </Label></Button>}>
+             <Modal closeIcon onClose={this.closeModal} open={this.state.showModal} className="fullscreen"  
+             >
              <Modal.Header>
                  TICKET                        
                 <i className="trash small icon"  onClick={this.removeAllOdds}></i> 
@@ -516,7 +517,7 @@ class TicketGeneratorMobile extends Component {
          
             </Modal>
                           
-            
+            </TransitionablePortal>
             
             </div>
         )
