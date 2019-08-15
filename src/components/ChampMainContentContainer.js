@@ -4,6 +4,7 @@ import MediaQuery from 'react-responsive';
 import { fetchChampList, addChampToList, removeChampFromList, sportViewChamps} from '../actions';
 import TestComponent from './TestComponent';
 import SingleMatch from './SingleMatch';
+import SingleMatchMobile from './Mobile/SingleMatchMobile';
 import { Table, Checkbox, Button } from 'semantic-ui-react'
 
 class ChampMainContentContainer extends Component {
@@ -105,7 +106,12 @@ class ChampMainContentContainer extends Component {
                   this.props.sportView == 0 ? this.novaFunkcija() : this.renderujSportChamps()
                 :  (   
                   <div> 
+                    <MediaQuery minDeviceWidth={1224}>  
                     <SingleMatch  singleMatch={this.props.singleMatch}/>
+                    </MediaQuery>
+                    <MediaQuery maxWidth={968}>  
+                    <SingleMatchMobile  singleMatch={this.props.singleMatch}/>
+                    </MediaQuery>
                     {/* <div style={{textAlign: 'center'}}>
                     <h1>{this.props.singleMatch.name}</h1>
                     <h4>{this.props.singleMatch.date}</h4>
