@@ -141,7 +141,7 @@ button.ui.button.single-active-odds-label {
 .ui.modal .scrolling.content {    
     overflow-y: scroll;
     overflow-x: hidden;
-    max-height: calc(100vh - 10em);
+    max-height: calc(100vh - 16em);
     padding: 0px !important;
     background: #293744;
 }
