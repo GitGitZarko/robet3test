@@ -1,3 +1,49 @@
+.total-amount{
+    color: gold;
+}
+table.ui.celled.unstackable.table.mobile-ticket-table {
+    border: 3px solid #777a41;
+    border-radius: unset;
+}
+.scommetti-ticket-cell{
+    padding: 0px !important;
+    text-align: center !important;
+    background: #347e58 !important;
+}
+.scommetti-ticket-cell p{
+    font-size: 13px;
+    padding: 0px !important;
+    margin: 0px !important;
+}
+.float-right-ticket-cell{
+    text-align: right !important;
+}
+.mobile-ticket-table td{
+    background: #0E1E2B;
+    border-bottom: 1px solid #DFDFE7;
+    font-size: 13px;        
+    font-weight: 400;
+}
+.mobile-ticket-table tr:last-child{    
+    border-bottom: none;    
+}
+.mobile-ticket-table tr{    
+    height: 40px;
+}
+.table-input-cell{
+    padding: 0px !important;
+    background: white !important;
+}
+.table-input-cell .ui.input{
+    width: 100% !important;  
+   
+}
+.table-input-cell .ui.input > input{
+    border: none;
+    border-radius: 0;
+    height: 100%; 
+    text-align: right;
+}
 .single-match-row-mobile{
     width: 33%;
     float: left;
@@ -79,6 +125,8 @@ button.ui.button.single-active-odds-label {
     background: #0E1E2B;
     color: #DFDFE7;
     font-size: 25px;
+    border: 3px solid #777a41;
+    border-radius: unset;
 }
 
 .ui.fullscreen.modal {
@@ -88,6 +136,7 @@ button.ui.button.single-active-odds-label {
     top: 0;
     bottom: 0;
     padding: 0 !important;
+    background: #0E1E2B;
 }
 .ui.modal .scrolling.content {    
     overflow-y: scroll;
@@ -122,6 +171,8 @@ button.ui.button.single-active-odds-label {
 .ui.modal > .actions, #modal-header-marcatori{
     background-color: #0E1E2B;
     color: #DFDFE7;
+    text-align: center;
+    padding: 0px !important;
     
 }
 

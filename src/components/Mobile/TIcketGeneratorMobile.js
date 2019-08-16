@@ -273,6 +273,9 @@ class TicketGeneratorMobile extends Component {
     handleCloseTicket= close => () =>{
         this.setState({ visible: false })
     }
+    numberWithCommas(x) {
+        return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
 
     render() {
         let ticketValues;
@@ -338,7 +341,7 @@ class TicketGeneratorMobile extends Component {
                 </div>
 
             
-                {
+                {/* {
                     (ticketType === 4 || ticketType === 2) && this.state.activeButton === true ? ticketValues.Bets.map((data, f) => {
 
                         data.ColAmount = 0
@@ -397,27 +400,7 @@ class TicketGeneratorMobile extends Component {
                         </div>
                     </div>
                 }
-                {
-                    (this.state.activeButton === false && (ticketType === 2 || ticketType === 4)) && <div className="ui middle aligned divided list  multipla-modal-ticket">
-                        <div className="item">
-                            <div className="right floated content">
-                                <div className="ui input">
-                                    <DelayInput
-                                        minLength={0}
-                                        delayTimeout={500}
-                                        type="text"
-                                        placeholder="0"
-                                        onChange={(e) => this.sistemInputChangeMultipla(e)}
-                                        value={this.state.multiplaValue}
-                                    />
-                                </div>
-                            </div>
-                            <div className="content">
-                                MULTIPLA
-                            </div>
-                        </div>
-                    </div>
-                }
+                
 
                 <div className="ui middle aligned divided list" >
                     <div className="item">
@@ -504,16 +487,50 @@ class TicketGeneratorMobile extends Component {
                                     // onChange={(e) => this.selectQuickBetOdd(e, this.props.getQuickBet.MatchId, this.getQuickBetsList())}
                                 />
               
-              <Checkbox className="checkbox-importo" label='TRASFERIMENTO IMPORTO'  />
-                <Checkbox className="checkbox-accetta" label='ACCETTA CAMBIO DI QUOTA'  />
-                <Checkbox className="checkbox-stampa" label='STAMPA TICKET'  />
-                <Button positive style={{width: '100%', marginBottom: '10px' }}>SCOMMETTi</Button>
-                <Button negative style={{width: '100%', marginBottom: '50px' }}>ANNULLA</Button>            
+                                   */}
                 </Modal.Content>
                 <Modal.Actions className="ticket-modal">
-                        <Button>
-                            SCOMMETTI
-                        </Button>
+                {/* <Checkbox className="checkbox-importo" label='TRASFERIMENTO IMPORTO'  />
+                <Checkbox className="checkbox-accetta" label='ACCETTA CAMBIO DI QUOTA'  />
+                <Checkbox className="checkbox-stampa" label='STAMPA TICKET'  />   */}
+                        <Table celled unstackable className="mobile-ticket-table">
+                            <Table.Row>
+                                <Table.Cell  width={6}>
+                                Eventi: {ticketValues && ticketValues.OddsNumber}
+                                </Table.Cell>
+                                <Table.Cell width={10} className="float-right-ticket-cell">
+                                Moltiplicaore: {ticketValues && ticketValues.MaxPerc}
+                                </Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>
+                                    Multipla 
+                                </Table.Cell>
+                                <Table.Cell className="table-input-cell">{
+                                (this.state.activeButton === false && (ticketType === 2 || ticketType === 4)) &&
+                                   < div className="ui input">
+                                    <DelayInput
+                                        minLength={0}
+                                        delayTimeout={500}
+                                        type="text"
+                                        placeholder="0"
+                                        onChange={(e) => this.sistemInputChangeMultipla(e)}
+                                        value={this.state.multiplaValue}
+                                    />
+                                </div>
+                                }
+                                </Table.Cell>
+                            </Table.Row>
+                            <Table.Row>
+                                <Table.Cell>
+                                Vincita Max
+                                </Table.Cell>
+                                <Table.Cell selectable className="scommetti-ticket-cell">                                
+                                         <p>SCOMMETTI</p>
+                                         <p className="total-amount">{ticketValues && this.numberWithCommas(ticketValues.MaxWin)}</p>                        
+                                </Table.Cell>
+                            </Table.Row>
+                        </Table>                                                                        
                 </Modal.Actions>
          
             </Modal>

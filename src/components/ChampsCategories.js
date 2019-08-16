@@ -29,7 +29,7 @@ class ChampsCategories extends Component {
         return (
             //  <div onClick={this.pokaziMiAlert}>    
             <div>
-            <MediaQuery maxWidth={414}> 
+            <MediaQuery maxWidth={1024}> 
                         <div className={this.props.displayChildren} data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)}  ></div>
             </MediaQuery>
                 <div className={this.props.displayChildren} data-id={categorie.CategoryId} onClick={(e) => this.uradiNesto(e)}  >
