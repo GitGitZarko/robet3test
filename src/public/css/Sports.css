@@ -1,3 +1,25 @@
+.ui.grid.inner {
+    max-height: 300px;
+    overflow-y: scroll;
+    
+}
+#input-sistema-ticket-row{
+    padding: 0px;
+    border: 1px solid #DFDFE7;   
+}
+#input-sistema-ticket{
+    font-size: 13px !important;
+    font-weight: 400 !important;
+}
+div#input-sistema-ticket {
+    margin: 0px;
+    border: 3px solid teal;
+}
+#input-sistema-ticket > .column:not(.row) {
+    padding: 5px;
+    border: 1px solid #DFDFE7;
+}
+
 .ui.selection.dropdown, .ui.dropdown .menu > .item{
     color: #0E1E2B;
 }

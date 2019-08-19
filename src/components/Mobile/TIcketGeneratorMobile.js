@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { fetchStartJson, removeAllOdds, oddsTicketList, quickBetAction, changeOddValueType, fetchUserAgency} from '../../actions';
 import TicketChildItem from '../TicketChildItem';
 import { allOddsTable } from '../../json/allOddsTable';
-import { Button, Modal, Icon, Label , Dropdown, Checkbox, Table, TransitionablePortal } from 'semantic-ui-react';
+import { Button, Modal, Icon, Label , Dropdown, Checkbox, Table, TransitionablePortal, Tab } from 'semantic-ui-react';
 
 
 class TicketGeneratorMobile extends Component {
@@ -276,7 +276,9 @@ class TicketGeneratorMobile extends Component {
     numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
-
+    isNumberOdd(num){
+        return num % 2;
+    }
     render() {
         let ticketValues;
         let ticketCols;
@@ -493,16 +495,17 @@ class TicketGeneratorMobile extends Component {
                 {/* <Checkbox className="checkbox-importo" label='TRASFERIMENTO IMPORTO'  />
                 <Checkbox className="checkbox-accetta" label='ACCETTA CAMBIO DI QUOTA'  />
                 <Checkbox className="checkbox-stampa" label='STAMPA TICKET'  />   */}
-                        <Table celled unstackable className="mobile-ticket-table">
+                        { (this.state.activeButton === false && (ticketType === 2 || ticketType === 4)) &&
+                       <Table celled unstackable className="mobile-ticket-table">
                             <Table.Row>
                                 <Table.Cell  width={6}>
                                 Eventi: {ticketValues && ticketValues.OddsNumber}
                                 </Table.Cell>
                                 <Table.Cell width={10} className="float-right-ticket-cell">
-                                Moltiplicaore: {ticketValues && ticketValues.MaxPerc}
+                                Moltiplicatore: {ticketValues && ticketValues.MaxPerc}
                                 </Table.Cell>
                             </Table.Row>
-                            { (this.state.activeButton === false && (ticketType === 2 || ticketType === 4)) &&
+                          
                             <Table.Row>
                                 <Table.Cell>
                                     Multipla 
@@ -522,49 +525,7 @@ class TicketGeneratorMobile extends Component {
                                 </Table.Cell>
                           
                             </Table.Row>                            
-                            }
-                             {
-                    (ticketType === 4 || ticketType === 2) && this.state.activeButton === true ? ticketValues.Bets.map((data, f) => {
-
-                        data.ColAmount = 0
-                        return (
-                            <Table.Row>   
-                            <div className="ui middle aligned divided list">
-                                <div className="item">
-                                    <div className="right floated content">
-                                        <div className="ui input">
-                                            <DelayInput
-                                                key={f}
-                                                minLength={0}
-                                                delayTimeout={500}
-                                                type="text"
-                                                placeholder="0"
-                                                onChange={(e) => this.sistemInputChange(e, data.GroupDescription, ticketValues.TotalAmount, data.Cols, sumCols)}
-                                                value={data.IsActive ? this.state.localTotalAmount / sumCols : data.ColAmount}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="ui left floated content">
-                                        <div className="ui checkbox">
-                                            <input type="checkbox"
-                                                checked={data.IsActive}
-                                                name={data.GroupDescription}
-                                                onChange={(e) => this.checkBoxInput(e, data.GroupDescription, data.IsActive, data.Cols)}
-                                            />
-                                            <label> {data.GroupDescription}</label>
-                                        </div>
-
-                                    </div>
-                                    {data.Cols}
-                                </div>
-                            </div>
-                            </Table.Row>   
-                        )
-                    })
-
-                        : null
-                }
+                            
                             <Table.Row>
                                 <Table.Cell>
                                 Vincita Max
@@ -574,7 +535,79 @@ class TicketGeneratorMobile extends Component {
                                          <p className="total-amount">{ticketValues && this.numberWithCommas(ticketValues.MaxWin)}</p>                        
                                 </Table.Cell>
                             </Table.Row>
-                        </Table>                                                                        
+                        </Table>  }
+                             {
+                                 (ticketType === 4 || ticketType === 2) && this.state.activeButton === true && 
+                                 <div className="ui grid" id="input-sistema-ticket">
+                                     <div className="eight wide mobile left aligned column">
+                                     Eventi: {ticketValues && ticketValues.OddsNumber}                      
+                                     </div>
+                                     <div className="eight wide mobile right aligned column">
+                                     Moltiplicatore: {ticketValues && ticketValues.MaxPerc}
+                                     </div>
+                                     <div className="ui grid inner" id="input-sistema-ticket">
+                                {ticketValues.Bets.map((data, f) => { 
+                                    
+                                    return(
+                                        
+                                        <div className="eight wide mobile column" >       
+                                            <div className="ui grid"  >
+                                                <div className="stretched row">
+                                                <div className="ten wide column">
+                                            <DelayInput
+                                                key={f}
+                                                minLength={0}
+                                                delayTimeout={500}
+                                                type="text"
+                                                placeholder={data.GroupDescription}
+                                                onChange={(e) => this.sistemInputChange(e, data.GroupDescription, ticketValues.TotalAmount, data.Cols, sumCols)}
+                                                value={data.IsActive ? this.state.localTotalAmount / sumCols : "" /*data.ColAmount*/}
+                                            />                                
+                                            </div>
+                                                 
+                                            <div className="four wide column">
+                                                
+                                            
+                                        <div className="ui checkbox">
+                                            <input type="checkbox"
+                                                checked={data.IsActive}
+                                                name={data.GroupDescription}
+                                                onChange={(e) => this.checkBoxInput(e, data.GroupDescription, data.IsActive, data.Cols)}
+                                            />
+                                            <label> {data.Cols}</label>
+                                           
+                                        </div>
+                                        </div>
+                                        </div>
+                                        </div>
+
+                                    
+                                                         
+                                </div>
+                           
+                                
+                                
+                                    )
+                               
+                                })   
+                            }
+                            </div>
+                            
+                              <div class="two column row" id="input-sistema-ticket-row">
+                             <div className="eight wide mobile middle aligned column">
+                             Vincita Max             
+                                     </div>
+                                     <div className="eight wide mobile column scommetti-ticket-cell" >
+                                     <p>SCOMMETTI</p>
+                                         <p className="total-amount">{ticketValues && this.numberWithCommas(ticketValues.MaxWin)}</p>  
+                                     </div>
+                                     </div>
+                                     
+                                     </div>     
+                            }
+                                         
+                
+                                                                                       
                 </Modal.Actions>
          
             </Modal>
