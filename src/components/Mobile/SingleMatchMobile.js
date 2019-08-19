@@ -11,8 +11,12 @@ class SingleMatchMobile extends Component {
         this.state = {
             reRendered: Boolean
         }
+        this.myRef = React.createRef() 
     }
-
+    componentDidMount() {
+        window.scrollTo(0, 0);
+    }
+    
     addOddToTicket = (e, oddCode, matchCode) => {
         e.preventDefault();
 
@@ -41,7 +45,7 @@ class SingleMatchMobile extends Component {
             oddIdList = localTicket.Odds.map((a) => a.OddId)
         }
         return (
-            <div>
+            <div >
                 <div className="ui main clearing segment mobile">
                     <button className="ui right floated icon button" onClick={() => this.props.removeSingleMatch()}>
                         <i className="close icon"></i>

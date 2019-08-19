@@ -318,11 +318,11 @@ class TicketGeneratorMobile extends Component {
                         <Table.Body>
                             <Table.Row>
                                
-                                <Table.Cell onClick={() => this.multiplaButton()}>
-                                <Button className="modal-ticket-header-button">MULTIPLA</Button>
+                                <Table.Cell>
+                                <Button className="modal-ticket-header-button"  onClick={() => this.multiplaButton()} >MULTIPLA</Button>
                                 </Table.Cell>
-                                <Table.Cell onClick={() => this.sistemaButton()}>
-                                <Button className="modal-ticket-header-button">SISTEMA</Button>
+                                <Table.Cell >
+                                <Button className="modal-ticket-header-button" onClick={() => this.sistemaButton()}>SISTEMA</Button>
                                 </Table.Cell>
                             </Table.Row>
                         </Table.Body>                      
@@ -502,12 +502,13 @@ class TicketGeneratorMobile extends Component {
                                 Moltiplicaore: {ticketValues && ticketValues.MaxPerc}
                                 </Table.Cell>
                             </Table.Row>
+                            { (this.state.activeButton === false && (ticketType === 2 || ticketType === 4)) &&
                             <Table.Row>
                                 <Table.Cell>
                                     Multipla 
                                 </Table.Cell>
-                                <Table.Cell className="table-input-cell">{
-                                (this.state.activeButton === false && (ticketType === 2 || ticketType === 4)) &&
+                                
+                                <Table.Cell className="table-input-cell">
                                    < div className="ui input">
                                     <DelayInput
                                         minLength={0}
@@ -517,10 +518,53 @@ class TicketGeneratorMobile extends Component {
                                         onChange={(e) => this.sistemInputChangeMultipla(e)}
                                         value={this.state.multiplaValue}
                                     />
-                                </div>
-                                }
+                                </div>                                
                                 </Table.Cell>
-                            </Table.Row>
+                          
+                            </Table.Row>                            
+                            }
+                             {
+                    (ticketType === 4 || ticketType === 2) && this.state.activeButton === true ? ticketValues.Bets.map((data, f) => {
+
+                        data.ColAmount = 0
+                        return (
+                            <Table.Row>   
+                            <div className="ui middle aligned divided list">
+                                <div className="item">
+                                    <div className="right floated content">
+                                        <div className="ui input">
+                                            <DelayInput
+                                                key={f}
+                                                minLength={0}
+                                                delayTimeout={500}
+                                                type="text"
+                                                placeholder="0"
+                                                onChange={(e) => this.sistemInputChange(e, data.GroupDescription, ticketValues.TotalAmount, data.Cols, sumCols)}
+                                                value={data.IsActive ? this.state.localTotalAmount / sumCols : data.ColAmount}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div className="ui left floated content">
+                                        <div className="ui checkbox">
+                                            <input type="checkbox"
+                                                checked={data.IsActive}
+                                                name={data.GroupDescription}
+                                                onChange={(e) => this.checkBoxInput(e, data.GroupDescription, data.IsActive, data.Cols)}
+                                            />
+                                            <label> {data.GroupDescription}</label>
+                                        </div>
+
+                                    </div>
+                                    {data.Cols}
+                                </div>
+                            </div>
+                            </Table.Row>   
+                        )
+                    })
+
+                        : null
+                }
                             <Table.Row>
                                 <Table.Cell>
                                 Vincita Max

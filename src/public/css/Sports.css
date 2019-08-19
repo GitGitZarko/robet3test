@@ -1,8 +1,11 @@
+.ui.selection.dropdown, .ui.dropdown .menu > .item{
+    color: #0E1E2B;
+}
 .total-amount{
     color: gold;
 }
 table.ui.celled.unstackable.table.mobile-ticket-table {
-    border: 3px solid #777a41;
+    border: 3px solid teal;
     border-radius: unset;
 }
 .scommetti-ticket-cell{
@@ -17,6 +20,7 @@ table.ui.celled.unstackable.table.mobile-ticket-table {
 }
 .float-right-ticket-cell{
     text-align: right !important;
+    padding-right: 5px !important;
 }
 .mobile-ticket-table td{
     background: #0E1E2B;
@@ -26,6 +30,10 @@ table.ui.celled.unstackable.table.mobile-ticket-table {
 }
 .mobile-ticket-table tr:last-child{    
     border-bottom: none;    
+}
+.mobile-ticket-table tr td:first-child{    
+    border-right: 1px solid white; 
+    padding-left: 5px !important;
 }
 .mobile-ticket-table tr{    
     height: 40px;
@@ -125,7 +133,7 @@ button.ui.button.single-active-odds-label {
     background: #0E1E2B;
     color: #DFDFE7;
     font-size: 25px;
-    border: 3px solid #777a41;
+    border: 3px solid teal;
     border-radius: unset;
 }
 
@@ -168,12 +176,13 @@ button.ui.button.single-active-odds-label {
     box-shadow: none;
     
 } */
+.ui.modal > .actions.ticket-modal{
+    padding: 0px !important;
+}
 .ui.modal > .actions, #modal-header-marcatori{
     background-color: #0E1E2B;
     color: #DFDFE7;
-    text-align: center;
-    padding: 0px !important;
-    
+    text-align: center;    
 }
 
 #modal-header-marcatori, .ui.orange.button.main-button-list{    
