@@ -77,7 +77,7 @@ class ChampsList extends Component {
                 <li>
                     <div className="item">
                         <div className="content">
-                            <div className="headerLeftMenu" onClick={(e) => this.uradiNestoPlayer(e, sport.SportId, sport)} ><img className="ui middle aligned mini image" style={{margin: '0px 10px 5px 0px'}} src={`/images/sporticons/${sport.SportId}.png`}/>  {sport.SportName}</div>
+                            <div className="headerLeftMenu" onClick={(e) => this.uradiNestoPlayer(e, sport.SportId, sport)} ><img className="ui middle aligned mini image" style={{margin: '0px 10px 5px 0px'}} src={`/images/sporticons/${sport.SportId}.png`}/>Marcatori</div>
                             {sport.Categories.map((cat, k) => <div> {sport.SportId === this.state.targetPlayer ?
                                 <ChampsCategories
                                     categorie={cat}
@@ -147,12 +147,15 @@ class ChampsList extends Component {
     }
     renderSportList() {
         const { champs } = this.props
-        return champs.map((sport, i) => {
+        
+        return [this.renderPlayersList(), champs.map((sport, i) => {
             return (
                 <li>                        
                     <div className="item">
-                        <div className="content">
-                            <div className="headerLeftMenu" onClick={(e) => this.uradiNesto(e, sport.SportId, sport)} ><img className="ui middle aligned mini image" style={{margin: '0px 10px 5px 0px'}} src={`/images/sporticons/${sport.SportId}.png`}/>  {sport.SportName}</div>
+                        <div className="content">                            
+                            <div className="headerLeftMenu" onClick={(e) => this.uradiNesto(e, sport.SportId, sport)} >
+                            <img className="ui middle aligned mini image" style={{margin: '0px 10px 5px 0px'}} src={`/images/sporticons/${sport.SportId}.png`}/> 
+                             {sport.SportName}</div>                            
                             {sport.Categories.map((cat, k) => <div> {sport.SportId === this.state.target ?
                                 <ChampsCategories
                                     categorie={cat}
@@ -169,6 +172,7 @@ class ChampsList extends Component {
                 </li>
             )
         })
+    ]
     }
     renderEvidenceList() {
         const { inEvidence } = this.props
@@ -281,13 +285,13 @@ class ChampsList extends Component {
                         {this.renderEvidenceList()}
                     </div>
                 </div>
-           
+{/*            
                 <div className="ui relaxed divided list">
                     <div className="ui middle aligned selection list left-sidebar-border" >
                         <h5>MARCATORI</h5>
                         {this.renderPlayersList()}
                     </div>
-                </div>                
+                </div>                 */}
                 
                 
                     

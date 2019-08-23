@@ -1,3 +1,21 @@
+.three.wide.column.middle.aligned.center.aligned.desktop{
+    background: #293744;
+    height: 100%;
+}
+.ui.main.clearing.segment.desktop{
+    border:  2px solid #DFDFE7;
+    margin-bottom: 0px;
+}
+.ui.main.clearing.segment{    
+    margin-bottom: 0px;
+}
+.ui[class*="internally celled"].grid > .row {
+    border:  1px solid #DFDFE7;
+    border-bottom: none;
+}
+div#button-grid-desktop{
+    padding: 0px;
+}
 .ui.grid.inner {
     max-height: 300px;
     overflow-y: scroll;
@@ -225,9 +243,15 @@ button.ui.button.single-active-odds-label {
     padding: 0px;
     border-bottom: none;       
 }
-
+.ui.relaxed.divided.list{
+    border: 2px solid #566C79;
+}
 .ui.celled.striped.unstackable.table{
     background: #293744;
+    margin: 0px;
+}
+.ui.stackable.three.wide.column.sport-component{
+    border: 2px solid #566C79;
 }
 
 /* Scrollbar */
@@ -276,11 +300,12 @@ button.ui.button.single-active-odds-label {
 .secondary.menu.login-header{
     display: inline-block !important ;
 }
-
+table.ui.celled.table.striped td:first-child{    
+    padding-left: 5px !important;
+}
 @media only screen and (max-width: 1024px) {
     .ui.three.grid.sport-component{
-        margin-right: 0px !important;
-        
+        margin-right: 0px !important;        
     }
   .ui.main.menu {
     display: none !important;
@@ -307,8 +332,7 @@ button.ui.button.single-active-odds-label {
 }
 .table-row-main-container{
     display: inline-block !important;
-    padding: 0 !important;   
-    
+    padding: 0 !important;      
     color: #1FE8AF !important;
     width: 100%;   
     font-size: 12px; 
@@ -346,11 +370,13 @@ button.ui.button.single-active-odds-label {
     width: 50%;
     font-size: 12px;
 }
+
+
 .ui.center.aligned.segment .ui.basic.button{
     font-size: 10px;
     padding: 3px;
 }
-.ui.container {
+.ui.container{
     width: auto!important;
     margin-left: 2px !important;
     margin-right: 2px !important;
@@ -388,7 +414,7 @@ button.ui.button.single-active-odds-label {
 .table-row-main-container{
     display: inline-block;
     padding: 10px 0;
-    background: #0a437f;
+    background: #0E1E2B;
     color: white;
     width: 100%;    
 }
@@ -403,6 +429,9 @@ button.ui.button.single-active-odds-label {
     display: block;
     width: 100%;
 }
+.ui.fitted.checkbox{
+    margin: 0px 5px 0px 5px;
+}
 .button-main-container{
     margin: 0;
     width: 50%;
@@ -411,6 +440,8 @@ button.ui.button.single-active-odds-label {
     text-transform: uppercase;
     text-align: left;
     padding: 10px 0;
+    background: #293744;
+    color: #fff;
 }
 .headerLeftMenu {
     display: block;
@@ -428,8 +459,9 @@ button.ui.button.single-active-odds-label {
 .ui.button.single-match-button{
     width: 100%;
     padding: 10px 0px;
-    margin: 0px 0px 5px 0px;
+    margin: 0px;
     border: 1px solid white;
+    border-radius: 0px;
 }
 .single-match-row{
     width: 25%;
@@ -437,12 +469,20 @@ button.ui.button.single-active-odds-label {
     text-align: center;
 }
 .single-match-column-header{
-    border: 1px solid orange;
+    background: #293744;
+
+    /* border: 1px solid orange; */
 }
 /* Sport Page - Single Match - END */
 /* Sport Page - Sport Component */
+.three.wide.column{
+    padding-right: 1px !important;
+}
+.ui.stackable.three.wide.column.sport-component{
+    padding-left: 1px;
+}
 .ui.three.grid.sport-component{
-    margin-right: 20px;
+    /* margin-right: 20px; */
 }
 .three.wide.column.sport-component{
     text-align: center;     
@@ -466,7 +506,7 @@ button.ui.button.single-active-odds-label {
 }
 
 .ui.right.floated.icon.button.size-three{
-    width: 30%;
+    width: 20%;
     padding: 0;
 }
 .ui.icon.button.size-three{
@@ -474,8 +514,8 @@ button.ui.button.single-active-odds-label {
     padding: 0;
 }
 .box-middle-buttons-fullwidth{
-    display: inline-block; 
-    width: 100%;
+    /* display: inline-block; 
+    width: 100%; */
 }
 
 /* Sport Page - Middle Box Container - END */
@@ -497,6 +537,8 @@ button.ui.button.single-active-odds-label {
     cursor: pointer;
     width: 90%; 
     text-align: left !important;
+    margin: 0px;
+    margin-bottom: 5px;
 }
 .ticket-checkbox-quick{
     width: 10%;
@@ -574,7 +616,7 @@ button.ui.button.single-active-odds-label {
 }
 
 .ui.divided.items{
-    font-size: 25px;
+    font-size: 18px;
     padding-top: 30px;
     margin-bottom: 0px;
     color: #DFDFE7;
@@ -583,7 +625,7 @@ button.ui.button.single-active-odds-label {
 .trash.icon{
     cursor: pointer;
     padding-left: 15px;
-    font-size: 25px !important
+    font-size: 18px !important
 }
 .trash.icon:hover{
     color: red;
@@ -677,7 +719,7 @@ td.active:hover, tr.active:hover{
 .ui.button.moje-dugme{
     background: white;
     text-align: left;
-    margin: 0;
+    margin: 2px;
     width: 25%;
     border-radius: 0; 
 
@@ -712,6 +754,9 @@ td.active:hover, tr.active:hover{
     color: #fff;
     font-weight: 600;
 }
+a.ui.basic.label{
+    padding: 0px;
+}
 .betvip-subheader:hover{
     color: #1FE8AF;
     cursor: pointer;
@@ -719,8 +764,7 @@ td.active:hover, tr.active:hover{
 #tabelica > thead > tr > th{    
 	padding: 2px;
 	line-height: 1.42857143 !important;
-	vertical-align: top;
-	
+	vertical-align: top;	
 }
 #tabelica > thead > tr > th:hover{    
     background-color: #777a41 !important;

@@ -5129,7 +5129,7 @@ body .ui.inverted::-webkit-scrollbar-thumb:hover {
   width: 25%;
   border-radius: 0;
   background: #10393C;
-  border: 3px solid #0E1E2B;
+  border: 1px solid #0E1E2B;
   text-transform: uppercase;
 }
 
@@ -5143,7 +5143,7 @@ body .ui.inverted::-webkit-scrollbar-thumb:hover {
   width: 25%;
   border-radius: 0;
   background: #1FE8AF;
-  border: 3px solid #0E1E2B;
+  border: 1px solid #0E1E2B;
   text-transform: uppercase;
 }
 
@@ -5151,7 +5151,7 @@ body .ui.inverted::-webkit-scrollbar-thumb:hover {
   margin: 0;
   width: 25%;
   border-radius: 0;
-  border: 3px solid #0E1E2B;
+  border: 1px solid #0E1E2B;
   text-transform: uppercase;
 }
 
@@ -23710,8 +23710,8 @@ ol.ui.horizontal.list li:before,
 *******************************/
 
 .ten.wide.column {
-  padding-left: 10px !important;
-  padding-right: 10px !important;
+  padding-left: 1px !important;
+  padding-right: 1px !important;
 }
 
 /*******************************

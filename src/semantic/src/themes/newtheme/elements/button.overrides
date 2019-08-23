@@ -13,7 +13,7 @@
     width: 25%;
     border-radius: 0;
     background: @themeColor5;
-    border: 3px solid @pageBackground;
+    border: 1px solid @pageBackground;
     text-transform: uppercase;
 }
 .ui.button.main-button-list:hover, .ui.button.main-button-list:focus{    
@@ -25,13 +25,13 @@
     width: 25%;
     border-radius: 0;
     background: @secondaryColor;
-    border: 3px solid @pageBackground;
+    border: 1px solid @pageBackground;
     text-transform: uppercase;
 }
 .ui.button.third-button-list{
     margin: 0;
     width: 25%;
     border-radius: 0;
-    border: 3px solid @pageBackground;
+    border: 1px solid @pageBackground;
     text-transform: uppercase;
 }

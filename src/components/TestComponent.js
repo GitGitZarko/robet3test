@@ -55,6 +55,7 @@ class TestComponent extends Component {
          return <MainButtonList key={i} kljuc={i} special={special} scode={SportCode} tcode={TournamentCode} renderSecondButtonList={this.renderSecondButtonList.bind(this)} />
       })
    }
+   
    renderSecondButtonList(broj, data) {
       if (broj === undefined) return console.log("greska", broj)
 

@@ -3841,7 +3841,7 @@
   width: 25%;
   border-radius: 0;
   background: #10393C;
-  border: 3px solid #0E1E2B;
+  border: 1px solid #0E1E2B;
   text-transform: uppercase;
 }
 .ui.button.main-button-list:hover,
@@ -3853,14 +3853,14 @@
   width: 25%;
   border-radius: 0;
   background: #1FE8AF;
-  border: 3px solid #0E1E2B;
+  border: 1px solid #0E1E2B;
   text-transform: uppercase;
 }
 .ui.button.third-button-list {
   margin: 0;
   width: 25%;
   border-radius: 0;
-  border: 3px solid #0E1E2B;
+  border: 1px solid #0E1E2B;
   text-transform: uppercase;
 }
 

@@ -42,7 +42,7 @@ class SingleMatch extends Component {
         }
         return (
             <div>
-                <div className="ui main clearing segment">
+                <div className="ui main clearing segment desktop">
                     <button className="ui right floated icon button" onClick={() => this.props.removeSingleMatch()}>
                         <i className="close icon"></i>
                     </button>
@@ -52,13 +52,13 @@ class SingleMatch extends Component {
                 <Grid celled='internally'>
                     {singleMatch.data.Items.map((data, i) =>
                         <Grid.Row key={i}>
-                            <Grid.Column width={3}>{data.GroupName}</Grid.Column>
+                            <Grid.Column width={3} className="middle aligned center aligned desktop">{data.GroupName}</Grid.Column>
 
-                            <Grid.Column width={13}>
+                            <Grid.Column width={13} id="button-grid-desktop">
                                 {data.OddItems.map((gege, i) =>
                                     <div className="single-match-row">
                                         <div className="single-match-column-header">{gege.Name}</div>
-                                        <Button color={oddIdList.includes(gege.OddId) ? 'red' : 'blue'}   
+                                        <Button color={oddIdList.includes(gege.OddId) ? 'single-active-odds-label' : 'single-odds-label'}   
                                             className="single-match-button"                                             
                                             onClick={(e) => this.addOddToTicket(e, gege.OddId, singleMatch.mcode)}
                                         >
