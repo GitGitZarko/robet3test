@@ -18,8 +18,10 @@ div#button-grid-desktop{
 }
 .ui.grid.inner {
     max-height: 300px;
-    overflow-y: scroll;
-    
+    overflow-y: scroll;    
+}
+.ui.radio.checkbox{
+    width: 25%;
 }
 #input-sistema-ticket-row{
     padding: 0px;

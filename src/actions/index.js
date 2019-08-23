@@ -179,8 +179,8 @@ export const fetchStartJson = () => async dispatch => {
   dispatch({ type: FETCH_START_JSON, payload: response.data });
 }
 
-export const fetchChamps = () => async dispatch => {
-  const response = await betvipApi.get(`/structure?q=0`);
+export const fetchChamps = (query) => async dispatch => {
+  const response = await betvipApi.get(`/structure?q=${query}`);
   dispatch({ type: FETCH_CHAMPS, payload: response.data.Sports });
 }
 

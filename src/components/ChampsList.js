@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import MediaQuery from 'react-responsive';
-import { Modal } from 'semantic-ui-react';
+import { Modal, Form, Checkbox  } from 'semantic-ui-react';
 import Slider from "react-slick";
 import { fetchChamps, fetchInEvidence, fetchStructureOutright, sportViewChamps, fetchStructurePlayer, removeSingleMatch } from '../actions';
 import ChampsCategories from './ChampsCategories';
@@ -20,17 +20,28 @@ class ChampsList extends Component {
         targetAnte: null,
         valuePlayer: Boolean,
         targetPlayer: null,
-        showModal: false
+        showModal: false,
+        value: '0'
     }
     componentDidMount() {
-        this.props.fetchChamps();
+        this.props.fetchChamps(0);
         this.props.fetchInEvidence();
         this.props.fetchStructureOutright();
         this.props.fetchStructurePlayer();
     }
+
     closeModal = () => {
         this.setState({ showModal: false })
       }
+      handleChange = (e, { value }) =>  
+       {
+           e.preventDefault() 
+           this.setState({ value: value })
+           this.props.fetchChamps(value);
+            this.props.fetchInEvidence();
+            this.props.fetchStructureOutright();
+            this.props.fetchStructurePlayer();
+       }
     handleModalOpenButton(evt) {
         evt.preventDefault()
         this.closeModal();
@@ -279,6 +290,41 @@ class ChampsList extends Component {
                 </div>  
                 </MediaQuery>
                 <MediaQuery minDeviceWidth={1224}>
+                <div id="divcic">
+          <Checkbox
+            radio
+            label='Tutti'
+            name='checkboxRadioGroup'
+            value='0'
+            checked={this.state.value === '0'}
+            onChange={this.handleChange}
+          />
+        
+          <Checkbox
+            radio
+            label='Oggi'
+            name='checkboxRadioGroup'
+            value='2'
+            checked={this.state.value === '2'}
+            onChange={this.handleChange}
+          />
+          <Checkbox
+            radio
+            label='Oggi+1'
+            name='checkboxRadioGroup'
+            value='1'
+            checked={this.state.value === '1'}
+            onChange={this.handleChange}
+          />
+          <Checkbox
+            radio
+            label='7'
+            name='checkboxRadioGroup'
+            value='4'
+            checked={this.state.value === '4'}
+            onChange={this.handleChange}
+          />
+</div>
                 <div className="ui relaxed divided list">
                     <div className="ui middle aligned selection list left-sidebar-border" >
                         <h5>CAMPIONATI PREFERITI </h5>
