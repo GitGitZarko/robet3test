@@ -149,7 +149,10 @@ button.ui.button.single-active-odds-label {
 .ui.celled.unstackable.table.ticket-modal-table td{
     padding: 0px;
 }
-
+#divcic{
+    padding: 20px 0px;
+    border: white 2px solid;
+}
 
 #push-dugme{
     position: fixed;
