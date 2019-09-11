@@ -1,7 +1,7 @@
 .three.wide.column.middle.aligned.center.aligned.desktop{
     background: #293744;
     height: 100%;
-}
+}ccccccc
 .ui.main.clearing.segment.desktop{
     border:  2px solid #DFDFE7;
     margin-bottom: 0px;
@@ -22,6 +22,8 @@ div#button-grid-desktop{
 }
 .ui.radio.checkbox{
     width: 25%;
+    color: white;
+
 }
 #input-sistema-ticket-row{
     padding: 0px;
